@@ -8,3 +8,4 @@ export * from './notification.types';
 export * from './userNotification.types';
 export * from './note.types';
 export * from './editor.types';
+export * from "./components.types"

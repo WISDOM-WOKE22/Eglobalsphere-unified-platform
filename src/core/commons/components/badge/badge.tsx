@@ -1,95 +1,110 @@
-export const getStatusBadge = (status: string) => {
+import { Badge } from "@/components/ui/badge";
+import { badgeStatus } from "@/types";
+
+export const getStatusBadge = (status: badgeStatus) => {
   const baseClass = 'px-2 py-1 rounded-2xl px-2 text-[13px]';
-  switch (status.toLowerCase()) {
+  switch (status?.toLowerCase()) {
     case 'active':
       return (
-        <span className={`${baseClass} bg-green-200 text-green-800`}>
+        <Badge className={`${baseClass} bg-green-200 text-green-800`}>
           Active
-        </span>
+        </Badge>
       );
     case 'verified':
       return (
-        <span className={`${baseClass} bg-green-200 text-green-800`}>
+        <Badge className={`${baseClass} bg-green-200 text-green-800`}>
           Verified
-        </span>
+        </Badge>
       );
     case 'inactive':
       return (
-        <span className={`${baseClass} bg-gray-200 text-red-500`}>
+        <Badge className={`${baseClass} bg-gray-200 text-red-500`}>
           Inactive
-        </span>
+        </Badge>
       );
     case 'not verified':
       return (
-        <span className={`${baseClass} bg-gray-200 text-red-500`}>
+        <Badge className={`${baseClass} bg-gray-200 text-red-500`}>
           Not Verified
-        </span>
+        </Badge>
       );
     case 'pending':
       return (
-        <span className={`${baseClass} bg-yellow-200 text-yellow-800`}>
+        <Badge className={`${baseClass} bg-yellow-200 text-yellow-800`}>
           Pending
-        </span>
+        </Badge>
       );
     case 'draft':
       return (
-        <span className={`${baseClass} bg-yellow-200 text-yellow-800`}>
+        <Badge className={`${baseClass} bg-yellow-200 text-yellow-800`}>
           Draft
-        </span>
+        </Badge>
       );
     case 'used':
       return (
-        <span className={`${baseClass} bg-yellow-200 text-yellow-800`}>
+        <Badge className={`${baseClass} bg-yellow-200 text-yellow-800`}>
           Used
-        </span>
+        </Badge>
       );
     case 'running':
       return (
-        <span className={`${baseClass} bg-yellow-200 text-yellow-800`}>
+        <Badge className={`${baseClass} bg-yellow-200 text-yellow-800`}>
           Running
-        </span>
+        </Badge>
       );
     case 'sent':
       return (
-        <span className={`${baseClass} bg-green-200 text-green-800`}>Sent</span>
+        <Badge className={`${baseClass} bg-green-200 text-green-800`}>Sent</Badge>
       );
     case 'approved':
       return (
-        <span className={`${baseClass} bg-green-200 text-green-800`}>
+        <Badge className={`${baseClass} bg-green-200 text-green-800`}>
           Approved
-        </span>
+        </Badge>
       );
     case 'completed':
       return (
-        <span className={`${baseClass} bg-green-200 text-green-800`}>
+        <Badge className={`${baseClass} bg-green-200 text-green-800`}>
           Completed
-        </span>
+        </Badge>
+      );
+    case 'accepted':
+      return (
+        <Badge className={`${baseClass} bg-green-200 text-green-800`}>
+          Accepted
+        </Badge>
       );
     case 'finished':
       return (
-        <span className={`${baseClass} bg-green-200 text-green-800`}>
+        <Badge className={`${baseClass} bg-green-200 text-green-800`}>
           finished
-        </span>
+        </Badge>
       );
     case 'writing':
       return (
-        <span className={`${baseClass} bg-purple-200 text-purple-800`}>
+        <Badge className={`${baseClass} bg-purple-200 text-purple-800`}>
           writing
-        </span>
+        </Badge>
       );
     case 'blocked':
       return (
-        <span className={`${baseClass} bg-red-200 text-red-800`}>Blocked</span>
+        <Badge className={`${baseClass} bg-red-200 text-red-800`}>Blocked</Badge>
+      );
+    case 'rejected':
+      return (
+        <Badge className={`${baseClass} bg-red-200 text-red-800`}>
+          Rejected
+        </Badge>
       );
     case 'suspended':
       return (
-        <span className={`${baseClass} bg-red-200 text-red-800`}>
+        <Badge className={`${baseClass} bg-red-200 text-red-800`}>
           Suspended
-        </span>
+        </Badge>
       );
     default:
       return (
-        <span className={`${baseClass} bg-red-200 text-red-800`}>Unknown</span>
+        <Badge className={`${baseClass} bg-red-200 text-red-800`}>Unknown</Badge>
       );
   }
 };

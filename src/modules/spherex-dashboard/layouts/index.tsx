@@ -1,5 +1,6 @@
 import { StatsCard } from "@/modules/dashboard/components/card/statsCard"
 import { CardSim, Users, SquareLibrary, TicketCheck, TicketMinus } from "lucide-react"
+import { ActivityChart } from "../components/charts/activity-chart"
 
 export const SpherexDashboardLayout = () => {
     return (
@@ -28,6 +29,9 @@ export const SpherexDashboardLayout = () => {
                     title='Inactive Employees'
                     stat={0}
                 />
+            </section>
+            <section className="mt-10">
+                <ActivityChart chartData={[]} />
             </section>
         </main>
     )

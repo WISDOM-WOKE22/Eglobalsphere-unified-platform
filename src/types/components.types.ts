@@ -1,0 +1,1 @@
+export type badgeStatus = "active" | "inactive" | "pending" | "draft" | "used" | "running" | "sent" | "approved" | "completed" | "finished" | "writing" | "blocked" | "suspended" | string | undefined;

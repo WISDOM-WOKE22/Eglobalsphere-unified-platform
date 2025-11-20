@@ -1,11 +1,12 @@
 'use client'
 
-import DashboardLayout from "@/core/commons/layout/dashboardLayout"
+import DashboardLayout from "@/core/commons/layout/dashboardLayout";
+import { SpherexEmployeeLayout } from "@/modules/spherex-employees/layouts";
 
 const SpherexEmployeesPage = () => {
     return (
         <DashboardLayout pageTitle="Spherex Employees">
-            <h1>Spherex Employees</h1>
+            <SpherexEmployeeLayout />
         </DashboardLayout>
     )
 }
