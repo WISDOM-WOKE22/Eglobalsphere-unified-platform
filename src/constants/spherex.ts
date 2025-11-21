@@ -228,3 +228,308 @@ export const SpherexVisitors = [
     }
 
 ]
+
+export const spherexLogs = [
+    {
+        timestamp: "2025-11-21 07:45:12",
+        fullname: "Jonathan Ma",
+        department: "Analytics",
+        zone: "Office",
+        note: "Entered office from workshop via door A12",
+        activity: "normal",
+        ID: "EMP-0210",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 08:02:34",
+        fullname: "John Nemo",
+        department: "Engineering",
+        zone: "Workshop 1",
+        note: "Entered Workshop 1 from corridor via door B05",
+        activity: "normal",
+        ID: "EMP-0103",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 08:15:07",
+        fullname: "Sarah Chen",
+        department: "HR",
+        zone: "Reception",
+        note: "Entered building from main entrance",
+        activity: "normal",
+        ID: "EMP-0347",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 08:17:22",
+        fullname: "Michael Torres",
+        department: "null",
+        zone: "Reception",
+        note: "Visitor check-in at front desk",
+        activity: "normal",
+        ID: "VIS-2001",
+        type: "visitor"
+    },
+    {
+        timestamp: "2025-11-21 08:19:55",
+        fullname: "David Kim",
+        department: "Security",
+        zone: "Main Gate",
+        note: "Starting morning patrol shift",
+        activity: "normal",
+        ID: "SEC-0008",
+        type: "security_guard"
+    },
+    {
+        timestamp: "2025-11-21 08:25:10",
+        fullname: "Priya Sharma",
+        department: "R&D",
+        zone: "Lab 3",
+        note: "Accessed restricted lab with badge scan",
+        activity: "normal",
+        ID: "EMP-0562",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 08:33:41",
+        fullname: "Alex Rivera",
+        department: "Facilities",
+        zone: "Server Room",
+        note: "Routine maintenance entry",
+        activity: "normal",
+        ID: "EMP-0721",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 08:41:23",
+        fullname: "Emma Wilson",
+        department: "Marketing",
+        zone: "Office",
+        note: "Entered from elevator floor 3",
+        activity: "normal",
+        ID: "EMP-0199",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 08:47:18",
+        fullname: "Robert Lang",
+        department: "null",
+        zone: "Loading Dock",
+        note: "Delivery personnel - Amazon",
+        activity: "normal",
+        ID: "VIS-2002",
+        type: "visitor"
+    },
+    {
+        timestamp: "2025-11-21 08:55:02",
+        fullname: "Linda Park",
+        department: "Finance",
+        zone: "Office",
+        note: "Entered secure finance wing",
+        activity: "normal",
+        ID: "EMP-0432",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 09:12:37",
+        fullname: "Jonathan Ma",
+        department: "Analytics",
+        zone: "Cafeteria",
+        note: "Went to cafeteria for coffee break",
+        activity: "normal",
+        ID: "EMP-0210",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 09:28:44",
+        fullname: "Marcus Jenkins",
+        department: "Security",
+        zone: "Parking Garage",
+        note: "Vehicle patrol round",
+        activity: "normal",
+        ID: "SEC-0012",
+        type: "security_guard"
+    },
+    {
+        timestamp: "2025-11-21 09:35:19",
+        fullname: "Sofia Alvarez",
+        department: "Legal",
+        zone: "Conference Room A",
+        note: "Entered for client meeting",
+        activity: "normal",
+        ID: "EMP-0678",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 09:42:03",
+        fullname: "Kevin Brooks",
+        department: "null",
+        zone: "Reception",
+        note: "Job interview candidate",
+        activity: "normal",
+        ID: "VIS-2003",
+        type: "visitor"
+    },
+    {
+        timestamp: "2025-11-21 10:05:56",
+        fullname: "John Nemo",
+        department: "Engineering",
+        zone: "Workshop 2",
+        note: "Moved from Workshop 1 to Workshop 2",
+        activity: "normal",
+        ID: "EMP-0103",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 10:15:33",
+        fullname: "Aisha Rahman",
+        department: "IT",
+        zone: "Data Center",
+        note: "Emergency server access - approved",
+        activity: "alert", // higher privilege access
+        ID: "EMP-0888",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 10:22:11",
+        fullname: "Tom Harding",
+        department: "null",
+        zone: "Main Gate",
+        note: "Contractor entry - HVAC maintenance",
+        activity: "normal",
+        ID: "VIS-2004",
+        type: "visitor"
+    },
+    {
+        timestamp: "2025-11-21 10:30:47",
+        fullname: "Grace Liu",
+        department: "Product",
+        zone: "Office",
+        note: "Returned from off-site meeting",
+        activity: "normal",
+        ID: "EMP-0512",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 11:01:29",
+        fullname: "David Kim",
+        department: "Security",
+        zone: "Reception",
+        note: "Relief duty at front desk",
+        activity: "normal",
+        ID: "SEC-0008",
+        type: "security_guard"
+    },
+    {
+        timestamp: "2025-11-21 11:18:05",
+        fullname: "Natalie Ford",
+        department: "Sales",
+        zone: "Showroom",
+        note: "Client demo session",
+        activity: "normal",
+        ID: "EMP-0331",
+        type: "employee"
+    },
+    // ... continuing with more varied realistic entries
+    {
+        timestamp: "2025-11-21 12:03:14",
+        fullname: "Carlos Mendoza",
+        department: "Facilities",
+        zone: "Roof Access",
+        note: "Checking HVAC units",
+        activity: "normal",
+        ID: "EMP-0912",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 12:45:22",
+        fullname: "Jonathan Ma",
+        department: "Analytics",
+        zone: "Office",
+        note: "Returned from lunch",
+        activity: "normal",
+        ID: "EMP-0210",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 13:10:58",
+        fullname: "Rachel O'Connor",
+        department: "HR",
+        zone: "Training Room",
+        note: "New employee orientation",
+        activity: "normal",
+        ID: "EMP-0456",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 14:22:41",
+        fullname: "Liam Walsh",
+        department: "null",
+        zone: "Reception",
+        note: "Press visitor - TechCrunch",
+        activity: "normal",
+        ID: "VIS-2005",
+        type: "visitor"
+    },
+    {
+        timestamp: "2025-11-21 15:07:19",
+        fullname: "John Nemo",
+        department: "Engineering",
+        zone: "Testing Lab",
+        note: "Prototype stress testing",
+        activity: "normal",
+        ID: "EMP-0103",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 16:33:27",
+        fullname: "Mei Zhang",
+        department: "R&D",
+        zone: "Clean Room",
+        note: "Suit-up and entry logged",
+        activity: "normal",
+        ID: "EMP-0789",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 17:01:55",
+        fullname: "David Kim",
+        department: "Security",
+        zone: "Main Gate",
+        note: "End of shift - handover",
+        activity: "normal",
+        ID: "SEC-0008",
+        type: "security_guard"
+    },
+    {
+        timestamp: "2025-11-21 17:15:42",
+        fullname: "Anthony Russo",
+        department: "Security",
+        zone: "Main Gate",
+        note: "Starting night shift",
+        activity: "normal",
+        ID: "SEC-0021",
+        type: "security_guard"
+    },
+    {
+        timestamp: "2025-11-21 17:45:33",
+        fullname: "Sarah Chen",
+        department: "HR",
+        zone: "Parking Garage",
+        note: "Leaving for the day",
+        activity: "exit",
+        ID: "EMP-0347",
+        type: "employee"
+    },
+    {
+        timestamp: "2025-11-21 18:02:11",
+        fullname: "John Nemo",
+        department: "Engineering",
+        zone: "Main Gate",
+        note: "Late departure after deadline push",
+        activity: "exit",
+        ID: "EMP-0103",
+        type: "employee"
+    }
+    // You can easily extend to 100+ entries if needed
+] as const;

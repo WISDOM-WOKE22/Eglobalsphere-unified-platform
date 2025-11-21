@@ -1,11 +1,12 @@
 'use client'
 
 import DashboardLayout from "@/core/commons/layout/dashboardLayout"
+import { SpherexLogLayout } from "@/modules/spherex-logs/layouts"
 
 const SpherexLogsPage = () => {
     return (
         <DashboardLayout pageTitle="Spherex Logs">
-            <h1>Spherex Logs</h1>
+            <SpherexLogLayout />
         </DashboardLayout>
     )
 }

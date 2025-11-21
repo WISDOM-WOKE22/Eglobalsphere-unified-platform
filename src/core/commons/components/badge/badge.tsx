@@ -34,6 +34,12 @@ export const getStatusBadge = (status: badgeStatus) => {
           Pending
         </Badge>
       );
+    case 'check_out':
+      return (
+        <Badge className={`${baseClass} bg-yellow-200 text-yellow-800`}>
+          Check out
+        </Badge>
+      );
     case 'draft':
       return (
         <Badge className={`${baseClass} bg-yellow-200 text-yellow-800`}>
@@ -50,6 +56,12 @@ export const getStatusBadge = (status: badgeStatus) => {
       return (
         <Badge className={`${baseClass} bg-yellow-200 text-yellow-800`}>
           Running
+        </Badge>
+      );
+    case 'visitor':
+      return (
+        <Badge className={`${baseClass} bg-yellow-200 text-yellow-800`}>
+          Visitor
         </Badge>
       );
     case 'sent':
@@ -74,6 +86,18 @@ export const getStatusBadge = (status: badgeStatus) => {
           Accepted
         </Badge>
       );
+    case 'check_in':
+      return (
+        <Badge className={`${baseClass} bg-green-200 text-green-800`}>
+          Check in
+        </Badge>
+      );
+    case 'employee':
+      return (
+        <Badge className={`${baseClass} bg-green-200 text-green-800`}>
+          Employee
+        </Badge>
+      );
     case 'finished':
       return (
         <Badge className={`${baseClass} bg-green-200 text-green-800`}>
@@ -84,6 +108,18 @@ export const getStatusBadge = (status: badgeStatus) => {
       return (
         <Badge className={`${baseClass} bg-purple-200 text-purple-800`}>
           writing
+        </Badge>
+      );
+    case 'present':
+      return (
+        <Badge className={`${baseClass} bg-purple-200 text-purple-800`}>
+          Present
+        </Badge>
+      );
+    case 'security_guard':
+      return (
+        <Badge className={`${baseClass} bg-purple-200 text-purple-800`}>
+          Security Guard
         </Badge>
       );
     case 'blocked':
