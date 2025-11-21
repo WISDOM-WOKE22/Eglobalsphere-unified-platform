@@ -122,3 +122,38 @@
     @apply bg-background text-foreground;
   }
 }
+
+@font-face {
+  font-family: 'SFUIDisplayRegular';
+  src: url('../../public/fonts/sf/sf-ui-display-light.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SFUIDisplayMedium';
+  src: url('../../public/fonts/sf/sf-ui-display-medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SFUIDisplaySemibold';
+  src: url('../../public/fonts/sf/sf-ui-display-semibold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SFUIDisplayBold';
+  src: url('../../public/fonts/sf/sf-ui-display-bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SFUIDisplayHeavy';
+  src: url('../../public/fonts/sf/sf-ui-display-heavy.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+}

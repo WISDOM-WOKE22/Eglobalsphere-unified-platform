@@ -1,11 +1,12 @@
 'use client'
 
 import DashboardLayout from "@/core/commons/layout/dashboardLayout"
+import { LPRDashboardLayout } from "@/modules/lpr-dashboard/layouts"
 
 const LprOverviewPage = () => {
     return (
         <DashboardLayout pageTitle="LPR Overview">
-            <h1>LPR Overview</h1>
+            <LPRDashboardLayout />
         </DashboardLayout>
     )
 }

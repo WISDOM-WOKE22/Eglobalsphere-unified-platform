@@ -1,11 +1,12 @@
 'use client'
 
-import DashboardLayout from "@/core/commons/layout/dashboardLayout"
+import DashboardLayout from "@/core/commons/layout/dashboardLayout";
+import { LprGatesLayout } from "@/modules/lpr-gates/layouts";
 
 const LprGatesPage = () => {
     return (
         <DashboardLayout pageTitle="LPR Gates">
-            <h1>LPR Gates</h1>
+            <LprGatesLayout />
         </DashboardLayout>
     )
 }

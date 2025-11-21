@@ -10,6 +10,12 @@ export const getStatusBadge = (status: badgeStatus) => {
           Active
         </Badge>
       );
+    case 'enabled':
+      return (
+        <Badge className={`${baseClass} bg-green-200 text-green-800`}>
+          Enabled
+        </Badge>
+      );
     case 'verified':
       return (
         <Badge className={`${baseClass} bg-green-200 text-green-800`}>
@@ -20,6 +26,12 @@ export const getStatusBadge = (status: badgeStatus) => {
       return (
         <Badge className={`${baseClass} bg-gray-200 text-red-500`}>
           Inactive
+        </Badge>
+      );
+    case 'disabled':
+      return (
+        <Badge className={`${baseClass} bg-gray-200 text-red-500`}>
+          Disabled
         </Badge>
       );
     case 'not verified':
@@ -122,6 +134,12 @@ export const getStatusBadge = (status: badgeStatus) => {
           Security Guard
         </Badge>
       );
+    case 'offline':
+      return (
+        <Badge className={`${baseClass} bg-purple-200 text-purple-800`}>
+          Offline
+        </Badge>
+      );
     case 'blocked':
       return (
         <Badge className={`${baseClass} bg-red-200 text-red-800`}>Blocked</Badge>
@@ -136,6 +154,12 @@ export const getStatusBadge = (status: badgeStatus) => {
       return (
         <Badge className={`${baseClass} bg-red-200 text-red-800`}>
           Suspended
+        </Badge>
+      );
+    case 'not started':
+      return (
+        <Badge className={`${baseClass} bg-red-200 text-red-800`}>
+          Not Started
         </Badge>
       );
     default:

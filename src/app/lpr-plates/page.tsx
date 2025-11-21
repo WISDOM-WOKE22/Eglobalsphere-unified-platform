@@ -1,11 +1,12 @@
 'use client'
 
 import DashboardLayout from "@/core/commons/layout/dashboardLayout"
+import {LPRLicensePlateLayout} from "@/modules/lpr-license-plates/layouts"
 
 const LprPlatesPage = () => {
     return (
         <DashboardLayout pageTitle="LPR Plates">
-            <h1>LPR Plates</h1>
+            <LPRLicensePlateLayout />
         </DashboardLayout>
     )
 }
