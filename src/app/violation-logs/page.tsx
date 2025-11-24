@@ -1,11 +1,12 @@
 'use client'
 
-import DashboardLayout from "@/core/commons/layout/dashboardLayout"
+import DashboardLayout from "@/core/commons/layout/dashboardLayout";
+import { ViolationLogsLayout } from "@/modules/violation-logs";
 
 const ViolationLogsPage = () => {
     return (
         <DashboardLayout pageTitle="Violation Logs">
-            <h1>Violation Logs</h1>
+            <ViolationLogsLayout />
         </DashboardLayout>
     )
 }

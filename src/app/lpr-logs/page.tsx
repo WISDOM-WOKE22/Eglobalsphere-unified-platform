@@ -1,11 +1,12 @@
 'use client'
 
 import DashboardLayout from "@/core/commons/layout/dashboardLayout"
+import { LPRLogsLayout } from "@/modules/lpr-logs/layouts"
 
 const LprLogsPage = () => {
     return (
         <DashboardLayout pageTitle="Spherex Employees">
-            <h1>LPR Logs</h1>
+            <LPRLogsLayout />
         </DashboardLayout>
     )
 }

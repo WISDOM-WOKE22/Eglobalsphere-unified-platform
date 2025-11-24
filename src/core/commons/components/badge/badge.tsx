@@ -16,6 +16,12 @@ export const getStatusBadge = (status: badgeStatus) => {
           Enabled
         </Badge>
       );
+    case 'entry':
+      return (
+        <Badge className={`${baseClass} bg-green-200 text-green-800`}>
+          Entry
+        </Badge>
+      );
     case 'verified':
       return (
         <Badge className={`${baseClass} bg-green-200 text-green-800`}>
@@ -46,10 +52,22 @@ export const getStatusBadge = (status: badgeStatus) => {
           Pending
         </Badge>
       );
+    case 'exit':
+      return (
+        <Badge className={`${baseClass} bg-yellow-200 text-yellow-800`}>
+          Exit
+        </Badge>
+      );
     case 'check_out':
       return (
         <Badge className={`${baseClass} bg-yellow-200 text-yellow-800`}>
           Check out
+        </Badge>
+      );
+    case 'oneway':
+      return (
+        <Badge className={`${baseClass} bg-yellow-200 text-yellow-800`}>
+          ONEWAY
         </Badge>
       );
     case 'draft':
@@ -79,6 +97,10 @@ export const getStatusBadge = (status: badgeStatus) => {
     case 'sent':
       return (
         <Badge className={`${baseClass} bg-green-200 text-green-800`}>Sent</Badge>
+      );
+    case 'authorized':
+      return (
+        <Badge className={`${baseClass} bg-green-200 text-green-800`}>Authorized</Badge>
       );
     case 'approved':
       return (
@@ -114,6 +136,12 @@ export const getStatusBadge = (status: badgeStatus) => {
       return (
         <Badge className={`${baseClass} bg-green-200 text-green-800`}>
           finished
+        </Badge>
+      );
+    case 'speed':
+      return (
+        <Badge className={`${baseClass} bg-purple-200 text-purple-800`}>
+          SPEED
         </Badge>
       );
     case 'writing':
@@ -160,6 +188,12 @@ export const getStatusBadge = (status: badgeStatus) => {
       return (
         <Badge className={`${baseClass} bg-red-200 text-red-800`}>
           Not Started
+        </Badge>
+      );
+    case 'unauthorized':
+      return (
+        <Badge className={`${baseClass} bg-red-200 text-red-800`}>
+          Unauthorized
         </Badge>
       );
     default:
