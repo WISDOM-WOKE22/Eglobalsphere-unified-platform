@@ -15,6 +15,9 @@ import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
 import { Avatar, AvatarFallback } from '@radix-ui/react-avatar';
 import { MobileSidebar } from '../sidebar/mobileSidebar';
+import { Button } from '@/components/ui/button';
+import { Bell } from 'lucide-react';
+import { getStatusBadge } from '../components/badge/badge';
 
 export default function NavBar({
   title,
@@ -36,13 +39,16 @@ export default function NavBar({
             {subHeading}
           </p>
         </div>
-        <div className='flex flex-row items-center gap-2'>
+        <div className='flex flex-row items-center gap-3'>
+          <Button
+            variant="glass"
+          ><Bell /></Button>
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <Avatar className='cursor-pointer'>
-                  <AvatarFallback>
-                    WW
-                  </AvatarFallback>
+              <Avatar className='cursor-pointer border'>
+                <AvatarFallback>
+                  WW
+                </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -77,10 +83,10 @@ export default function NavBar({
                 </DropdownMenuPortal>
               </DropdownMenuSub>
               <DropdownMenuItem
-                  className='bg-red-400 cursor-pointer'
-                >
-                  logout
-                </DropdownMenuItem>
+                className='bg-red-400 cursor-pointer'
+              >
+                logout
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
