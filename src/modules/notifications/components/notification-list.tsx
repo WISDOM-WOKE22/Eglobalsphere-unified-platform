@@ -184,8 +184,8 @@ export const NotificationList = () => {
             </CardHeader>
 
             <CardContent>
-                <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                    <TabsList className="grid w-full grid-cols-5 mb-6">
+                <Tabs value={activeTab} onValueChange={setActiveTab}>
+                    <TabsList className="grid grid-cols-5 mb-6">
                         <TabsTrigger value="all" className="gap-2">
                             <Bell className="h-4 w-4" />
                             All
