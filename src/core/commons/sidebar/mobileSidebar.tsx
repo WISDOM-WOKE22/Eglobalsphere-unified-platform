@@ -28,10 +28,13 @@ import {
   MENU_ITEMS,
   MenuItem,
 } from '../../constants/sidebar';
+import { useRouter } from 'next/navigation';
+import { LogoIcon } from '../logo';
 
 export function MobileSidebar({ userRole, className }: AppSidebarProps) {
   const pathname = usePathname();
   const { setTheme } = useTheme();
+  const router = useRouter();
   typeof userRole === 'string';
   const allowedPermissions: string[] = userRole
     ? Array.from(
@@ -92,7 +95,12 @@ export function MobileSidebar({ userRole, className }: AppSidebarProps) {
         <div className='flex flex-col h-full'>
           {/* Header */}
           <div className='p-4 border-b'>
-            <h1 className='text-2xl text-center'>EglobalSphere</h1>
+            <div className='flex items-center gap-2 mt-2 flex-row cursor-pointer'
+              onClick={() => router.push('/dashboard')}
+            >
+              <LogoIcon />
+              <h1 className='text-xl mb-2'>EglobalSphere</h1>
+            </div>
           </div>
 
           {/* Menu Items */}
@@ -145,8 +153,10 @@ export function MobileSidebar({ userRole, className }: AppSidebarProps) {
                       {/* <span className="text-xs text-muted-foreground">Platform Admin</span> */}
                     </div>
                   </div>
-                  <DropdownMenuItem>
-                    <Link href='/dashboard/settings'>Setting</Link>
+                  <DropdownMenuItem
+                    onClick={() => router.push('/dashboard/settings')}
+                  >
+                    <Link href='/dashboard/settings'>Settings</Link>
                   </DropdownMenuItem>
                   <DropdownMenuSub>
                     <DropdownMenuSubTrigger>Theme</DropdownMenuSubTrigger>

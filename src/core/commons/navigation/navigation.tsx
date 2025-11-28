@@ -17,6 +17,7 @@ import { Avatar, AvatarFallback } from '@radix-ui/react-avatar';
 import { MobileSidebar } from '../sidebar/mobileSidebar';
 import { Button } from '@/components/ui/button';
 import { Bell } from 'lucide-react';
+import { LogoIcon } from '../logo';
 
 export default function NavBar({
   title,
@@ -93,10 +94,16 @@ export default function NavBar({
 
       {/* Mobile Navigation */}
       <main className='w-full justify-between items-center flex flex-row lg:hidden'>
-        <MobileSidebar userRole={null} />
-        <h1 className='text-xl' onClick={() => router.push('/dashboard')}>
-          Eglobalsphere
-        </h1>
+        <MobileSidebar userRole="ADMIN" />
+        <div className='flex items-center gap-2 mt-2 flex-row cursor-pointer'
+          onClick={() => router.push('/dashboard')}
+        >
+          <LogoIcon />
+          <h1 className='mb-2 cursor-pointer'>EglobalSphere</h1>
+        </div>
+        <Button
+          variant="glass"
+        ><Bell /></Button>
       </main>
     </nav>
   );

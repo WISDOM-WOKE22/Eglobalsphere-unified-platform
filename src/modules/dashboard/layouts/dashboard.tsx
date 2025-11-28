@@ -11,7 +11,7 @@ export const Dashboard = () => {
 
   return (
     <main>
-      <p>Overview of the entire centralised dashboard</p>
+      <p>Overview dashboard</p>
 
       <section className='mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 max-lg:mb-5'>
         <StatsCard Icon={CardSim} title='Active services' stat={0} />
@@ -43,7 +43,7 @@ export const Dashboard = () => {
       <section className='mt-7'>
         <SpherexChart chartData={[]} />
       </section>
-      <section className="mt-6 grid grid-cols-2 gap-4">
+      <section className="mt-6 grid grid-cols-2 gap-4 max-lg:grid-cols-1">
         <LPRChart chartData={[]} />
         <FarouqChart chartData={[]} />
       </section>
