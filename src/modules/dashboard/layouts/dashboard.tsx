@@ -1,22 +1,20 @@
 import { StatsCard } from '@/modules/dashboard/components/card/statsCard';
 import { SpherexChart, FarouqChart, LPRChart } from '@/modules/dashboard/components/chart';
 import { Users, CardSim, SquareLibrary, TicketCheck, TicketMinus } from 'lucide-react';
-import { useGetAnalytics } from '../services/dashboard';
 import { DashboardPreLoader } from '../components/preloader';
 
 export const Dashboard = () => {
-  const { data, isLoading } = useGetAnalytics();
 
-  if (!isLoading) {
-    <DashboardPreLoader />;
-  }
+  // if (!isLoading) {
+  //   <DashboardPreLoader />;
+  // }
 
   return (
     <main>
       <p>Overview of the entire centralised dashboard</p>
 
       <section className='mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 max-lg:mb-5'>
-        <StatsCard Icon={CardSim} title='Active services' stat={data?.userCount} />
+        <StatsCard Icon={CardSim} title='Active services' stat={0} />
         <StatsCard Icon={Users} title='Total Spherex users/employees' stat={0} />
         <StatsCard
           Icon={SquareLibrary}
@@ -43,11 +41,11 @@ export const Dashboard = () => {
       {/* Charts */}
 
       <section className='mt-7'>
-        <SpherexChart chartData={data?.monthlyUserAnalytics} />
+        <SpherexChart chartData={[]} />
       </section>
       <section className="mt-6 grid grid-cols-2 gap-4">
-        <LPRChart chartData={data?.monthlyUserAnalytics} />
-        <FarouqChart chartData={data?.monthlyUserAnalytics} />
+        <LPRChart chartData={[]} />
+        <FarouqChart chartData={[]} />
       </section>
     </main>
   );
