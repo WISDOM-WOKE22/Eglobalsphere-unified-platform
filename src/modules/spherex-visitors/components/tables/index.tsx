@@ -11,8 +11,10 @@ import {
 } from "@/components/ui/table"
 import { SpherexVisitors } from "@/constants/spherex"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
+import { useRouter } from "next/navigation"
 
 export const VisitorsTable = () => {
+    const { push } = useRouter()
     return (
         <Card>
             <CardHeader className="flex flex-rows justify-between items-center">
@@ -43,7 +45,9 @@ export const VisitorsTable = () => {
                                 <TableCell>{getStatusBadge(employee.status)}</TableCell>
                                 <TableCell>{employee.email}</TableCell>
                                 <TableCell>
-                                    <Button variant="outline">View</Button>
+                                    <Button
+                                        onClick={() => push(`/spherex-visitors/${index + 1}`)}
+                                        variant="outline">View</Button>
                                 </TableCell>
                             </TableRow>))}
                     </TableBody>

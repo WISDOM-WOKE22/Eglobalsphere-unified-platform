@@ -11,8 +11,10 @@ import {
 } from "@/components/ui/table"
 import { SpherexEmployees } from "@/constants/spherex"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
+import { useRouter } from "next/navigation"
 
 export const EmployeeTable = () => {
+    const { push } = useRouter()
     return (
         <Card>
             <CardHeader className="flex flex-rows justify-between items-center">
@@ -47,7 +49,9 @@ export const EmployeeTable = () => {
                                 <TableCell>{getStatusBadge(employee.status)}</TableCell>
                                 <TableCell>{employee.email}</TableCell>
                                 <TableCell>
-                                    <Button variant="outline">View</Button>
+                                    <Button variant="outline"
+                                        onClick={() => push(`/spherex-employees/${index + 1}`)}
+                                    >View</Button>
                                 </TableCell>
                             </TableRow>))}
                     </TableBody>

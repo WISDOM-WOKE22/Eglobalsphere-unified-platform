@@ -17,7 +17,6 @@ import { Avatar, AvatarFallback } from '@radix-ui/react-avatar';
 import { MobileSidebar } from '../sidebar/mobileSidebar';
 import { Button } from '@/components/ui/button';
 import { Bell } from 'lucide-react';
-import { getStatusBadge } from '../components/badge/badge';
 
 export default function NavBar({
   title,

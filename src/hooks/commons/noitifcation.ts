@@ -1,4 +1,3 @@
-// import { useAltStore } from '@/lib/zustand/userStore';
 import { UserNotificationTypes } from '@/types';
 
 export const useNotification = () => {

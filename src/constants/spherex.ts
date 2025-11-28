@@ -90,6 +90,18 @@ export const SpherexEmployees = [
     }
 ];
 
+export const SpherexEmployee = [
+    {
+        fullname: "Wisdom Woke",
+        department: "Software Department",
+        phone: "749f239284290",
+        zone: "Engineering",
+        email: "wisdom.woke@example.com",
+        role: "Employee",
+        status: "active"
+    },
+]
+
 export const SpherexVisitors = [
     {
         fullname: "Ethan Walker",

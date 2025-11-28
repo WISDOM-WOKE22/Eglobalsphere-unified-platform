@@ -16,6 +16,18 @@ export const getStatusBadge = (status: badgeStatus) => {
           Enabled
         </Badge>
       );
+    case 'closed':
+      return (
+        <Badge className={`${baseClass} bg-green-200 text-green-800`}>
+          Closed
+        </Badge>
+      );
+    case 'open':
+      return (
+        <Badge className={`${baseClass} bg-purple-200 text-purple-800`}>
+          Open
+        </Badge>
+      );
     case 'entry':
       return (
         <Badge className={`${baseClass} bg-green-200 text-green-800`}>

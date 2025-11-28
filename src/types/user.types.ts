@@ -12,13 +12,7 @@ export interface IUser {
   email: string;
   password: string;
   confirmPassword?: string;
-  subscription?: 'free' | 'subscribed' | 'un-subscribed';
-  subscriptionDuration?: number;
-  subscriptionExpires?: Date;
-  subscriptionId?: string;
-  organization?: string;
   mobile?: string;
-  school?: string;
   isBlocked?: boolean;
   role: 'user' | 'admin' | 'sub-admin' | UserRole | null | undefined;
   twoFactor?: boolean;
@@ -35,12 +29,9 @@ export interface IUser {
   passwordResetTokenExpires?: Date;
   passwordResetToken?: string;
   verificationToken?: string;
-  cbtTrials?: number;
   theme?: 'light' | 'dark' | 'system';
-  signUpMode?: 'normal' | 'google';
   loginTokens?: string[];
   loginDetails?: any[];
-  cbt?: string;
   status: 'active' | 'inactive';
   createdAt?: Date;
   updatedAt?: Date;

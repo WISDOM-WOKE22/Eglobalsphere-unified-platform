@@ -21,7 +21,9 @@ export const LicenseLayout = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-row justify-center py-5">
+                <div className="flex flex-row gap-7 justify-center py-5">
+                    <ServiceCard />
+                    <ServiceCard />
                     <ServiceCard />
                 </div>
             </Card>

@@ -125,7 +125,7 @@ export default function AppSidebar({ userRole, className }: AppSidebarProps) {
       </SidebarContent>
       <SidebarFooter className='border-t p-4'>
         <div className='flex items-center gap-2'>
-          <Avatar className='h-8 w-8'>
+          <Avatar className='h-9 w-9'>
             <AvatarFallback>
               WW
             </AvatarFallback>

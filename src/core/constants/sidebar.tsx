@@ -48,7 +48,7 @@ export const PERMISSIONS = {
     'categories',
     'codes',
     'results',
-    ...(process.env.NODE_ENV === 'development' ? ['notes'] : []),
+    'support'
   ],
   ADMIN: [
     'dashboard',
@@ -65,7 +65,7 @@ export const PERMISSIONS = {
     'categories',
     'codes',
     'results',
-    ...(process.env.NODE_ENV === 'development' ? ['notes'] : []),
+    'support',
   ],
   SUB_ADMIN: ['dashboard', 'schools', 'notes'],
   USER: [
@@ -201,10 +201,10 @@ export const MENU_ITEMS: MenuItem[] = [
     group: 'communication',
   },
   {
-    href: '/newsletters',
-    label: 'Newsletters',
+    href: '/support',
+    label: 'Support',
     icon: Mail,
-    permission: 'newsletters',
+    permission: 'support',
     group: 'communication',
   },
   {

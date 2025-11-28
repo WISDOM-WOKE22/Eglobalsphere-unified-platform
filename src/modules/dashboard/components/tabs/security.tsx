@@ -4,13 +4,11 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useSettingService } from '../../services/settings';
 import { Switch } from '@/components/ui/switch';
-import { useAltStore } from '@/lib/zustand/userStore';
 // import { useCallback } from 'react';
 // import { toast } from 'sonner';
 // import { UserSecurityFormData } from '../../schema/settings';
 
 export const SecuritySettings = () => {
-  const user = useAltStore((state) => state.user);
   const {
     updateSecurity,
     securityForm: {
@@ -105,7 +103,7 @@ export const SecuritySettings = () => {
       <main className='flex flex-row items-center justify-between'>
         <p>Enable 2fa for your account</p>
         <Switch
-          checked={user?.twoFactor}
+          // checked={user}
           onCheckedChange={toggleTwoFactor}
           disabled={settingLoading}
         />

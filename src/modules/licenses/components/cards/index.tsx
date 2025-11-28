@@ -18,7 +18,7 @@ export const ServiceCard = () => {
                         {/* <div className="h-10 w-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
                 <Shield className="h-5 w-5 text-emerald-500" />
               </div> */}
-                        <CardTitle className="text-2xl font-semibold text-balance">Current Plan</CardTitle>
+                        <CardTitle className="text-2xl font-semibold text-balance">License Plan</CardTitle>
                     </div>
                     <Badge
                         variant="secondary"
