@@ -1,11 +1,12 @@
 'use client'
 
-import DashboardLayout from "@/core/commons/layout/dashboardLayout"
+import DashboardLayout from "@/core/commons/layout/dashboardLayout";
+import { CustomizationLayout } from "@/modules/customization/layouts";
 
 const CustomizationsPage = () => {
     return (
         <DashboardLayout pageTitle="Customizations">
-            <h1>Customizations</h1>
+            <CustomizationLayout />
         </DashboardLayout>
     )
 }
