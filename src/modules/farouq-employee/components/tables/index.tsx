@@ -21,10 +21,12 @@ import {
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import moment from "moment"
 import { farouqEmployees } from "@/constants/farouq"
+import { useRouter } from "next/navigation"
 
 const ITEMS_PER_PAGE = 15
 
 export const FarouqEmployeeTable = () => {
+    const router = useRouter()
     const [currentPage, setCurrentPage] = useState(1)
     const [searchTerm, setSearchTerm] = useState("")
 
@@ -87,7 +89,10 @@ export const FarouqEmployeeTable = () => {
                     <TableBody>
                         {paginatedEmployees.length > 0 ? (
                             paginatedEmployees.map((employee, index) => (
-                                <TableRow key={employee.id || index}>
+                                <TableRow key={employee.id || index}
+                                    className="cursor-pointer"
+                                    onClick={() => router.push(`/farouq-employees/${employee.id}`)}
+                                >
                                     <TableCell className="font-medium">{employee.employee_id}</TableCell>
                                     <TableCell className="capitalize">{`${employee.first_name} ${employee.last_name}`}</TableCell>
                                     <TableCell>{employee.email}</TableCell>

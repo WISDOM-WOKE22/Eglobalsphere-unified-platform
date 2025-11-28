@@ -22,12 +22,15 @@ import { licensePlates } from "@/constants/lpr"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { renderLicensePlate } from "@/core/commons/utils"
 import moment from "moment"
+import { useStore } from "@/lib/zustand/store"
+import { ViewLicensePlatesModal } from '../modals/viewLicensePlates'
 
 const ITEMS_PER_PAGE = 15
 
 export const LicensePlateTable = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [searchTerm, setSearchTerm] = useState("")
+    const { setIsLicensePlatesOpen } = useStore()
 
     // Filter license plates based on search term
     const filteredPlates = useMemo(() => {
@@ -83,7 +86,10 @@ export const LicensePlateTable = () => {
                     <TableBody>
                         {paginatedPlates.length > 0 ? (
                             paginatedPlates.map((licensePlate, index) => (
-                                <TableRow key={index}>
+                                <TableRow key={index}
+                                    onClick={() => setIsLicensePlatesOpen(true)}
+                                    className="cursor-pointer"
+                                >
                                     <TableCell>{renderLicensePlate(licensePlate.license_plate)}</TableCell>
                                     <TableCell className="capitalize">{licensePlate.vehicle_owner}</TableCell>
                                     <TableCell>{licensePlate.vehicle_model}</TableCell>
@@ -114,8 +120,8 @@ export const LicensePlateTable = () => {
                     <Pagination>
                         <PaginationContent>
                             <PaginationItem>
-                                <PaginationPrevious 
-                                    href="#" 
+                                <PaginationPrevious
+                                    href="#"
                                     onClick={(e) => {
                                         e.preventDefault()
                                         handlePageChange(currentPage - 1)
@@ -123,7 +129,7 @@ export const LicensePlateTable = () => {
                                     className={currentPage === 1 ? 'pointer-events-none opacity-50' : ''}
                                 />
                             </PaginationItem>
-                            
+
                             {/* First page */}
                             <PaginationItem>
                                 <PaginationLink
@@ -203,10 +209,10 @@ export const LicensePlateTable = () => {
                                     </PaginationLink>
                                 </PaginationItem>
                             )}
-                            
+
                             <PaginationItem>
-                                <PaginationNext 
-                                    href="#" 
+                                <PaginationNext
+                                    href="#"
                                     onClick={(e) => {
                                         e.preventDefault()
                                         handlePageChange(currentPage + 1)
@@ -218,6 +224,7 @@ export const LicensePlateTable = () => {
                     </Pagination>
                 </CardFooter>
             )}
+            <ViewLicensePlatesModal />
         </Card>
     )
 }
