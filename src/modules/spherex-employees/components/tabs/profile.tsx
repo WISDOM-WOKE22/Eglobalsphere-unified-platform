@@ -60,8 +60,8 @@ export const UserProfile = ({ user }: { user: any | undefined }) => {
 
             <Card className='gap-0'>
                 <CardHeader>
-                    <h1 className='font-bold'>Login Activities</h1>
-                    <p className='text-gray-200'>Last Login : Sun Apr 27 2025</p>
+                    <h1 className='font-bold'>Checkin/Checkout Activities</h1>
+                    <p className='text-gray-200'>Last Checkin : Sun Apr 27 2025</p>
                 </CardHeader>
 
                 <CardContent className='grid grid-cols-1 gap-2 mt-0 lg:grid-cols-2'>
@@ -71,34 +71,34 @@ export const UserProfile = ({ user }: { user: any | undefined }) => {
                             <p>12:00</p>
                         </div>
                         <div className='flex flex-row items-center justify-between gap-2 w-full'>
-                            <p className='font-bold'>Device :</p>
-                            <p>Samsung A51</p>
+                            <p className='font-bold'>Zone :</p>
+                            <p>Zone 22</p>
                         </div>
                         <div className='flex flex-row items-center justify-between gap-2 w-full'>
-                            <p className='font-bold'>Browser :</p>
-                            <p>Chrome</p>
+                            <p className='font-bold'>Gate :</p>
+                            <p>Gate 22</p>
                         </div>
                         <div className='flex flex-row items-center justify-between gap-2 w-full'>
                             <p className='font-bold'>Location :</p>
-                            <p>My House</p>
+                            <p>TTTTTT</p>
                         </div>
                     </div>
-                    <div className='mt-4 grid grid-cols-2 gap-5 border border-dash max-md:grid-cols-1 rounded-sm p-3'>
+                    <div className='mt-4 grid grid-cols-2 gap-5 max-md:grid-cols-1 border border-dash rounded-sm p-3'>
                         <div className='flex flex-row items-center justify-between gap-2 w-full'>
                             <p className='font-bold'>Time :</p>
                             <p>12:00</p>
                         </div>
                         <div className='flex flex-row items-center justify-between gap-2 w-full'>
-                            <p className='font-bold'>Device :</p>
-                            <p>Samsung A51</p>
+                            <p className='font-bold'>Zone :</p>
+                            <p>Zone 22</p>
                         </div>
                         <div className='flex flex-row items-center justify-between gap-2 w-full'>
-                            <p className='font-bold'>Browser :</p>
-                            <p>Chrome</p>
+                            <p className='font-bold'>Gate :</p>
+                            <p>Gate 22</p>
                         </div>
                         <div className='flex flex-row items-center justify-between gap-2 w-full'>
                             <p className='font-bold'>Location :</p>
-                            <p>My House</p>
+                            <p>TTTTTT</p>
                         </div>
                     </div>
                 </CardContent>
