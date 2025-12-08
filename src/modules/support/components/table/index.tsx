@@ -12,41 +12,63 @@ import {
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { supportData } from "@/constants/support";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { ViewTicketModal } from "../modal/view-ticket";
 
 export const SupportTable = () => {
     const router = useRouter();
+    const [selectedTicket, setSelectedTicket] = useState<any>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleViewTicket = (ticket: any) => {
+        setSelectedTicket(ticket);
+        setIsModalOpen(true);
+    };
+
     return (
-        <Card>
-            <CardHeader className="flex flex-row justify-between items-center">
-                <h1>All Tickets</h1>
-                <Button onClick={() => router.push("/support/create-ticket")}><Plus />Create new Ticket</Button>
-            </CardHeader>
-            <CardContent>
-                <Table>
-                    <TableHeader className="bg-muted">
-                        <TableRow>
-                            <TableHead>ID</TableHead>
-                            <TableHead>Title</TableHead>
-                            <TableHead>Description</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Sent By</TableHead>
-                            <TableHead>Created At</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {supportData.map((ticket, index) => (
-                            <TableRow key={ticket.id || index}>
-                                <TableCell>{ticket.id}</TableCell>
-                                <TableCell>{ticket.title}</TableCell>
-                                <TableCell className="max-w-xs truncate">{ticket.description}</TableCell>
-                                <TableCell>{getStatusBadge(ticket.status)}</TableCell>
-                                <TableCell>{ticket.sentBy}</TableCell>
-                                <TableCell>{new Date(ticket.createdAt).toLocaleString()}</TableCell>
+        <>
+            <Card>
+                <CardHeader className="flex flex-row justify-between items-center">
+                    <h1>All Tickets</h1>
+                    <Button onClick={() => router.push("/support/create-ticket")}><Plus />Create new Ticket</Button>
+                </CardHeader>
+                <CardContent>
+                    <Table>
+                        <TableHeader className="bg-muted">
+                            <TableRow>
+                                <TableHead>ID</TableHead>
+                                <TableHead>Title</TableHead>
+                                <TableHead>Description</TableHead>
+                                <TableHead>Status</TableHead>
+                                <TableHead>Sent By</TableHead>
+                                <TableHead>Created At</TableHead>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </CardContent>
-        </Card>
+                        </TableHeader>
+                        <TableBody>
+                            {supportData.map((ticket, index) => (
+                                <TableRow
+                                    key={ticket.id || index}
+                                    className="cursor-pointer hover:bg-muted/50 transition-colors"
+                                    onClick={() => handleViewTicket(ticket)}
+                                >
+                                    <TableCell>{ticket.id}</TableCell>
+                                    <TableCell>{ticket.title}</TableCell>
+                                    <TableCell className="max-w-xs truncate">{ticket.description}</TableCell>
+                                    <TableCell>{getStatusBadge(ticket.status)}</TableCell>
+                                    <TableCell>{ticket.sentBy}</TableCell>
+                                    <TableCell>{new Date(ticket.createdAt).toLocaleString()}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
+
+            <ViewTicketModal
+                open={isModalOpen}
+                onOpenChange={setIsModalOpen}
+                ticket={selectedTicket}
+            />
+        </>
     )
 }

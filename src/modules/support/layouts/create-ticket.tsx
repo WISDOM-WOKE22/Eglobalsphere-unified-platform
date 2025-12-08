@@ -56,11 +56,8 @@ export const CreateTicketLayout = () => {
                                 <SelectItem value="Casual">
                                     Casual
                                 </SelectItem>
-                                <SelectItem value="Farouq">
-                                    Formal
-                                </SelectItem>
-                                <SelectItem value="Spherex">
-                                    Spherex
+                                <SelectItem value="Normal">
+                                    Normal
                                 </SelectItem>
                             </SelectContent>
                         </Select>

@@ -3,7 +3,7 @@
 import './index.scss';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import MenuBar from './menu-bar';
 import TextAlign from '@tiptap/extension-text-align';
 import Highlight from '@tiptap/extension-highlight';
