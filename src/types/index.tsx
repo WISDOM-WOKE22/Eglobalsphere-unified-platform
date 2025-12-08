@@ -10,3 +10,4 @@ export * from './note.types';
 export * from './editor.types';
 export * from "./components.types"
 export * from "./store.types"
+export * from "./language.types"

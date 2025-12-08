@@ -1,6 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { IUser } from '@/types/user.types';
 import { getStatusBadge } from '@/core/commons/components/badge/badge';
 import moment from 'moment';
 

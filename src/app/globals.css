@@ -118,6 +118,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -156,4 +157,8 @@
   src: url('../../public/fonts/sf/sf-ui-display-heavy.otf') format('opentype');
   font-weight: 800;
   font-style: normal;
+}
+
+.skiptranslate {
+  display: none !important;
 }

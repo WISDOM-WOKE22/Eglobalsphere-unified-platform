@@ -18,6 +18,7 @@ import { MobileSidebar } from '../sidebar/mobileSidebar';
 import { Button } from '@/components/ui/button';
 import { Bell } from 'lucide-react';
 import { LogoIcon } from '../logo';
+import { LanguageSwitcher } from '../utils/languageSelectors';
 
 export default function NavBar({
   title,
@@ -43,6 +44,7 @@ export default function NavBar({
           <Button
             variant="glass"
           ><Bell /></Button>
+          <LanguageSwitcher />
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar className='cursor-pointer border'>
