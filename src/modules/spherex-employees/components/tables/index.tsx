@@ -12,6 +12,7 @@ import {
 import { SpherexEmployees } from "@/constants/spherex"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { useRouter } from "next/navigation"
+import { ExportData } from "@/core/commons/dialogs"
 
 export const EmployeeTable = () => {
     const { push } = useRouter()
@@ -22,7 +23,10 @@ export const EmployeeTable = () => {
                     className="w-full max-w-[300px]"
                     placeholder="Search by fullname"
                 />
-                <Button>Export data</Button>
+                <ExportData
+                    title="Export data"
+                    buttonTitle="Export data"
+                />
             </CardHeader>
             <CardContent>
                 <Table >

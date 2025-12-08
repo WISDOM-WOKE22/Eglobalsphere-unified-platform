@@ -1,7 +1,6 @@
 import { useState, useMemo } from "react"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import {
     Table,
     TableBody,
@@ -24,6 +23,7 @@ import { renderLicensePlate } from "@/core/commons/utils"
 import moment from "moment"
 import { useStore } from "@/lib/zustand/store"
 import { ViewLicensePlatesModal } from '../modals/viewLicensePlates'
+import { ExportData } from "@/core/commons/dialogs"
 
 const ITEMS_PER_PAGE = 15
 
@@ -69,7 +69,10 @@ export const LicensePlateTable = () => {
                     value={searchTerm}
                     onChange={handleSearch}
                 />
-                <Button>Export data</Button>
+                <ExportData
+                    title="Export data"
+                    buttonTitle="Export data"
+                />
             </CardHeader>
             <CardContent>
                 <Table>

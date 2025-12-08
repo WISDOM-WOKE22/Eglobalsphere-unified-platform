@@ -1,7 +1,6 @@
 import { useState, useMemo } from "react"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import {
     Table,
     TableBody,
@@ -22,6 +21,7 @@ import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import moment from "moment"
 import { farouqEmployees } from "@/constants/farouq"
 import { useRouter } from "next/navigation"
+import { ExportData } from "@/core/commons/dialogs"
 
 const ITEMS_PER_PAGE = 15
 
@@ -70,7 +70,10 @@ export const FarouqEmployeeTable = () => {
                     value={searchTerm}
                     onChange={handleSearch}
                 />
-                <Button>Export data</Button>
+                <ExportData
+                    title="Export data"
+                    buttonTitle="Export data"
+                />
             </CardHeader>
             <CardContent>
                 <Table>

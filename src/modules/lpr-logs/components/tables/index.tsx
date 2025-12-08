@@ -22,6 +22,7 @@ import { gateAccess } from "@/constants/lpr"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { renderLicensePlate } from "@/core/commons/utils"
 import moment from "moment"
+import { ExportData } from "@/core/commons/dialogs"
 
 const ITEMS_PER_PAGE = 15
 
@@ -66,7 +67,10 @@ export const LPRGateAccessTable = () => {
                     value={searchTerm}
                     onChange={handleSearch}
                 />
-                <Button>Export data</Button>
+                <ExportData
+                    title="Export data"
+                    buttonTitle="Export data"
+                />
             </CardHeader>
             <CardContent>
                 <Table>
@@ -116,8 +120,8 @@ export const LPRGateAccessTable = () => {
                     <Pagination>
                         <PaginationContent>
                             <PaginationItem>
-                                <PaginationPrevious 
-                                    href="#" 
+                                <PaginationPrevious
+                                    href="#"
                                     onClick={(e) => {
                                         e.preventDefault()
                                         handlePageChange(currentPage - 1)
@@ -125,7 +129,7 @@ export const LPRGateAccessTable = () => {
                                     className={currentPage === 1 ? 'pointer-events-none opacity-50' : ''}
                                 />
                             </PaginationItem>
-                            
+
                             {/* First page */}
                             <PaginationItem>
                                 <PaginationLink
@@ -205,10 +209,10 @@ export const LPRGateAccessTable = () => {
                                     </PaginationLink>
                                 </PaginationItem>
                             )}
-                            
+
                             <PaginationItem>
-                                <PaginationNext 
-                                    href="#" 
+                                <PaginationNext
+                                    href="#"
                                     onClick={(e) => {
                                         e.preventDefault()
                                         handlePageChange(currentPage + 1)

@@ -12,6 +12,7 @@ import {
 import moment from "moment"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { gates } from "@/constants/lpr"
+import { ExportData } from "@/core/commons/dialogs"
 
 export const LPRGatesTable = () => {
     return (
@@ -21,7 +22,10 @@ export const LPRGatesTable = () => {
                     className="w-full max-w-[300px]"
                     placeholder="Search by gate number, project name"
                 />
-                <Button>Export data</Button>
+                <ExportData
+                    title="Export data"
+                    buttonTitle="Export data"
+                />
             </CardHeader>
             <CardContent>
                 <Table >

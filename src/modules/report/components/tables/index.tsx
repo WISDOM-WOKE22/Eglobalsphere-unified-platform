@@ -24,6 +24,7 @@ import { recipients } from "@/constants/reports"
 import { EllipsisVertical } from "lucide-react"
 import { DropdownMenu, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { DropdownMenuContent } from "@radix-ui/react-dropdown-menu"
+import { AddEmailButton, GenerateReportButton, SettingsButton } from "../buttons"
 
 const ITEMS_PER_PAGE = 15
 
@@ -67,10 +68,7 @@ export const ReportTable = () => {
                     value={searchTerm}
                     onChange={handleSearch}
                 />
-                <Button className="flex flex-row items-center gap-3">
-                    <MailPlus />
-                    <p>Add new Email</p>
-                </Button>
+                <AddEmailButton />
             </CardHeader>
             <CardContent>
                 <Table>

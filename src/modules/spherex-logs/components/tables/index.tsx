@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table"
 import { spherexLogs } from "@/constants/spherex"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
+import { ExportData } from "@/core/commons/dialogs"
 
 export const SpherexLogTable = () => {
     return (
@@ -20,7 +21,10 @@ export const SpherexLogTable = () => {
                     className="w-full max-w-[300px]"
                     placeholder="Search by fullname"
                 />
-                <Button>Export data</Button>
+                <ExportData
+                    title="Export data"
+                    buttonTitle="Export data"
+                />
             </CardHeader>
             <CardContent>
                 <Table >

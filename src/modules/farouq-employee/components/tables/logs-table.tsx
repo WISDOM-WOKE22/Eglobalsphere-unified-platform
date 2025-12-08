@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/pagination"
 import moment from "moment"
 import { farouqLogs } from "@/constants/farouq"
+import { ExportData } from "@/core/commons/dialogs"
 
 const ITEMS_PER_PAGE = 15
 
@@ -103,7 +104,10 @@ export const FarouqLogsTable = () => {
                     value={searchTerm}
                     onChange={handleSearch}
                 />
-                <Button>Export data</Button>
+                <ExportData
+                    title="Export data"
+                    buttonTitle="Export data"
+                />
             </CardHeader>
             <CardContent>
                 <Table>
