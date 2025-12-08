@@ -10,14 +10,16 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
-import { supportData } from "@/constants/support"
+import { supportData } from "@/constants/support";
+import { useRouter } from "next/navigation";
 
 export const SupportTable = () => {
+    const router = useRouter();
     return (
         <Card>
             <CardHeader className="flex flex-row justify-between items-center">
                 <h1>All Tickets</h1>
-                <Button><Plus />Create new Ticket</Button>
+                <Button onClick={() => router.push("/support/create-ticket")}><Plus />Create new Ticket</Button>
             </CardHeader>
             <CardContent>
                 <Table>
