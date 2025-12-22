@@ -1,16 +1,11 @@
-'use client';
+import { Metadata } from 'next';
+import DashboardView from './dashboard-view';
 
-import DashboardLayout from '@/core/commons/layout/dashboardLayout';
-import { Dashboard } from '@/modules/dashboard/layouts/dashboard';
-
-const DashboardPage = () => {
-
-
-    return (
-      <DashboardLayout pageTitle='Dashboard' subHeading=''>
-        <Dashboard />
-      </DashboardLayout>
-    );
+export const metadata: Metadata = {
+    title: 'Dashboard',
+    description: 'Overview of your eGlobalSphere operations and metrics.',
 };
 
-export default DashboardPage;
+export default function DashboardPage() {
+    return <DashboardView />;
+}
