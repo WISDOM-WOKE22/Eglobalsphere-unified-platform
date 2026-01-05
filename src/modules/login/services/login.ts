@@ -18,7 +18,7 @@ export function useLogin() {
     setServerError('');
 
     try {
-      const res = await api.post('/auth/login', data);
+      const res = await api.post('/login', data);
 
       if (res.status === 203) {
         if (res.data.doc.role.toLowerCase() === 'user') {
