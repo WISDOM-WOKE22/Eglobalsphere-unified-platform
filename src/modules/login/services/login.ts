@@ -18,14 +18,13 @@ export function useLogin() {
     setServerError('');
 
     try {
-      const res = await api.post('/login', data);
+      const res = await api.post('/auth/login', data);
 
-      if (res.status === 203) {
-        if (res.data.doc.role.toLowerCase() === 'user') {
-          router.push(`/2fa?token=${res.data.doc.token}`);
-        } else {
-          router.push(`/admin-controller/2fa?token=${res.data.doc.token}`);
-        }
+      if (res.data.message === '2FA required') {
+        router.push(`/2fa?token=${res.data.doc.token}`);
+        return;
+      } else if (res.data.message === 'Email verification required') {
+        router.push(`/verify-otp?token=${res.data.doc.token}`);
         return;
       }
 
@@ -48,7 +47,7 @@ export function useLogin() {
         router.push(`/verify-otp?token=${err.response.data.doc.token}`);
       } else {
         const errorMessage =
-          err.response?.data?.message || err.message || 'Login failed';
+          err.response?.data?.detail || err.message || 'Login failed';
         setServerError(errorMessage);
       }
     }

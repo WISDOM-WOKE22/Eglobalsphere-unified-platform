@@ -16,15 +16,17 @@ export function useForgetPassword() {
   });
 
   const forgetPassword = async (data: ForgetPasswordFormData) => {
+    setSuccessMessage('');
     setServerError('');
     try {
       const res = await api.post('/auth/forgot-password', data);
       if (res.status === 200) {
-        setSuccessMessage('Reset link sent to email successfully');
+        setSuccessMessage(res.data.message);
       }
     } catch (err: any) {
+     setSuccessMessage("");
       const errorMessage =
-        err.response?.data?.message || err.message || 'Otp verification failed';
+        err.response?.data?.detail || err.message || 'Otp verification failed';
       setServerError(errorMessage);
     }
   };

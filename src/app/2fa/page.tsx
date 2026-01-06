@@ -8,15 +8,35 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Suspense } from 'react';
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from 'input-otp';
 import { LogoIcon } from '@/core/commons/logo';
+import { useTwoFactor } from '@/modules/2fa/service';
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
 } from '@/components/ui/input-otp';
 import { useRouter } from 'next/navigation';
+import { Loader2 } from 'lucide-react';
 
 function TwoFactorAuthContent() {
   const router = useRouter();
+
+  const { form: { 
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setValue,
+    watch,
+   }, 
+   twoFactor, 
+   serverError, 
+   resendTwoFactorCode, 
+   resendLoading } = useTwoFactor();
+
+   const otpValue = watch('twoFactorVerificationCode');
+
+   const handleOtpChange = (value: string) => {
+       setValue('twoFactorVerificationCode', value, { shouldValidate: true });
+   };
 
   return (
     <ScrollArea className='w-full'>
@@ -32,13 +52,13 @@ function TwoFactorAuthContent() {
             </div>
             <h2 className='text-md font-bold'>Two Factor Authentication</h2>
             <p className='text-sm'>Enter OTP to continue to your account</p>
-            {/* {serverError && (
+            {serverError && (
               <p className='text-red-600 text-sm text-center mt-2'>
                 {serverError}
               </p>
-            )} */}
+            )}
           </div>
-          <form>
+          <form onSubmit={handleSubmit(twoFactor)}>
             <div className='mb-4'>
               <Label htmlFor='otp' className='mb-2'>
                 Enter OTP
@@ -46,43 +66,51 @@ function TwoFactorAuthContent() {
               <InputOTP
                 maxLength={6}
                 pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
-                // value={otpValue}
-                // onChange={handleOtpChange}
+                value={otpValue}
+                onChange={handleOtpChange}
                 id='twoFactorVerificationCode'
               >
                 <InputOTPGroup className='w-full flex gap-1'>
-                  {[...Array(6)].map((_, index) => (
+                  {[...Array(4)].map((_, index) => (
                     <InputOTPSlot
                       key={index}
                       index={index}
                       className='w-full h-[52px] border rounded-md text-center text-lg'
+                      {...register('twoFactorVerificationCode', {
+                        required: 'OTP is required',
+                        pattern: {
+                            value: /^[0-9]{6}$/,
+                            message: 'OTP must be 6 digits',
+                        },
+                    })}
                     />
                   ))}
                 </InputOTPGroup>
               </InputOTP>
-              {/* {errors.twoFactorVerificationCode && (
+              {errors.twoFactorVerificationCode && (
                 <p className='text-red-500 text-sm mt-2'>
                   {errors.twoFactorVerificationCode.message}
                 </p>
-              )} */}
+              )}
             </div>
 
             <div className='mt-10'>
               <Button
                 type='submit'
                 className='w-full h-10'
+                disabled={isSubmitting}
               >
-                Continue
+                {isSubmitting && <Loader2 className='w-4 h-4 animate-spin' />} Continue
               </Button>
             </div>
 
             <div className='text-center mt-3'>
               <p
                 className='cursor-pointer hover:underline duration-200'
-                // onClick={() => resendTwoFactorCode()}
-                // aria-disabled={resendLoading}
+                onClick={() => resendTwoFactorCode()}
+                aria-disabled={resendLoading}
               >
-                Resend Code
+                {resendLoading ? <Loader2 className='w-4 h-4 animate-spin' /> : "Resend Code"}
               </p>
             </div>
 

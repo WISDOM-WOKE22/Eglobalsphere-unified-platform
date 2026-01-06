@@ -19,6 +19,8 @@ import { Button } from '@/components/ui/button';
 import { Bell } from 'lucide-react';
 import { LogoIcon } from '../logo';
 import { LanguageSwitcher } from '../utils/languageSelectors';
+import { useLogoutService } from '@/hooks/auth/logout';
+import { Loader2 } from 'lucide-react';
 
 export default function NavBar({
   title,
@@ -29,7 +31,7 @@ export default function NavBar({
 }) {
   const { setTheme } = useTheme();
   const router = useRouter();
-
+  const { logout, isLoading } = useLogoutService();
   return (
     <nav className='h-14 border-b flex justify-between items-center w-full px-4 fixed z-1 backdrop-blur-md'>
       <AppSidebar userRole={"ADMIN"} />
@@ -86,8 +88,9 @@ export default function NavBar({
               </DropdownMenuSub>
               <DropdownMenuItem
                 className='bg-red-400 cursor-pointer'
+                onClick={logout}
               >
-                logout
+                {isLoading ? <Loader2 className='w-4 h-4 animate-spin' /> : "logout"}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

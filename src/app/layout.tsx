@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import Script from "next/script";
+import { CircleCheckIcon, InfoIcon, Loader2Icon, OctagonXIcon, TriangleAlertIcon } from "lucide-react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -89,7 +90,15 @@ export default function RootLayout({
             {children}
           </SidebarProvider>
         </ThemeProvider>
-        <Toaster />
+        <Toaster richColors icons={{
+          success: <CircleCheckIcon className="size-4" />,
+          info: <InfoIcon className="size-4" />,
+          warning: <TriangleAlertIcon className="size-4" />,
+          error: <OctagonXIcon className="size-4" />,
+          loading: <Loader2Icon className="size-4 animate-spin" />,
+        }} 
+        position="top-right"
+        />
       </body>
     </html>
   );

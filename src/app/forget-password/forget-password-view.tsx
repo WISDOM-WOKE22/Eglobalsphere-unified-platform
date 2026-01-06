@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 import { useForgetPassword } from '@/modules/forget-password/services';
-import Image from 'next/image';
+import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { LogoIcon } from '@/core/commons/logo';
 
@@ -63,6 +63,7 @@ const ForgottenPasswordPage = () => {
 
           <div className='mt-8 flex'>
             <Button type='submit' className='w-full cursor-pointer h-10'>
+              {isSubmitting && <Loader2 className='w-4 h-4 animate-spin' />}
               {isSubmitting ? 'Send Link...' : 'Send Link'}
             </Button>
           </div>
