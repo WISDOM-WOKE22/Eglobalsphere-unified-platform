@@ -1,7 +1,6 @@
-import { useStoreTypes } from "@/types";
+import { CompanyType, useStoreTypes, IUser } from "@/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { IUser } from "@/types/user.types";
 
 export const useStore = create<useStoreTypes>()(
     persist(
@@ -21,12 +20,21 @@ export const useStore = create<useStoreTypes>()(
                     isNotificationOpen: false,
                     isLPRGateOpen: false,
                     token: null,
+                    company: null,
                     refreshToken: null,
+                    isAuthenticated: false,
+                    isLoading: false
                 }),
             token: null,
             setToken: (token: string) => set({ token }),
             refreshToken: null,
             setRefreshToken: (refreshToken: string) => set({ refreshToken }),
+            company: null,
+            setCompany: (company: CompanyType) => set({ company }),
+            isAuthenticated: false,
+            setIsAuthenticated: (authenticated: boolean) => set({ isAuthenticated: authenticated }),
+            isLoading: false,
+            setIsLoading: (loading: boolean) => set({ isLoading: loading }),
         }),
         {
             name: "store"

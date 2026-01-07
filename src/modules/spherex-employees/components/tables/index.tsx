@@ -9,12 +9,14 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { SpherexEmployees } from "@/constants/spherex"
+import { Skeleton } from "@/components/ui/skeleton"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { useRouter } from "next/navigation"
 import { ExportData } from "@/core/commons/dialogs"
+import { useSpherexDashboardService } from "../../services"
 
 export const EmployeeTable = () => {
+    const { data, isLoading } = useSpherexDashboardService()
     const { push } = useRouter()
     return (
         <Card>
@@ -29,6 +31,7 @@ export const EmployeeTable = () => {
                 />
             </CardHeader>
             <CardContent>
+
                 <Table >
                     <TableHeader className="bg-muted">
                         <TableRow>
@@ -42,14 +45,44 @@ export const EmployeeTable = () => {
                             <TableHead>Actions</TableHead>
                         </TableRow>
                     </TableHeader>
+                    {isLoading ? (
+                        <TableBody>
+                                 {[1,2,3,4,5,6].map((index) => <TableRow key={index}>
+                                    <TableCell>
+                                        <Skeleton className="h-8 w-20" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton className="h-8 w-20" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton className="h-8 w-20" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton className="h-8 w-20" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton className="h-8 w-20" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton className="h-8 w-20" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton className="h-8 w-full" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton className="h-8 w-20" />
+                                    </TableCell>
+                                </TableRow>)}
+                        </TableBody>
+                    ) : (
                     <TableBody>
-                        {SpherexEmployees.map((employee, index) => (
+                        {data?.employees.map((employee, index) => (
                             <TableRow key={index}>
                                 <TableCell>{employee.fullname}</TableCell>
                                 <TableCell>{employee.department}</TableCell>
                                 <TableCell>{employee.phone}</TableCell>
-                                <TableCell>{employee.zone}</TableCell>
-                                <TableCell>{employee.role}</TableCell>
+                                <TableCell>{employee.zone ?? "unassigned"}</TableCell>
+                                <TableCell>{employee.role ?? "null"}</TableCell>
                                 <TableCell>{getStatusBadge(employee.status)}</TableCell>
                                 <TableCell>{employee.email}</TableCell>
                                 <TableCell>
@@ -58,8 +91,9 @@ export const EmployeeTable = () => {
                                     >View</Button>
                                 </TableCell>
                             </TableRow>))}
-                    </TableBody>
-                </Table>
+                            </TableBody>
+                            )}
+                        </Table>
             </CardContent>
         </Card>
     )

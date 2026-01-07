@@ -60,7 +60,7 @@ export const UserProfile = ({ user }: { user: any | undefined }) => {
             <Card className='gap-0'>
                 <CardHeader>
                     <h1 className='font-bold'>Checkin/Checkout Activities</h1>
-                    <p className='text-gray-200'>Last Checkin : Sun Apr 27 2025</p>
+                    <p className='text-gray-200'>Last Checkin : Sun Apr 27 2026</p>
                 </CardHeader>
 
                 <CardContent className='grid grid-cols-1 gap-2 mt-0 lg:grid-cols-2'>

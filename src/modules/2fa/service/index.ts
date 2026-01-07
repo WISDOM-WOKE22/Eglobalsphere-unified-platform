@@ -19,6 +19,7 @@ export function useTwoFactor() {
   const router = useRouter();
   const setUser = useStore(state => state.setUser);
   const setToken = useStore(state => state.setToken);
+  const setCompany = useStore(state => state.setCompany);
 
   const setRefreshToken = useStore(state => state.setRefreshToken);
   const form = useForm<TwoFactorFormData>({
@@ -33,6 +34,7 @@ export function useTwoFactor() {
         setUser(res.data.doc.user);
         setToken(res.data.doc.token);
         setRefreshToken(res.data.doc.refreshToken);
+        setCompany(res.data.doc.preferences);
         document.cookie = `auth-token=${res.data.doc.token}; path=/; SameSite=Strict`;
         document.cookie = `refresh-token=${res.data.doc.refreshToken}; path=/; SameSite=Strict`;
         toast.success('Logged in Successfully');

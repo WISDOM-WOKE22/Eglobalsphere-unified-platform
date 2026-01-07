@@ -11,3 +11,5 @@ export * from './editor.types';
 export * from "./components.types"
 export * from "./store.types"
 export * from "./language.types"
+export * from "./company.types"
+export * from "./spherex.types"

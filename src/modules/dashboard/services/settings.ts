@@ -45,6 +45,23 @@ export const useSettingService = () => {
     }
   };
 
+  const updatePassword = async (data: UserSecurityFormData) => {
+    try {
+
+        const res = await api.patch('/settings/security', data);
+      if (res.status === 200) {
+        toast.success(res.data.message);
+      }
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        'Could not create';
+      setServerError(errorMessage);
+      toast.error(errorMessage);
+    }
+  };
+
   return {
     updatePreference,
     serverError,

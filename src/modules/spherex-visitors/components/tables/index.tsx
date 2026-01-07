@@ -13,8 +13,10 @@ import { SpherexVisitors } from "@/constants/spherex"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { useRouter } from "next/navigation";
 import { ExportData } from "@/core/commons/dialogs"
+import { useSpherexVisitorsService } from "../../services"
 
 export const VisitorsTable = () => {
+    const { data, isLoading } = useSpherexVisitorsService()
     const { push } = useRouter()
     return (
         <Card>
@@ -41,11 +43,11 @@ export const VisitorsTable = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {SpherexVisitors.map((employee, index) => (
+                        {data?.visitors.map((employee, index) => (
                             <TableRow key={index}>
                                 <TableCell>{employee.fullname}</TableCell>
                                 <TableCell>{employee.phone}</TableCell>
-                                <TableCell>{employee.zone}</TableCell>
+                                <TableCell>{employee.zone ?? "unassigned"}</TableCell>
                                 <TableCell>{getStatusBadge(employee.status)}</TableCell>
                                 <TableCell>{employee.email}</TableCell>
                                 <TableCell>

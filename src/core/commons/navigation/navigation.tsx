@@ -21,6 +21,7 @@ import { LogoIcon } from '../logo';
 import { LanguageSwitcher } from '../utils/languageSelectors';
 import { useLogoutService } from '@/hooks/auth/logout';
 import { Loader2 } from 'lucide-react';
+import { useStore } from '@/lib/zustand/store';
 
 export default function NavBar({
   title,
@@ -32,6 +33,7 @@ export default function NavBar({
   const { setTheme } = useTheme();
   const router = useRouter();
   const { logout, isLoading } = useLogoutService();
+  const { company } = useStore();
   return (
     <nav className='h-14 border-b flex justify-between items-center w-full px-4 fixed z-1 backdrop-blur-md'>
       <AppSidebar userRole={"ADMIN"} />
@@ -104,7 +106,7 @@ export default function NavBar({
           onClick={() => router.push('/dashboard')}
         >
           <LogoIcon />
-          <h1 className='mb-2 cursor-pointer'>EglobalSphere</h1>
+          <h1 className='mb-2 cursor-pointer'>{company?.companyName ?? 'EglobalSphere'}</h1>
         </div>
         <Button
           variant="glass"

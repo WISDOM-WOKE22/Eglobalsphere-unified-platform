@@ -19,7 +19,7 @@ export const notifications: Notification[] = [
         type: "system",
         category: "security",
         isRead: false,
-        createdAt: "2025-11-25T19:30:00Z",
+        createdAt: "2026-11-25T19:30:00Z",
         priority: "high"
     },
     {
@@ -30,7 +30,7 @@ export const notifications: Notification[] = [
         type: "activity",
         category: "check-in",
         isRead: false,
-        createdAt: "2025-11-25T07:45:00Z",
+        createdAt: "2026-11-25T07:45:00Z",
         priority: "low"
     },
     {
@@ -41,18 +41,18 @@ export const notifications: Notification[] = [
         type: "alert",
         category: "access",
         isRead: false,
-        createdAt: "2025-11-25T14:20:00Z",
+        createdAt: "2026-11-25T14:20:00Z",
         priority: "high"
     },
     {
         id: "4",
         title: "System Maintenance Scheduled",
-        description: "Scheduled maintenance on November 26, 2025",
-        content: "We will be performing routine system maintenance on November 26, 2025, from 2:00 AM to 4:00 AM GMT+1. Some services may be temporarily unavailable during this period. We apologize for any inconvenience.",
+        description: "Scheduled maintenance on November 26, 2026",
+        content: "We will be performing routine system maintenance on November 26, 2026, from 2:00 AM to 4:00 AM GMT+1. Some services may be temporarily unavailable during this period. We apologize for any inconvenience.",
         type: "system",
         category: "maintenance",
         isRead: true,
-        createdAt: "2025-11-24T10:00:00Z",
+        createdAt: "2026-11-24T10:00:00Z",
         priority: "medium"
     },
     {
@@ -63,7 +63,7 @@ export const notifications: Notification[] = [
         type: "activity",
         category: "registration",
         isRead: true,
-        createdAt: "2025-11-24T16:30:00Z",
+        createdAt: "2026-11-24T16:30:00Z",
         priority: "low"
     },
     {
@@ -74,18 +74,18 @@ export const notifications: Notification[] = [
         type: "alert",
         category: "environmental",
         isRead: false,
-        createdAt: "2025-11-25T10:15:00Z",
+        createdAt: "2026-11-25T10:15:00Z",
         priority: "high"
     },
     {
         id: "7",
         title: "Attendance Report Generated",
         description: "Weekly attendance report is ready",
-        content: "Your weekly attendance report for November 18-24, 2025 has been generated and is ready for review. Total attendance: 94.5%. Download the full report from the Reports section.",
+        content: "Your weekly attendance report for November 18-24, 2026 has been generated and is ready for review. Total attendance: 94.5%. Download the full report from the Reports section.",
         type: "system",
         category: "reports",
         isRead: true,
-        createdAt: "2025-11-24T09:00:00Z",
+        createdAt: "2026-11-24T09:00:00Z",
         priority: "low"
     },
     {
@@ -96,7 +96,7 @@ export const notifications: Notification[] = [
         type: "activity",
         category: "vehicle",
         isRead: true,
-        createdAt: "2025-11-24T17:30:00Z",
+        createdAt: "2026-11-24T17:30:00Z",
         priority: "low"
     },
     {
@@ -107,7 +107,7 @@ export const notifications: Notification[] = [
         type: "alert",
         category: "system",
         isRead: false,
-        createdAt: "2025-11-25T12:00:00Z",
+        createdAt: "2026-11-25T12:00:00Z",
         priority: "medium"
     },
     {
@@ -118,7 +118,7 @@ export const notifications: Notification[] = [
         type: "activity",
         category: "check-out",
         isRead: true,
-        createdAt: "2025-11-24T17:00:00Z",
+        createdAt: "2026-11-24T17:00:00Z",
         priority: "low"
     },
     {
@@ -129,7 +129,7 @@ export const notifications: Notification[] = [
         type: "system",
         category: "updates",
         isRead: false,
-        createdAt: "2025-11-25T08:00:00Z",
+        createdAt: "2026-11-25T08:00:00Z",
         priority: "medium"
     },
     {
@@ -140,7 +140,7 @@ export const notifications: Notification[] = [
         type: "alert",
         category: "security",
         isRead: false,
-        createdAt: "2025-11-25T15:45:00Z",
+        createdAt: "2026-11-25T15:45:00Z",
         priority: "high"
     },
     {
@@ -151,18 +151,18 @@ export const notifications: Notification[] = [
         type: "activity",
         category: "permissions",
         isRead: true,
-        createdAt: "2025-11-23T14:20:00Z",
+        createdAt: "2026-11-23T14:20:00Z",
         priority: "medium"
     },
     {
         id: "14",
         title: "Backup Completed Successfully",
         description: "Daily system backup finished",
-        content: "Daily automated backup completed at 2:30 AM. All data successfully backed up to secure cloud storage. Backup size: 45.2 GB. Next scheduled backup: November 26, 2025 at 2:00 AM.",
+        content: "Daily automated backup completed at 2:30 AM. All data successfully backed up to secure cloud storage. Backup size: 45.2 GB. Next scheduled backup: November 26, 2026 at 2:00 AM.",
         type: "system",
         category: "backup",
         isRead: true,
-        createdAt: "2025-11-25T02:30:00Z",
+        createdAt: "2026-11-25T02:30:00Z",
         priority: "low"
     },
     {
@@ -173,7 +173,7 @@ export const notifications: Notification[] = [
         type: "activity",
         category: "shift",
         isRead: true,
-        createdAt: "2025-11-24T18:00:00Z",
+        createdAt: "2026-11-24T18:00:00Z",
         priority: "low"
     }
 ]

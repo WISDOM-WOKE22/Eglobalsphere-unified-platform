@@ -1,47 +1,49 @@
 import { StatsCard } from '@/modules/dashboard/components/card/statsCard';
 import { SpherexChart, FarouqChart, LPRChart } from '@/modules/dashboard/components/chart';
 import { Users, CardSim, SquareLibrary, TicketCheck, TicketMinus } from 'lucide-react';
-import { DashboardPreLoader } from '../components/preloader';
+import { useDashboardService } from '../services';
+import { DashboardSkeleton } from '../components/preloader';
 
 export const Dashboard = () => {
+  const { data, isLoading } = useDashboardService();
 
-  // if (!isLoading) {
-  //   <DashboardPreLoader />;
-  // }
+  if (isLoading) {
+    return <DashboardSkeleton />;
+  }
 
   return (
     <main>
       <p>Overview dashboard</p>
 
       <section className='mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 max-lg:mb-5'>
-        <StatsCard Icon={CardSim} title='Active services' stat={0} />
-        <StatsCard Icon={Users} title='Total Spherex users/employees' stat={0} />
+        <StatsCard Icon={CardSim} title='Active services' stat={data?.statistics.total_employees ?? 0} />
+        <StatsCard Icon={Users} title='Total Spherex users/employees' stat={data?.statistics.total_visitors ?? 0} />
         <StatsCard
           Icon={SquareLibrary}
           title='Total license plates'
-          stat={0}
+          stat={data?.statistics.total_zones ?? 0}
         />
         <StatsCard
           Icon={Users}
           title='Total Farouq Employees'
-          stat={0}
+          stat={data?.statistics.total_security_guards ?? 0}
         />
         <StatsCard
           Icon={TicketCheck}
           title='Total Closed tickets'
-          stat={0}
+          stat={data?.statistics.active_employees ?? 0}
         />
         <StatsCard
           Icon={TicketMinus}
           title='Total LPR Gates'
-          stat={0}
+          stat={data?.statistics.inactive_employees ?? 0}
         />
       </section>
 
       {/* Charts */}
 
       <section className='mt-7'>
-        <SpherexChart chartData={[]} />
+        <SpherexChart chartData={data?.spherexStats ?? []} />
       </section>
       <section className="mt-6 grid grid-cols-2 gap-4 max-lg:grid-cols-1">
         <LPRChart chartData={[]} />

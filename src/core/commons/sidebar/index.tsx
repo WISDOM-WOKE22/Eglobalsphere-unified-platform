@@ -23,10 +23,13 @@ import {
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { LogoIcon } from '../logo';
+import { useStore } from '@/lib/zustand/store';
+import Image from 'next/image';
 
 export default function AppSidebar({ userRole, className }: AppSidebarProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const { company } = useStore();
   typeof userRole === 'string';
   const allowedPermissions: string[] = userRole
     ? Array.from(
@@ -82,8 +85,8 @@ export default function AppSidebar({ userRole, className }: AppSidebarProps) {
         onClick={() => router.push('/dashboard')}
       >
         <div className='flex items-center gap-2 mt-2 flex-row'>
-          <LogoIcon />
-          <h1 className='text-xl mb-2'>EglobalSphere</h1>
+        {company?.companyLogo ? <Image src={`https://sphereone-backend.eglobalsphere.com/${company.companyLogo}`} alt='Company Logo' width={32} height={32} /> : <LogoIcon />}
+          <h1 className='text-xl mb-2'>{company?.companyName ?? 'EglobalSphere'}</h1>
         </div>
       </SidebarHeader>
       <SidebarContent>

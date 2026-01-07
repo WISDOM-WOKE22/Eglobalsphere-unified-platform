@@ -1,6 +1,9 @@
 import { IUser } from "./user.types";
+import { CompanyType } from "./company.types";
 
 export interface useStoreTypes {
+    isAuthenticated: boolean;
+    setIsAuthenticated: (authenticated: boolean) => void;
     isLicensePlatesOpen: boolean;
     setIsLicensePlatesOpen: (open: boolean) => void;
     isNotificationOpen: boolean;
@@ -14,4 +17,8 @@ export interface useStoreTypes {
     setToken: (token: string) => void;
     refreshToken: string | null;
     setRefreshToken: (refreshToken: string) => void;
+    company: CompanyType | null;
+    setCompany: (company: CompanyType) => void;
+    isLoading: boolean;
+    setIsLoading: (loading: boolean) => void;
 }

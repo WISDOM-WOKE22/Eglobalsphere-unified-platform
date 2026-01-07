@@ -30,11 +30,13 @@ import {
 } from '../../constants/sidebar';
 import { useRouter } from 'next/navigation';
 import { LogoIcon } from '../logo';
+import { useStore } from '@/lib/zustand/store';
 
 export function MobileSidebar({ userRole, className }: AppSidebarProps) {
   const pathname = usePathname();
   const { setTheme } = useTheme();
   const router = useRouter();
+  const { company } = useStore();
   typeof userRole === 'string';
   const allowedPermissions: string[] = userRole
     ? Array.from(
@@ -99,7 +101,7 @@ export function MobileSidebar({ userRole, className }: AppSidebarProps) {
               onClick={() => router.push('/dashboard')}
             >
               <LogoIcon />
-              <h1 className='text-xl mb-2'>EglobalSphere</h1>
+              <h1 className='text-xl mb-2'>{company?.companyName ?? 'EglobalSphere'}</h1>
             </div>
           </div>
 

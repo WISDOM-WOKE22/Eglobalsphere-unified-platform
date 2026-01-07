@@ -114,7 +114,7 @@ const VerifyAccountContent = () => {
             <div className='text-center'>
               <p className='text-xs text-gray-600 dark:text-gray-300'>
                 By creating this account you agree to all <b>Eglobalsphere</b> terms
-                and conditions @Eglobalsphere 2025
+                and conditions @Eglobalsphere 2026
               </p>
             </div>
           </form>

@@ -16,9 +16,9 @@ export const farouqEmployees = [
         "is_active": true,
         "role": "SUPERVISOR",
         "status": "ACTIVE",
-        "created_at": "2025-08-23T08:24:40.076400Z",
-        "updated_at": "2025-08-28T17:22:35.426997Z",
-        "date_registered": "2025-08-23T08:24:40.076400Z",
+        "created_at": "2026-08-23T08:24:40.076400Z",
+        "updated_at": "2026-08-28T17:22:35.426997Z",
+        "date_registered": "2026-08-23T08:24:40.076400Z",
         "face_embeddings": null,
         "zone_assignments": []
     },
@@ -39,9 +39,9 @@ export const farouqEmployees = [
         "is_active": true,
         "role": "SUPERVISOR",
         "status": "ACTIVE",
-        "created_at": "2025-08-20T16:05:06.351661Z",
-        "updated_at": "2025-08-20T20:37:44.627179Z",
-        "date_registered": "2025-08-20T16:05:06.351661Z",
+        "created_at": "2026-08-20T16:05:06.351661Z",
+        "updated_at": "2026-08-20T20:37:44.627179Z",
+        "date_registered": "2026-08-20T16:05:06.351661Z",
         "face_embeddings": null,
         "zone_assignments": [
             {
@@ -59,9 +59,9 @@ export const farouqEmployees = [
                 "access_level": "standard",
                 "reason": null,
                 "is_active": true,
-                "authorization_date": "2025-08-20T16:05:06.658401Z",
+                "authorization_date": "2026-08-20T16:05:06.658401Z",
                 "authorization_expires": null,
-                "created_at": "2025-08-20T16:05:06.657619Z",
+                "created_at": "2026-08-20T16:05:06.657619Z",
                 "updated_at": null
             }
         ]
@@ -83,9 +83,9 @@ export const farouqEmployees = [
         "is_active": true,
         "role": "SUPERVISOR",
         "status": "ACTIVE",
-        "created_at": "2025-08-20T14:52:53.556583Z",
+        "created_at": "2026-08-20T14:52:53.556583Z",
         "updated_at": null,
-        "date_registered": "2025-08-20T14:52:53.556583Z",
+        "date_registered": "2026-08-20T14:52:53.556583Z",
         "face_embeddings": null,
         "zone_assignments": []
     },
@@ -106,9 +106,9 @@ export const farouqEmployees = [
         "is_active": true,
         "role": "SUPERVISOR",
         "status": "ACTIVE",
-        "created_at": "2025-08-19T16:15:00.710055Z",
+        "created_at": "2026-08-19T16:15:00.710055Z",
         "updated_at": null,
-        "date_registered": "2025-08-19T16:15:00.710055Z",
+        "date_registered": "2026-08-19T16:15:00.710055Z",
         "face_embeddings": null,
         "zone_assignments": []
     },
@@ -129,9 +129,9 @@ export const farouqEmployees = [
         "is_active": true,
         "role": "ADMIN",
         "status": "ACTIVE",
-        "created_at": "2025-08-19T16:12:53.995237Z",
+        "created_at": "2026-08-19T16:12:53.995237Z",
         "updated_at": null,
-        "date_registered": "2025-08-19T16:12:53.995237Z",
+        "date_registered": "2026-08-19T16:12:53.995237Z",
         "face_embeddings": null,
         "zone_assignments": []
     },
@@ -152,9 +152,9 @@ export const farouqEmployees = [
         "is_active": true,
         "role": "ADMIN",
         "status": "ACTIVE",
-        "created_at": "2025-08-19T16:06:52.527230Z",
+        "created_at": "2026-08-19T16:06:52.527230Z",
         "updated_at": null,
-        "date_registered": "2025-08-19T16:06:52.527230Z",
+        "date_registered": "2026-08-19T16:06:52.527230Z",
         "face_embeddings": null,
         "zone_assignments": []
     },
@@ -175,9 +175,9 @@ export const farouqEmployees = [
         "is_active": true,
         "role": "ADMIN",
         "status": "ACTIVE",
-        "created_at": "2025-08-15T00:20:28.420327Z",
+        "created_at": "2026-08-15T00:20:28.420327Z",
         "updated_at": null,
-        "date_registered": "2025-08-15T00:20:28.420327Z",
+        "date_registered": "2026-08-15T00:20:28.420327Z",
         "face_embeddings": null,
         "zone_assignments": []
     },
@@ -198,9 +198,9 @@ export const farouqEmployees = [
         "is_active": true,
         "role": "ADMIN",
         "status": "TERMINATED",
-        "created_at": "2025-07-30T18:56:47.297873Z",
-        "updated_at": "2025-07-30T18:59:59.595557Z",
-        "date_registered": "2025-07-30T18:56:47.297873Z",
+        "created_at": "2026-07-30T18:56:47.297873Z",
+        "updated_at": "2026-07-30T18:59:59.595557Z",
+        "date_registered": "2026-07-30T18:56:47.297873Z",
         "face_embeddings": null,
         "zone_assignments": []
     },
@@ -221,9 +221,9 @@ export const farouqEmployees = [
         "is_active": true,
         "role": "ADMIN",
         "status": "TERMINATED",
-        "created_at": "2025-07-30T17:07:01.693937Z",
-        "updated_at": "2025-07-31T13:50:36.889245Z",
-        "date_registered": "2025-07-30T17:07:01.693937Z",
+        "created_at": "2026-07-30T17:07:01.693937Z",
+        "updated_at": "2026-07-31T13:50:36.889245Z",
+        "date_registered": "2026-07-30T17:07:01.693937Z",
         "face_embeddings": null,
         "zone_assignments": []
     },
@@ -244,9 +244,9 @@ export const farouqEmployees = [
         "is_active": true,
         "role": "ADMIN",
         "status": "ACTIVE",
-        "created_at": "2025-07-23T12:10:20.599916Z",
-        "updated_at": "2025-07-30T18:34:36.986911Z",
-        "date_registered": "2025-07-23T12:10:20.599916Z",
+        "created_at": "2026-07-23T12:10:20.599916Z",
+        "updated_at": "2026-07-30T18:34:36.986911Z",
+        "date_registered": "2026-07-23T12:10:20.599916Z",
         "face_embeddings": null,
         "zone_assignments": []
     }
@@ -261,7 +261,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-11-25T15:05:24.604154Z",
+        "timestamp": "2026-11-25T15:05:24.604154Z",
         "method": "CREATE_SETTING",
         "status": "SystemSettings",
         "confidence_score": null,
@@ -271,7 +271,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Setting 'reports.recipients' was created.",
-        "created_at": "2025-11-25T15:05:24.604154Z"
+        "created_at": "2026-11-25T15:05:24.604154Z"
     },
     {
         "id": "b91a9ece-f165-489d-9a0f-5dda5f79a3b7",
@@ -281,7 +281,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-11-18T13:27:09.978055Z",
+        "timestamp": "2026-11-18T13:27:09.978055Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.46837353706359863,
@@ -291,7 +291,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Logged via real-time recognition",
-        "created_at": "2025-11-18T13:27:09.965138Z"
+        "created_at": "2026-11-18T13:27:09.965138Z"
     },
     {
         "id": "b032aa80-4d31-454c-bc7c-4bd65d288685",
@@ -301,7 +301,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-11-18T13:27:09.976094Z",
+        "timestamp": "2026-11-18T13:27:09.976094Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -311,7 +311,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-11-18T13:27:09.965138Z"
+        "created_at": "2026-11-18T13:27:09.965138Z"
     },
     {
         "id": "accc86e9-3ec7-4d30-8da7-b2735faa1cf4",
@@ -321,7 +321,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-11-18T11:37:44.501210Z",
+        "timestamp": "2026-11-18T11:37:44.501210Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.44678011536598206,
@@ -331,7 +331,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Logged via real-time recognition",
-        "created_at": "2025-11-18T11:37:44.491335Z"
+        "created_at": "2026-11-18T11:37:44.491335Z"
     },
     {
         "id": "cc6c70cd-1034-44d0-ac2c-8e2c9931f9c3",
@@ -341,7 +341,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-11-18T11:37:44.499865Z",
+        "timestamp": "2026-11-18T11:37:44.499865Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -351,7 +351,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-11-18T11:37:44.491335Z"
+        "created_at": "2026-11-18T11:37:44.491335Z"
     },
     {
         "id": "d6b873f8-c49d-4055-ae90-ffa2061acc97",
@@ -361,7 +361,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-11-18T11:37:27.993065Z",
+        "timestamp": "2026-11-18T11:37:27.993065Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.36350730061531067,
@@ -371,7 +371,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Logged via real-time recognition",
-        "created_at": "2025-11-18T11:37:27.960741Z"
+        "created_at": "2026-11-18T11:37:27.960741Z"
     },
     {
         "id": "72d4d99d-0f0f-4878-a5af-db50b85ba7c5",
@@ -381,7 +381,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-11-18T11:37:27.988831Z",
+        "timestamp": "2026-11-18T11:37:27.988831Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -391,7 +391,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-11-18T11:37:27.960741Z"
+        "created_at": "2026-11-18T11:37:27.960741Z"
     },
     {
         "id": "80faf50e-3822-4c2a-9a55-a84c6550de0b",
@@ -401,7 +401,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-11-11T14:59:24.789880Z",
+        "timestamp": "2026-11-11T14:59:24.789880Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.3283596634864807,
@@ -411,7 +411,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Logged via real-time recognition",
-        "created_at": "2025-11-11T14:59:24.775665Z"
+        "created_at": "2026-11-11T14:59:24.775665Z"
     },
     {
         "id": "cfba4924-2db8-4eb9-97c5-49cb9ceaf3df",
@@ -421,7 +421,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-11-11T14:59:24.787648Z",
+        "timestamp": "2026-11-11T14:59:24.787648Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -431,7 +431,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-11-11T14:59:24.775665Z"
+        "created_at": "2026-11-11T14:59:24.775665Z"
     },
     {
         "id": "31cec500-4b4c-4acf-9189-363a0b63010e",
@@ -441,7 +441,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-11-11T06:57:45.767508Z",
+        "timestamp": "2026-11-11T06:57:45.767508Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.5094069242477417,
@@ -451,7 +451,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Logged via real-time recognition",
-        "created_at": "2025-11-11T06:57:45.749328Z"
+        "created_at": "2026-11-11T06:57:45.749328Z"
     },
     {
         "id": "68415dd0-75cf-49a8-b085-76ae37e89b94",
@@ -461,7 +461,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-11-11T06:57:45.765384Z",
+        "timestamp": "2026-11-11T06:57:45.765384Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -471,7 +471,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-11-11T06:57:45.749328Z"
+        "created_at": "2026-11-11T06:57:45.749328Z"
     },
     {
         "id": "4c3bc5ca-408f-4423-ae70-629edb9fb710",
@@ -481,7 +481,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:39:18.299888Z",
+        "timestamp": "2026-10-15T13:39:18.299888Z",
         "method": "face_recognition",
         "status": "check_out",
         "confidence_score": 0.0,
@@ -491,7 +491,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Face recognition check_out",
-        "created_at": "2025-10-15T13:39:18.294655Z"
+        "created_at": "2026-10-15T13:39:18.294655Z"
     },
     {
         "id": "14bac32c-6ad7-4099-a184-0215bb74ee27",
@@ -501,7 +501,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:52.631738Z",
+        "timestamp": "2026-10-15T13:38:52.631738Z",
         "method": "face_recognition",
         "status": "check_out",
         "confidence_score": 0.0,
@@ -511,7 +511,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Face recognition check_out",
-        "created_at": "2025-10-15T13:38:52.622767Z"
+        "created_at": "2026-10-15T13:38:52.622767Z"
     },
     {
         "id": "86ce5f4b-1e6e-42be-9487-ad0160603f65",
@@ -521,7 +521,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:47.262255Z",
+        "timestamp": "2026-10-15T13:38:47.262255Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.95,
@@ -531,7 +531,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Face recognition check_in",
-        "created_at": "2025-10-15T13:38:47.252087Z"
+        "created_at": "2026-10-15T13:38:47.252087Z"
     },
     {
         "id": "698fa2a6-c70e-4462-a500-4ce4ac8b06e0",
@@ -541,7 +541,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:47.260614Z",
+        "timestamp": "2026-10-15T13:38:47.260614Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -551,7 +551,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-10-15T13:38:47.252087Z"
+        "created_at": "2026-10-15T13:38:47.252087Z"
     },
     {
         "id": "6fc29ee7-5975-45e4-992a-fb9e649a81c1",
@@ -561,7 +561,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:46.483183Z",
+        "timestamp": "2026-10-15T13:38:46.483183Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.95,
@@ -571,7 +571,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Face recognition check_in",
-        "created_at": "2025-10-15T13:38:46.472042Z"
+        "created_at": "2026-10-15T13:38:46.472042Z"
     },
     {
         "id": "eb83576e-700a-4a4f-8d14-8d92eb7aca17",
@@ -581,7 +581,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:46.481462Z",
+        "timestamp": "2026-10-15T13:38:46.481462Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -591,7 +591,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-10-15T13:38:46.472042Z"
+        "created_at": "2026-10-15T13:38:46.472042Z"
     },
     {
         "id": "aa22e618-fe67-4aaa-903c-a8d6d8b7982e",
@@ -601,7 +601,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:45.814616Z",
+        "timestamp": "2026-10-15T13:38:45.814616Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.95,
@@ -611,7 +611,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Face recognition check_in",
-        "created_at": "2025-10-15T13:38:45.801979Z"
+        "created_at": "2026-10-15T13:38:45.801979Z"
     },
     {
         "id": "5abab187-3622-4e68-9c13-34323bdfc1f8",
@@ -621,7 +621,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:45.812049Z",
+        "timestamp": "2026-10-15T13:38:45.812049Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -631,7 +631,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-10-15T13:38:45.801979Z"
+        "created_at": "2026-10-15T13:38:45.801979Z"
     },
     {
         "id": "5eb49661-6d87-44de-8b83-08e6ff7cbab4",
@@ -641,7 +641,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:45.115686Z",
+        "timestamp": "2026-10-15T13:38:45.115686Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.95,
@@ -651,7 +651,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Face recognition check_in",
-        "created_at": "2025-10-15T13:38:45.105440Z"
+        "created_at": "2026-10-15T13:38:45.105440Z"
     },
     {
         "id": "4b582d80-1913-46bc-94fa-804f1e693692",
@@ -661,7 +661,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:45.114057Z",
+        "timestamp": "2026-10-15T13:38:45.114057Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -671,7 +671,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-10-15T13:38:45.105440Z"
+        "created_at": "2026-10-15T13:38:45.105440Z"
     },
     {
         "id": "19738f86-1a42-4cfe-b73b-48f0a314b556",
@@ -681,7 +681,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:44.363034Z",
+        "timestamp": "2026-10-15T13:38:44.363034Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.95,
@@ -691,7 +691,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Face recognition check_in",
-        "created_at": "2025-10-15T13:38:44.352110Z"
+        "created_at": "2026-10-15T13:38:44.352110Z"
     },
     {
         "id": "12cc4587-5ec2-475d-9019-75cca7245074",
@@ -701,7 +701,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:44.361467Z",
+        "timestamp": "2026-10-15T13:38:44.361467Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -711,7 +711,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-10-15T13:38:44.352110Z"
+        "created_at": "2026-10-15T13:38:44.352110Z"
     },
     {
         "id": "1061864a-c722-4e6f-86fb-c0c9e92a3450",
@@ -721,7 +721,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:43.498904Z",
+        "timestamp": "2026-10-15T13:38:43.498904Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.95,
@@ -731,7 +731,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Face recognition check_in",
-        "created_at": "2025-10-15T13:38:43.487907Z"
+        "created_at": "2026-10-15T13:38:43.487907Z"
     },
     {
         "id": "4edfe5fc-458c-4475-8627-76261d34a791",
@@ -741,7 +741,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:43.497356Z",
+        "timestamp": "2026-10-15T13:38:43.497356Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -751,7 +751,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-10-15T13:38:43.487907Z"
+        "created_at": "2026-10-15T13:38:43.487907Z"
     },
     {
         "id": "b2ebd130-74fa-490c-b250-be26bdcd9ddd",
@@ -761,7 +761,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:42.693590Z",
+        "timestamp": "2026-10-15T13:38:42.693590Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.95,
@@ -771,7 +771,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Face recognition check_in",
-        "created_at": "2025-10-15T13:38:42.686839Z"
+        "created_at": "2026-10-15T13:38:42.686839Z"
     },
     {
         "id": "2d95b402-4b99-4b0a-bb51-9e1b0924ffac",
@@ -781,7 +781,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:42.692626Z",
+        "timestamp": "2026-10-15T13:38:42.692626Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -791,7 +791,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-10-15T13:38:42.686839Z"
+        "created_at": "2026-10-15T13:38:42.686839Z"
     },
     {
         "id": "6d21eba5-f95c-45f5-ae3c-70b2a8eddaa2",
@@ -801,7 +801,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:42.014028Z",
+        "timestamp": "2026-10-15T13:38:42.014028Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.95,
@@ -811,7 +811,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Face recognition check_in",
-        "created_at": "2025-10-15T13:38:42.001209Z"
+        "created_at": "2026-10-15T13:38:42.001209Z"
     },
     {
         "id": "b6713b68-c97c-4e89-b5b8-e92366f3a6a6",
@@ -821,7 +821,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:42.012357Z",
+        "timestamp": "2026-10-15T13:38:42.012357Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -831,7 +831,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-10-15T13:38:42.001209Z"
+        "created_at": "2026-10-15T13:38:42.001209Z"
     },
     {
         "id": "99492e66-e8ca-4834-9b6e-e2fd9eb14199",
@@ -841,7 +841,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:41.317043Z",
+        "timestamp": "2026-10-15T13:38:41.317043Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.95,
@@ -851,7 +851,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Face recognition check_in",
-        "created_at": "2025-10-15T13:38:41.304734Z"
+        "created_at": "2026-10-15T13:38:41.304734Z"
     },
     {
         "id": "513044b7-6477-42b9-8a1d-27e3c3d5444d",
@@ -861,7 +861,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:41.314897Z",
+        "timestamp": "2026-10-15T13:38:41.314897Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -871,7 +871,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-10-15T13:38:41.304734Z"
+        "created_at": "2026-10-15T13:38:41.304734Z"
     },
     {
         "id": "8a2826ab-5212-43e9-bc11-f4c245ea32db",
@@ -881,7 +881,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:38.578818Z",
+        "timestamp": "2026-10-15T13:38:38.578818Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.95,
@@ -891,7 +891,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Face recognition check_in",
-        "created_at": "2025-10-15T13:38:38.568030Z"
+        "created_at": "2026-10-15T13:38:38.568030Z"
     },
     {
         "id": "453ef8e7-5ecf-4df7-aae1-76743af12f88",
@@ -901,7 +901,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:38.577161Z",
+        "timestamp": "2026-10-15T13:38:38.577161Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -911,7 +911,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-10-15T13:38:38.568030Z"
+        "created_at": "2026-10-15T13:38:38.568030Z"
     },
     {
         "id": "795231f3-3d66-43f5-92fd-86e00c3b2101",
@@ -921,7 +921,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:37.958484Z",
+        "timestamp": "2026-10-15T13:38:37.958484Z",
         "method": "face_recognition",
         "status": "check_out",
         "confidence_score": 0.0,
@@ -931,7 +931,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Face recognition check_out",
-        "created_at": "2025-10-15T13:38:37.945369Z"
+        "created_at": "2026-10-15T13:38:37.945369Z"
     },
     {
         "id": "68d1b210-ee3b-441a-bbf6-d0b284cbdc04",
@@ -941,7 +941,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:37.956412Z",
+        "timestamp": "2026-10-15T13:38:37.956412Z",
         "method": null,
         "status": "absent",
         "confidence_score": null,
@@ -951,7 +951,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Absent from shift at work area",
-        "created_at": "2025-10-15T13:38:37.945369Z"
+        "created_at": "2026-10-15T13:38:37.945369Z"
     },
     {
         "id": "86d6b263-5e74-40f4-82cf-807056408044",
@@ -961,7 +961,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:37.300014Z",
+        "timestamp": "2026-10-15T13:38:37.300014Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.48751652240753174,
@@ -971,7 +971,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Logged via real-time recognition",
-        "created_at": "2025-10-15T13:38:37.288236Z"
+        "created_at": "2026-10-15T13:38:37.288236Z"
     },
     {
         "id": "33332609-8d03-4dbb-bd79-8de3e37c5863",
@@ -981,7 +981,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:37.298441Z",
+        "timestamp": "2026-10-15T13:38:37.298441Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -991,7 +991,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-10-15T13:38:37.288236Z"
+        "created_at": "2026-10-15T13:38:37.288236Z"
     },
     {
         "id": "cc0091a4-98c0-40a0-92cb-99973d258cd1",
@@ -1001,7 +1001,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:36.524093Z",
+        "timestamp": "2026-10-15T13:38:36.524093Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.4570460021495819,
@@ -1011,7 +1011,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Logged via real-time recognition",
-        "created_at": "2025-10-15T13:38:36.512194Z"
+        "created_at": "2026-10-15T13:38:36.512194Z"
     },
     {
         "id": "d6cdda66-37ba-4319-a741-172a4964eeee",
@@ -1021,7 +1021,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:36.522467Z",
+        "timestamp": "2026-10-15T13:38:36.522467Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -1031,7 +1031,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-10-15T13:38:36.512194Z"
+        "created_at": "2026-10-15T13:38:36.512194Z"
     },
     {
         "id": "6c2dee68-06d9-42ac-8d5c-1ca3831e3705",
@@ -1041,7 +1041,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:35.860212Z",
+        "timestamp": "2026-10-15T13:38:35.860212Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.4321562647819519,
@@ -1051,7 +1051,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Logged via real-time recognition",
-        "created_at": "2025-10-15T13:38:35.835978Z"
+        "created_at": "2026-10-15T13:38:35.835978Z"
     },
     {
         "id": "ec2cd001-6079-43eb-a6c8-428b150581c3",
@@ -1061,7 +1061,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-15T13:38:35.856615Z",
+        "timestamp": "2026-10-15T13:38:35.856615Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -1071,7 +1071,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-10-15T13:38:35.835978Z"
+        "created_at": "2026-10-15T13:38:35.835978Z"
     },
     {
         "id": "480c4d90-a9aa-4390-b995-4a084ae5da1d",
@@ -1081,7 +1081,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-13T07:00:26.296880Z",
+        "timestamp": "2026-10-13T07:00:26.296880Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.4321562647819519,
@@ -1091,7 +1091,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Logged via real-time recognition",
-        "created_at": "2025-10-13T07:00:26.289423Z"
+        "created_at": "2026-10-13T07:00:26.289423Z"
     },
     {
         "id": "405a963c-88a3-4bf7-9937-769d5bfb24e3",
@@ -1101,7 +1101,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-13T07:00:26.295921Z",
+        "timestamp": "2026-10-13T07:00:26.295921Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -1111,7 +1111,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-10-13T07:00:26.289423Z"
+        "created_at": "2026-10-13T07:00:26.289423Z"
     },
     {
         "id": "5f066d34-3c33-4074-8310-8f946aab2cbb",
@@ -1121,7 +1121,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-13T07:00:21.427458Z",
+        "timestamp": "2026-10-13T07:00:21.427458Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.4570460021495819,
@@ -1131,7 +1131,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Logged via real-time recognition",
-        "created_at": "2025-10-13T07:00:21.417703Z"
+        "created_at": "2026-10-13T07:00:21.417703Z"
     },
     {
         "id": "bdea3a5b-83e6-4ba5-8511-936524d572a8",
@@ -1141,7 +1141,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-13T07:00:21.426029Z",
+        "timestamp": "2026-10-13T07:00:21.426029Z",
         "method": "face_recognition",
         "status": "present",
         "confidence_score": null,
@@ -1151,7 +1151,7 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": 0,
         "notes": "Present for shift at work area",
-        "created_at": "2025-10-13T07:00:21.417703Z"
+        "created_at": "2026-10-13T07:00:21.417703Z"
     },
     {
         "id": "ae0fe095-00ee-434e-bc5f-ae3eecc02f61",
@@ -1161,7 +1161,7 @@ export const farouqLogs = [
         "zone_id": null,
         "zone_name": null,
         "agent_id": null,
-        "timestamp": "2025-10-13T07:00:13.574887Z",
+        "timestamp": "2026-10-13T07:00:13.574887Z",
         "method": "face_recognition",
         "status": "check_in",
         "confidence_score": 0.48751652240753174,
@@ -1171,6 +1171,6 @@ export const farouqLogs = [
         "movement_score": null,
         "idle_time_minutes": null,
         "notes": "Logged via real-time recognition",
-        "created_at": "2025-10-13T07:00:13.561365Z"
+        "created_at": "2026-10-13T07:00:13.561365Z"
     }
 ]

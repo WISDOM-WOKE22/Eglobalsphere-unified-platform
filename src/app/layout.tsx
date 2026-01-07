@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import Script from "next/script";
 import { CircleCheckIcon, InfoIcon, Loader2Icon, OctagonXIcon, TriangleAlertIcon } from "lucide-react";
+import { AuthProvider } from "@/lib/context/authContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -86,9 +87,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SidebarProvider>
-            {children}
-          </SidebarProvider>
+          <AuthProvider>
+            <SidebarProvider>
+              {children}
+            </SidebarProvider>
+          </AuthProvider>
         </ThemeProvider>
         <Toaster richColors icons={{
           success: <CircleCheckIcon className="size-4" />,

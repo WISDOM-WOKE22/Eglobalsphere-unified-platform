@@ -118,7 +118,7 @@ function TwoFactorAuthContent() {
               <Separator />
               <p className='text-center max-w-90 text-xs dark:text-gray-300 text-gray-800'>
                 By logging in you agree to all <b>Eglobalsphere</b> terms and
-                conditions @Eglobalsphere 2025
+                conditions @Eglobalsphere 2026
               </p>
             </div>
           </form>

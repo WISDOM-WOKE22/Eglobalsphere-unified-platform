@@ -17,6 +17,8 @@ export const useLogoutService = () => {
             const cookiesToClear = [
                 'role',
                 'token',
+                'refresh-token',
+                'auth-token',
             ];
             cookiesToClear.forEach((cookieName) => {
                 document.cookie = `${cookieName}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; secure; SameSite=Strict`;
