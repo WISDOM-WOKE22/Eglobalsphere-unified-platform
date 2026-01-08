@@ -8,7 +8,7 @@ export const renderLicensePlate = (licensePlate?: string) => {
       <div className="flex space-x-1">
         {modifiedPlate.map((char, index) => (
           <span key={index} className="license-character">
-            {char}
+            {char.replace("-", "").replace("_","")}
           </span>
         ))}
       </div>

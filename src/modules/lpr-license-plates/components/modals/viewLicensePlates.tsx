@@ -1,13 +1,9 @@
-import { Button } from "@/components/ui/button"
 import {
     Dialog,
-    DialogClose,
     DialogContent,
     DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
 import { useStore } from "@/lib/zustand/store"
 import { renderLicensePlate } from "@/core/commons/utils"
@@ -15,7 +11,7 @@ import { Label } from "@/components/ui/label"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 
 export const ViewLicensePlatesModal = () => {
-    const { isLicensePlatesOpen, setIsLicensePlatesOpen } = useStore()
+    const { isLicensePlatesOpen, setIsLicensePlatesOpen, selectedVehicle } = useStore()
     return (
         <Dialog open={isLicensePlatesOpen} onOpenChange={(open) => setIsLicensePlatesOpen(open)}>
             <DialogContent>
@@ -28,27 +24,27 @@ export const ViewLicensePlatesModal = () => {
                 <div className="grid grid-cols-2 gap-3">
                     <div className="flex flex-col gap-2">
                         <Label className="text-gray-500">License Plate</Label>
-                        <p>{renderLicensePlate('٤٨٢-هـهـ_')}</p>
+                        <p>{renderLicensePlate(selectedVehicle?.license_plate || '')}</p>
                     </div>
                     <div className="flex flex-col gap-2">
                         <Label className="text-gray-500">Vehicle Owner</Label>
-                        <p>Guest</p>
+                        <p>{selectedVehicle?.vehicle_owner || ''}</p>
                     </div>
                     <div className="flex flex-col gap-2">
                         <Label className="text-gray-500">Vehicle Model</Label>
-                        <p>Guest</p>
+                        <p>{selectedVehicle?.vehicle_model || ''}</p>
                     </div>
                     <div className="flex flex-col gap-2">
                         <Label className="text-gray-500">Vehicle Owner</Label>
-                        <p>Guest</p>
+                        <p>{selectedVehicle?.vehicle_owner || ''}</p>
                     </div>
                     <div className="flex flex-col gap-2">
                         <Label className="text-gray-500">Status</Label>
-                        {getStatusBadge("active")}
+                        {getStatusBadge(selectedVehicle?.status || 'inactive')}
                     </div>
                     <div className="flex flex-col gap-2">
                         <Label className="text-gray-500">House No</Label>
-                        <p>20 -21A</p>
+                        <p>{selectedVehicle?.house_no || ''}</p>
                     </div>
                 </div>
             </DialogContent>

@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Skeleton } from "@/components/ui/skeleton"
 import {
     Table,
     TableBody,
@@ -18,34 +18,38 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
-import { gateAccess } from "@/constants/lpr"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { renderLicensePlate } from "@/core/commons/utils"
-import moment from "moment"
 import { ExportData } from "@/core/commons/dialogs"
+import { useLPRLogsService } from "../../services"
+import { LPRLog } from "@/types"
 
-const ITEMS_PER_PAGE = 15
+const ITEMS_PER_PAGE = 20
 
 export const LPRGateAccessTable = () => {
+    const { data, isLoading } = useLPRLogsService()
     const [currentPage, setCurrentPage] = useState(1)
     const [searchTerm, setSearchTerm] = useState("")
 
-    // Filter license plates based on search term
-    const filteredPlates = useMemo(() => {
-        if (!searchTerm) return gateAccess
+    // Filter logs based on search term
+    const filteredLogs = useMemo(() => {
+        if (!data?.logs) return []
+        if (!searchTerm) return data.logs
         const term = searchTerm.toLowerCase()
-        return gateAccess.filter(
-            (plate) =>
-                plate.license_plate.toLowerCase().includes(term) ||
-                plate.owner.toLowerCase().includes(term) ||
-                plate.access_type.toLowerCase().includes(term)
+        return data.logs.filter(
+            (log: LPRLog) =>
+                log.license_plate.toLowerCase().includes(term) ||
+                log.vehicle_owner.toLowerCase().includes(term) ||
+                log.gate.toLowerCase().includes(term) ||
+                log.gate_access_type.toLowerCase().includes(term) ||
+                log.authorization_status.toLowerCase().includes(term)
         )
-    }, [searchTerm])
+    }, [searchTerm, data?.logs])
 
     // Calculate pagination
-    const totalPages = Math.ceil(filteredPlates.length / ITEMS_PER_PAGE)
+    const totalPages = Math.ceil(filteredLogs.length / ITEMS_PER_PAGE)
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
-    const paginatedPlates = filteredPlates.slice(startIndex, startIndex + ITEMS_PER_PAGE)
+    const paginatedLogs = filteredLogs.slice(startIndex, startIndex + ITEMS_PER_PAGE)
 
     // Handle page change
     const handlePageChange = (page: number) => {
@@ -86,37 +90,69 @@ export const LPRGateAccessTable = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {paginatedPlates.length > 0 ? (
-                            paginatedPlates.map((licensePlate, index) => (
+                        {isLoading ? (
+                            // Loading skeleton
+                            Array.from({ length: 5 }).map((_, index) => (
                                 <TableRow key={index}>
-                                    <TableCell>{renderLicensePlate(licensePlate.license_plate)}</TableCell>
-                                    <TableCell className="capitalize">{licensePlate.owner}</TableCell>
-                                    <TableCell>{licensePlate.gate}</TableCell>
-                                    <TableCell>{moment(licensePlate.creation).format("D MMM YYYY")}</TableCell>
-                                    <TableCell>{getStatusBadge(licensePlate.access_type)}</TableCell>
-                                    <TableCell className="text-center">{moment(licensePlate.creation).format("HH:mm:ss")}</TableCell>
-                                    <TableCell className="flex items-center justify-center">{getStatusBadge(licensePlate.authorized === 1 ? "authorized" : "unauthorized")}</TableCell>
+                                    <TableCell><Skeleton className="h-4 w-32" /></TableCell>
+                                    <TableCell><Skeleton className="h-4 w-24" /></TableCell>
+                                    <TableCell><Skeleton className="h-4 w-20" /></TableCell>
+                                    <TableCell><Skeleton className="h-4 w-28" /></TableCell>
+                                    <TableCell><Skeleton className="h-6 w-16" /></TableCell>
+                                    <TableCell><Skeleton className="h-4 w-20 mx-auto" /></TableCell>
+                                    <TableCell><Skeleton className="h-6 w-24 mx-auto" /></TableCell>
+                                </TableRow>
+                            ))
+                        ) : paginatedLogs.length > 0 ? (
+                            paginatedLogs.map((log: LPRLog) => (
+                                <TableRow 
+                                    key={log.id}
+                                    className="hover:bg-muted/50 transition-colors"
+                                >
+                                    <TableCell className="font-medium">
+                                        {renderLicensePlate(log.license_plate)}
+                                    </TableCell>
+                                    <TableCell className="capitalize">{log.vehicle_owner}</TableCell>
+                                    <TableCell>{log.gate}</TableCell>
+                                    <TableCell>{log.date}</TableCell>
+                                    <TableCell>{getStatusBadge(log.gate_access_type)}</TableCell>
+                                    <TableCell className="text-center">{log.time}</TableCell>
+                                    <TableCell className="flex items-center justify-center">
+                                        {getStatusBadge(log.authorization_status)}
+                                    </TableCell>
                                 </TableRow>
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={6} className="text-center py-4">
-                                    No license plates found
+                                <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
+                                    {searchTerm ? `No logs found matching "${searchTerm}"` : "No access logs found"}
                                 </TableCell>
                             </TableRow>
                         )}
                     </TableBody>
                 </Table>
             </CardContent>
-            {totalPages > 1 && (
+            {!isLoading && filteredLogs.length > 0 && (
                 <CardFooter className="flex justify-between items-center">
                     <div className="text-sm text-muted-foreground">
-                        Showing <span className="font-medium">{startIndex + 1}</span> to{' '}
-                        <span className="font-medium">
-                            {Math.min(startIndex + ITEMS_PER_PAGE, filteredPlates.length)}
-                        </span>{' '}
-                        of <span className="font-medium">{filteredPlates.length}</span> results
+                        {totalPages > 1 ? (
+                            <>
+                                Showing <span className="font-medium">{startIndex + 1}</span> to{' '}
+                                <span className="font-medium">
+                                    {Math.min(startIndex + ITEMS_PER_PAGE, filteredLogs.length)}
+                                </span>{' '}
+                                of <span className="font-medium">{filteredLogs.length}</span> results
+                                {searchTerm && data && ` (filtered from ${data.total} total)`}
+                            </>
+                        ) : (
+                            <>
+                                Showing <span className="font-medium">{filteredLogs.length}</span> result
+                                {filteredLogs.length !== 1 ? 's' : ''}
+                                {searchTerm && data && ` (filtered from ${data.total} total)`}
+                            </>
+                        )}
                     </div>
+                    {totalPages > 1 && (
                     <Pagination>
                         <PaginationContent>
                             <PaginationItem>
@@ -222,6 +258,7 @@ export const LPRGateAccessTable = () => {
                             </PaginationItem>
                         </PaginationContent>
                     </Pagination>
+                    )}
                 </CardFooter>
             )}
         </Card>

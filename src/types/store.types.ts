@@ -1,5 +1,6 @@
 import { IUser } from "./user.types";
-import { CompanyType } from "./company.types";
+import { CompanyType, } from "./company.types";
+import { Vehicle } from "./lpr.types";
 
 export interface useStoreTypes {
     isAuthenticated: boolean;
@@ -21,4 +22,6 @@ export interface useStoreTypes {
     setCompany: (company: CompanyType) => void;
     isLoading: boolean;
     setIsLoading: (loading: boolean) => void;
+    selectedVehicle: Vehicle | null;
+    setSelectedVehicle: (vehicle: Vehicle) => void;
 }

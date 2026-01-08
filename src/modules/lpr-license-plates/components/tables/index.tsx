@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { Skeleton } from "@/components/ui/skeleton"
 import {
     Table,
     TableBody,
@@ -17,32 +18,36 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
-import { licensePlates } from "@/constants/lpr"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { renderLicensePlate } from "@/core/commons/utils"
 import moment from "moment"
 import { useStore } from "@/lib/zustand/store"
 import { ViewLicensePlatesModal } from '../modals/viewLicensePlates'
 import { ExportData } from "@/core/commons/dialogs"
+import { useLPRLicensePlatesService } from "../../services"
+import { Vehicle } from "@/types"
 
 const ITEMS_PER_PAGE = 15
 
 export const LicensePlateTable = () => {
+    const { data, isLoading } = useLPRLicensePlatesService()
     const [currentPage, setCurrentPage] = useState(1)
     const [searchTerm, setSearchTerm] = useState("")
-    const { setIsLicensePlatesOpen } = useStore()
+    const { setIsLicensePlatesOpen, setSelectedVehicle } = useStore()
 
     // Filter license plates based on search term
     const filteredPlates = useMemo(() => {
-        if (!searchTerm) return licensePlates
+        if (!data?.vehicles) return []
+        if (!searchTerm) return data.vehicles
         const term = searchTerm.toLowerCase()
-        return licensePlates.filter(
-            (plate) =>
+        return data.vehicles.filter(
+            (plate: Vehicle) =>
                 plate.license_plate.toLowerCase().includes(term) ||
                 plate.vehicle_owner.toLowerCase().includes(term) ||
-                plate.house_no.toLowerCase().includes(term)
+                plate.house_no.toLowerCase().includes(term) ||
+                plate.vehicle_model.toLowerCase().includes(term)
         )
-    }, [searchTerm])
+    }, [searchTerm, data?.vehicles])
 
     // Calculate pagination
     const totalPages = Math.ceil(filteredPlates.length / ITEMS_PER_PAGE)
@@ -87,39 +92,71 @@ export const LicensePlateTable = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {paginatedPlates.length > 0 ? (
-                            paginatedPlates.map((licensePlate, index) => (
-                                <TableRow key={index}
-                                    onClick={() => setIsLicensePlatesOpen(true)}
-                                    className="cursor-pointer"
+                        {isLoading ? (
+                            // Loading skeleton
+                            Array.from({ length: 5 }).map((_, index) => (
+                                <TableRow key={index}>
+                                    <TableCell><Skeleton className="h-4 w-32" /></TableCell>
+                                    <TableCell><Skeleton className="h-4 w-24" /></TableCell>
+                                    <TableCell><Skeleton className="h-4 w-28" /></TableCell>
+                                    <TableCell><Skeleton className="h-4 w-16" /></TableCell>
+                                    <TableCell><Skeleton className="h-6 w-20" /></TableCell>
+                                    <TableCell><Skeleton className="h-4 w-32 mx-auto" /></TableCell>
+                                </TableRow>
+                            ))
+                        ) : paginatedPlates.length > 0 ? (
+                            paginatedPlates.map((licensePlate: Vehicle) => (
+                                <TableRow 
+                                    key={licensePlate.id}
+                                    onClick={() => {
+                                        setIsLicensePlatesOpen(true)
+                                        setSelectedVehicle(licensePlate)
+                                    }}
+                                    className="cursor-pointer hover:bg-muted/50 transition-colors"
                                 >
-                                    <TableCell>{renderLicensePlate(licensePlate.license_plate)}</TableCell>
+                                    <TableCell className="font-medium">
+                                        {renderLicensePlate(licensePlate.license_plate)}
+                                    </TableCell>
                                     <TableCell className="capitalize">{licensePlate.vehicle_owner}</TableCell>
                                     <TableCell>{licensePlate.vehicle_model}</TableCell>
                                     <TableCell>{licensePlate.house_no}</TableCell>
-                                    <TableCell>{getStatusBadge(licensePlate.enabled ? "enabled" : "disabled")}</TableCell>
-                                    <TableCell className="text-center">{moment(licensePlate.creation).format("D MMM YYYY HH:mm")}</TableCell>
+                                    <TableCell>{getStatusBadge(licensePlate.status)}</TableCell>
+                                    <TableCell className="text-center">
+                                        {moment(licensePlate.date_added).format("D MMM YYYY HH:mm")}
+                                    </TableCell>
                                 </TableRow>
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={6} className="text-center py-4">
-                                    No license plates found
+                                <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
+                                    {searchTerm ? `No license plates found matching "${searchTerm}"` : "No license plates found"}
                                 </TableCell>
                             </TableRow>
                         )}
                     </TableBody>
                 </Table>
             </CardContent>
-            {totalPages > 1 && (
+            {!isLoading && filteredPlates.length > 0 && (
                 <CardFooter className="flex justify-between items-center">
                     <div className="text-sm text-muted-foreground">
-                        Showing <span className="font-medium">{startIndex + 1}</span> to{' '}
-                        <span className="font-medium">
-                            {Math.min(startIndex + ITEMS_PER_PAGE, filteredPlates.length)}
-                        </span>{' '}
-                        of <span className="font-medium">{filteredPlates.length}</span> results
+                        {totalPages > 1 ? (
+                            <>
+                                Showing <span className="font-medium">{startIndex + 1}</span> to{' '}
+                                <span className="font-medium">
+                                    {Math.min(startIndex + ITEMS_PER_PAGE, filteredPlates.length)}
+                                </span>{' '}
+                                of <span className="font-medium">{filteredPlates.length}</span> results
+                                {searchTerm && data && ` (filtered from ${data.total} total)`}
+                            </>
+                        ) : (
+                            <>
+                                Showing <span className="font-medium">{filteredPlates.length}</span> result
+                                {filteredPlates.length !== 1 ? 's' : ''}
+                                {searchTerm && data && ` (filtered from ${data.total} total)`}
+                            </>
+                        )}
                     </div>
+                    {totalPages > 1 && (
                     <Pagination>
                         <PaginationContent>
                             <PaginationItem>
@@ -225,6 +262,7 @@ export const LicensePlateTable = () => {
                             </PaginationItem>
                         </PaginationContent>
                     </Pagination>
+                    )}
                 </CardFooter>
             )}
             <ViewLicensePlatesModal />

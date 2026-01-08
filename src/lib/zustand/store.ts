@@ -1,4 +1,4 @@
-import { CompanyType, useStoreTypes, IUser } from "@/types";
+import { CompanyType, useStoreTypes, IUser, Vehicle } from "@/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -35,6 +35,8 @@ export const useStore = create<useStoreTypes>()(
             setIsAuthenticated: (authenticated: boolean) => set({ isAuthenticated: authenticated }),
             isLoading: false,
             setIsLoading: (loading: boolean) => set({ isLoading: loading }),
+            selectedVehicle: null,
+            setSelectedVehicle: (vehicle: Vehicle) => set({ selectedVehicle: vehicle }),
         }),
         {
             name: "store"
