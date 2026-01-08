@@ -1,13 +1,14 @@
 'use client';
 
-import { TrendingUp } from 'lucide-react';
+import { TrendingUp, TrendingDown } from 'lucide-react';
 import {
     Bar,
     BarChart,
     CartesianGrid,
-    LabelList,
     ResponsiveContainer,
     XAxis,
+    YAxis,
+    Legend,
 } from 'recharts';
 
 import {
@@ -22,26 +23,33 @@ import {
     ChartContainer,
     ChartTooltip,
     ChartTooltipContent,
+    ChartLegend,
+    ChartLegendContent,
 } from '@/components/ui/chart';
+import { FarouqStatsEntry } from '@/types';
 
 export function FarouqOverviewChart({
     chartData,
 }: {
-    chartData: [] | undefined;
+    chartData: FarouqStatsEntry[] | undefined;
 }) {
     const chartConfig = {
-        signups: {
-            label: 'signups',
-            color: 'oklch(0.488 0.243 264.376)',
+        checkins: {
+            label: 'Check-ins',
+            color: '#10b981',
+        },
+        checkouts: {
+            label: 'Check-outs',
+            color: '#ef4444',
         },
     } satisfies ChartConfig;
 
-    // Handle undefined chartData
-    if (!chartData) {
+    // Handle undefined or empty chartData
+    if (!chartData || chartData.length === 0) {
         return (
             <Card className='w-full'>
                 <CardHeader>
-                    <CardTitle>Violation Stats Chart</CardTitle>
+                    <CardTitle>Check-ins vs Check-outs</CardTitle>
                 </CardHeader>
                 <CardContent className='h-[400px] p-6'>
                     <div className='flex items-center justify-center h-full text-muted-foreground'>
@@ -52,45 +60,67 @@ export function FarouqOverviewChart({
         );
     }
 
+    // Calculate trends
+    const totalCheckins = chartData.reduce((sum, entry) => sum + entry.checkins, 0);
+    const totalCheckouts = chartData.reduce((sum, entry) => sum + entry.checkouts, 0);
+    const avgCheckins = (totalCheckins / chartData.length).toFixed(1);
+    const avgCheckouts = (totalCheckouts / chartData.length).toFixed(1);
+    const trend = totalCheckins > totalCheckouts;
+
     return (
         <Card className='w-full'>
             <CardHeader>
-                <CardTitle>Performance Chart</CardTitle>
+                <CardTitle>Check-ins vs Check-outs Overview</CardTitle>
             </CardHeader>
             <CardContent className='h-[400px] p-6'>
                 <ChartContainer config={chartConfig} className='h-full w-full'>
                     <ResponsiveContainer width='100%' height='100%'>
-                        <BarChart data={chartData} margin={{ top: 20 }}>
-                            <CartesianGrid vertical={false} />
+                        <BarChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                            <CartesianGrid strokeDasharray="3 3" vertical={false} />
                             <XAxis
-                                dataKey='month'
+                                dataKey='day'
                                 tickLine={false}
                                 tickMargin={10}
                                 axisLine={false}
-                                tickFormatter={(value) => value.slice(0, 3)}
+                                tickFormatter={(value) => value.charAt(0).toUpperCase() + value.slice(1, 3)}
+                            />
+                            <YAxis 
+                                tickLine={false}
+                                axisLine={false}
+                                tickMargin={8}
                             />
                             <ChartTooltip
-                                cursor={false}
-                                content={<ChartTooltipContent hideLabel />}
+                                content={<ChartTooltipContent />}
                             />
-                            <Bar dataKey='signups' fill='var(--color-signups)' radius={8}>
-                                <LabelList
-                                    position='top'
-                                    offset={12}
-                                    className='fill-foreground'
-                                    fontSize={12}
-                                />
-                            </Bar>
+                            <ChartLegend content={<ChartLegendContent />} />
+                            <Bar 
+                                dataKey='checkins' 
+                                fill='var(--color-checkins)' 
+                                radius={[8, 8, 0, 0]}
+                            />
+                            <Bar 
+                                dataKey='checkouts' 
+                                fill='var(--color-checkouts)' 
+                                radius={[8, 8, 0, 0]}
+                            />
                         </BarChart>
                     </ResponsiveContainer>
                 </ChartContainer>
             </CardContent>
             <CardFooter className='flex-col items-start gap-2 text-sm'>
                 <div className='flex gap-2 font-medium leading-none'>
-                    Trending up by 5.2% this month <TrendingUp className='h-4 w-4' />
+                    {trend ? (
+                        <>
+                            More check-ins than check-outs <TrendingUp className='h-4 w-4 text-green-500' />
+                        </>
+                    ) : (
+                        <>
+                            More check-outs than check-ins <TrendingDown className='h-4 w-4 text-red-500' />
+                        </>
+                    )}
                 </div>
                 <div className='leading-none text-muted-foreground'>
-                    Showing total violations for the last 6 months
+                    Average: {avgCheckins} check-ins, {avgCheckouts} check-outs per day
                 </div>
             </CardFooter>
         </Card>

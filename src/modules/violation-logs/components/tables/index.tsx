@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Skeleton } from "@/components/ui/skeleton"
 import {
     Table,
     TableBody,
@@ -18,34 +18,37 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
-import { violations } from "@/constants/violation"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { renderLicensePlate } from "@/core/commons/utils"
-import moment from "moment"
 import { ExportData } from "@/core/commons/dialogs"
+import { useViolationLogsService } from "../../services"
+import { ViolationLog } from "@/types"
 
-const ITEMS_PER_PAGE = 15
+const ITEMS_PER_PAGE = 20
 
 export const ViolationLogsTable = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [searchTerm, setSearchTerm] = useState("")
+    const { data, isLoading } = useViolationLogsService()
 
-    // Filter license plates based on search term
-    const filteredPlates = useMemo(() => {
-        if (!searchTerm) return violations
+    // Filter violations based on search term
+    const filteredViolations = useMemo(() => {
+        if (!data?.data) return []
+        if (!searchTerm) return data.data
         const term = searchTerm.toLowerCase()
-        return violations.filter(
-            (violation) =>
+        return data.data.filter(
+            (violation: ViolationLog) =>
                 violation.license_plate.toLowerCase().includes(term) ||
-                violation.owner.toLowerCase().includes(term) ||
-                violation.violation_type.toLowerCase().includes(term)
+                violation.vehicle_owner.toLowerCase().includes(term) ||
+                violation.violation_type.toLowerCase().includes(term) ||
+                violation.gate.toLowerCase().includes(term)
         )
-    }, [searchTerm])
+    }, [searchTerm, data?.data])
 
     // Calculate pagination
-    const totalPages = Math.ceil(filteredPlates.length / ITEMS_PER_PAGE)
+    const totalPages = Math.ceil(filteredViolations.length / ITEMS_PER_PAGE)
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
-    const paginatedPlates = filteredPlates.slice(startIndex, startIndex + ITEMS_PER_PAGE)
+    const paginatedViolations = filteredViolations.slice(startIndex, startIndex + ITEMS_PER_PAGE)
 
     // Handle page change
     const handlePageChange = (page: number) => {
@@ -85,36 +88,65 @@ export const ViolationLogsTable = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {paginatedPlates.length > 0 ? (
-                            paginatedPlates.map((licensePlate, index) => (
+                        {isLoading ? (
+                            // Loading skeleton
+                            Array.from({ length: 5 }).map((_, index) => (
                                 <TableRow key={index}>
-                                    <TableCell>{renderLicensePlate(licensePlate.license_plate)}</TableCell>
-                                    <TableCell className="capitalize">{licensePlate.owner}</TableCell>
-                                    <TableCell>{licensePlate.gate ?? "Null"}</TableCell>
-                                    <TableCell>{moment(licensePlate.creation).format("D MMM YYYY")}</TableCell>
-                                    <TableCell>{getStatusBadge(licensePlate.violation_type)}</TableCell>
-                                    <TableCell className="text-center">{moment(licensePlate.creation).format("HH:mm:ss")}</TableCell>
+                                    <TableCell><Skeleton className="h-4 w-32" /></TableCell>
+                                    <TableCell><Skeleton className="h-4 w-24" /></TableCell>
+                                    <TableCell><Skeleton className="h-4 w-16" /></TableCell>
+                                    <TableCell><Skeleton className="h-4 w-28" /></TableCell>
+                                    <TableCell><Skeleton className="h-6 w-20" /></TableCell>
+                                    <TableCell><Skeleton className="h-4 w-20 mx-auto" /></TableCell>
+                                </TableRow>
+                            ))
+                        ) : paginatedViolations.length > 0 ? (
+                            paginatedViolations.map((violation: ViolationLog) => (
+                                <TableRow 
+                                    key={violation.id}
+                                    className="hover:bg-muted/50 transition-colors"
+                                >
+                                    <TableCell className="font-medium">
+                                        {renderLicensePlate(violation.license_plate)}
+                                    </TableCell>
+                                    <TableCell className="capitalize">{violation.vehicle_owner}</TableCell>
+                                    <TableCell>{violation.gate}</TableCell>
+                                    <TableCell>{violation.violation_date}</TableCell>
+                                    <TableCell>{getStatusBadge(violation.violation_type)}</TableCell>
+                                    <TableCell className="text-center">{violation.violation_time}</TableCell>
                                 </TableRow>
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={6} className="text-center py-4">
-                                    No license plates found
+                                <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
+                                    {searchTerm ? `No violations found matching "${searchTerm}"` : "No violations found"}
                                 </TableCell>
                             </TableRow>
                         )}
                     </TableBody>
                 </Table>
             </CardContent>
-            {totalPages > 1 && (
+            {!isLoading && filteredViolations.length > 0 && (
                 <CardFooter className="flex justify-between items-center">
                     <div className="text-sm text-muted-foreground">
-                        Showing <span className="font-medium">{startIndex + 1}</span> to{' '}
-                        <span className="font-medium">
-                            {Math.min(startIndex + ITEMS_PER_PAGE, filteredPlates.length)}
-                        </span>{' '}
-                        of <span className="font-medium">{filteredPlates.length}</span> results
+                        {totalPages > 1 ? (
+                            <>
+                                Showing <span className="font-medium">{startIndex + 1}</span> to{' '}
+                                <span className="font-medium">
+                                    {Math.min(startIndex + ITEMS_PER_PAGE, filteredViolations.length)}
+                                </span>{' '}
+                                of <span className="font-medium">{filteredViolations.length}</span> results
+                                {searchTerm && data?.pagination && ` (filtered from ${data.pagination.total} total)`}
+                            </>
+                        ) : (
+                            <>
+                                Showing <span className="font-medium">{filteredViolations.length}</span> result
+                                {filteredViolations.length !== 1 ? 's' : ''}
+                                {searchTerm && data?.pagination && ` (filtered from ${data.pagination.total} total)`}
+                            </>
+                        )}
                     </div>
+                    {totalPages > 1 && (
                     <Pagination>
                         <PaginationContent>
                             <PaginationItem>
@@ -220,6 +252,7 @@ export const ViolationLogsTable = () => {
                             </PaginationItem>
                         </PaginationContent>
                     </Pagination>
+                    )}
                 </CardFooter>
             )}
         </Card>
