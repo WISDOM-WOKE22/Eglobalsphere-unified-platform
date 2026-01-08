@@ -71,3 +71,20 @@ export interface SpherexVisitorsResponse {
   limit: number;
   visitors: SpherexVisitor[];
 }
+
+export interface SpherexLog {
+  id: string;
+  log_type: string;
+  license_plate: string;
+  authorized: boolean;
+  image: string;
+  time: string; // ISO timestamp
+  status: string;
+}
+
+export interface SpherexLogsResponse {
+  total: number;
+  skip: number;
+  limit: number;
+  logs: SpherexLog[];
+}

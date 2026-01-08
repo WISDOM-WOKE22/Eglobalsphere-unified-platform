@@ -9,11 +9,11 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { SpherexVisitors } from "@/constants/spherex"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { useRouter } from "next/navigation";
 import { ExportData } from "@/core/commons/dialogs"
 import { useSpherexVisitorsService } from "../../services"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export const VisitorsTable = () => {
     const { data, isLoading } = useSpherexVisitorsService()
@@ -42,6 +42,36 @@ export const VisitorsTable = () => {
                             <TableHead>Actions</TableHead>
                         </TableRow>
                     </TableHeader>
+                    {isLoading ? (
+                        <TableBody>
+                                 {[1,2,3,4,5,6].map((index) => <TableRow key={index}>
+                                    <TableCell>
+                                        <Skeleton className="h-8 w-20" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton className="h-8 w-20" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton className="h-8 w-20" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton className="h-8 w-20" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton className="h-8 w-20" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton className="h-8 w-20" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton className="h-8 w-full" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton className="h-8 w-20" />
+                                    </TableCell>
+                                </TableRow>)}
+                        </TableBody>
+                    ) : (
                     <TableBody>
                         {data?.visitors.map((employee, index) => (
                             <TableRow key={index}>
@@ -57,6 +87,7 @@ export const VisitorsTable = () => {
                                 </TableCell>
                             </TableRow>))}
                     </TableBody>
+                    )}
                 </Table>
             </CardContent>
         </Card>

@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
 import {
     Table,
     TableBody,
@@ -12,8 +12,10 @@ import {
 import { spherexLogs } from "@/constants/spherex"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { ExportData } from "@/core/commons/dialogs"
+// import { useSpherexLogsService } from "../../services"
 
 export const SpherexLogTable = () => {
+    // const { data, isLoading } = useSpherexLogsService()
     return (
         <Card>
             <CardHeader className="flex flex-rows justify-between items-center">
