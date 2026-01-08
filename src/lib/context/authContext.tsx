@@ -1,78 +1,94 @@
 'use client';
 
-import { createContext, useEffect } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { useStore } from '@/lib/zustand/store';
-import { fetcher } from '../fetcher';
-import useSWR from 'swr';
-import { AuthResponse } from '@/types/auth.types';
+import { getAuthToken, isTokenExpired } from '@/lib/auth-utils';
 import { useLogoutService } from '@/hooks/auth/logout';
 
-export const AuthContext = createContext({
+interface AuthContextType {
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  error: string | null;
+}
+
+export const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
-  isLoading: false,
+  isLoading: true,
   error: null,
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { logout } = useLogoutService();
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  // Zustand store state
   const isAuthenticated = useStore((state) => state.isAuthenticated);
   const setIsAuthenticated = useStore((state) => state.setIsAuthenticated);
-  const setUser = useStore((state) => state.setUser);
-  const setRefreshToken = useStore((state) => state.setRefreshToken);
-  const setToken = useStore((state) => state.setToken);
-  const refreshToken = useStore((state) => state.refreshToken);
-  const setIsLoading = useStore((state) => state.setIsLoading);
   const user = useStore((state) => state.user);
-  const company = useStore((state) => state.company);
-
-  // Only fetch if we have a refreshToken and organization
-  const shouldFetch =
-    !!refreshToken &&
-    !!company &&
-    !!user?.role &&
-    typeof window !== 'undefined';
-
-  const { data, isLoading, error } = useSWR<AuthResponse>(
-    shouldFetch
-      ? user?.role === 'USER'
-        ? `/auth/refresh-token?refresh_token=${refreshToken}`
-        : `/auth/refresh-token?refresh_token=${refreshToken}`
-      : null,
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      shouldRetryOnError: false,
-      dedupingInterval: 60000,
-    }
-  );
+  const token = useStore((state) => state.token);
 
   useEffect(() => {
-    // Only run if we have data and not loading
-    if (!isLoading && data && data.doc && data.doc.token && data.doc.user) {
-      setIsLoading(true);
-      // Set cookies for accessToken and refreshToken
-      const accessTokenKey = `auth-token`;
-      const refreshTokenKey = `refresh-token`;
-      const isProduction = process.env.NODE_ENV === 'production';
-      const secureFlag = isProduction ? '; secure' : '';
-      // HttpOnly cannot be set from JS, so we omit it
-      document.cookie = `${accessTokenKey}=${data.doc.token}; path=/;${secureFlag} SameSite=Strict`;
-      document.cookie = `${refreshTokenKey}=${data.doc.refreshToken}; path=/;${secureFlag} SameSite=Strict`;
-      document.cookie = `role=${data.doc.user.role?.toUpperCase()}; path=/;${secureFlag} SameSite=Strict`;
+    // Only run on client side
+    if (typeof window === 'undefined') return;
 
-      setIsAuthenticated(true);
-      setUser(data.doc.user);
-      setToken(data.doc.token);
-      setRefreshToken(data.doc.refreshToken);
-      setIsLoading(false);
-    } else if (!isLoading && error) {
-      setIsLoading(false);
-      // If error, log out and clear state
-      logout();
-    }
-    // Only run when data, isLoading, or error changes
+    const initializeAuth = async () => {
+      try {
+        setIsLoading(true);
+
+        // Check if we have an auth token in cookies
+        const cookieToken = getAuthToken();
+        
+        if (!cookieToken) {
+          // No token in cookies, user is not authenticated
+          if (isAuthenticated) {
+            // Clear stale authentication state
+            logout();
+          }
+          setIsAuthenticated(false);
+          setIsLoading(false);
+          return;
+        }
+
+        // Check if token is expired
+        if (isTokenExpired(cookieToken)) {
+          // Token is expired, the API interceptor will handle refresh
+          // or redirect to login if refresh fails
+          setIsLoading(false);
+          return;
+        }
+
+        // We have a valid token
+        // Verify that Zustand store has user data
+        if (!user && cookieToken) {
+          // Token exists but no user data in store
+          // This can happen after a page refresh
+          // The token refresh will happen automatically via API interceptor
+          // when the first authenticated request is made
+          setIsAuthenticated(true);
+        } else if (user && cookieToken) {
+          // Everything looks good
+          setIsAuthenticated(true);
+        }
+
+        setIsLoading(false);
+      } catch (err) {
+        console.error('Auth initialization error:', err);
+        setError('Failed to initialize authentication');
+        setIsLoading(false);
+      }
+    };
+
+    initializeAuth();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, isLoading, error]);
+  }, []);
+
+  // Sync authentication state when token changes
+  useEffect(() => {
+    if (token && user) {
+      setIsAuthenticated(true);
+    }
+  }, [token, user, setIsAuthenticated]);
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, isLoading, error }}>
