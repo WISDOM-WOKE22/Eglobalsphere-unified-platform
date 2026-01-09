@@ -1,13 +1,14 @@
 import { StatsCard } from "@/modules/dashboard/components/card/statsCard";
 import { StatsCardPreloader } from "@/modules/dashboard/components/card/statsCardPreloader";
 import { FarouqAttendanceChart, FarouqOverviewChart } from "@/modules/farouq-overview/components/charts";
-import { Users, UserCheck, UserX, AlertTriangle, TrendingUp, Briefcase, MapPin, Camera } from "lucide-react";
+import { Users, UserCheck, UserX, AlertTriangle, TrendingUp, Briefcase, MapPin, Camera, Loader2, RefreshCw } from "lucide-react";
 import { useFarouqOverviewService } from "../services";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export const FarouqOverviewLayout = () => {
-    const { data, isLoading } = useFarouqOverviewService();
+    const { data, isLoading, isSyncing, syncFarouqLogs } = useFarouqOverviewService();
     
     if (isLoading) {
         return (
@@ -75,6 +76,13 @@ export const FarouqOverviewLayout = () => {
     
     return (
         <div>
+            <div className="flex flex-row items-center gap-3 justify-between">
+                <h1>Farouq Overview</h1>
+                <Button onClick={syncFarouqLogs} disabled={isSyncing} variant="outline">
+                    {isSyncing ? <Loader2 className="size-4 animate-spin" /> : <RefreshCw className="size-4" />}
+                    {isSyncing ? 'Syncing...' : 'Sync Farouq Logs'}
+                </Button>
+            </div>
             <section className='mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 max-lg:mb-5'>
                 <StatsCard
                     title="Total Employees"

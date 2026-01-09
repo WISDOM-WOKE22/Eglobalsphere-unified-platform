@@ -1,13 +1,14 @@
 import { StatsCard } from "@/modules/dashboard/components/card/statsCard";
 import { StatsCardPreloader } from "@/modules/dashboard/components/card/statsCardPreloader";
-import { AlertTriangle, TrendingUp, Navigation, Calendar } from "lucide-react";
+import { AlertTriangle, TrendingUp, Navigation, Calendar, Loader2, RefreshCw } from "lucide-react";
 import { ViolationChart } from "../components/charts";
 import { useViolationOverviewService } from "../services";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export const ViolationOverviewLayout = () => {
-    const { data, isLoading } = useViolationOverviewService();
+    const { data, isLoading, isSyncing, syncViolationLogs } = useViolationOverviewService();
     
     if (isLoading) {
         return (
@@ -35,6 +36,13 @@ export const ViolationOverviewLayout = () => {
     if (!data?.success || !data?.data) {
         return (
             <div>
+                <div className="flex flex-row items-center gap-3 justify-between">
+                    <h1>Violation Overview</h1>
+                    <Button onClick={syncViolationLogs} disabled={isSyncing} variant="outline">
+                        {isSyncing ? <Loader2 className="size-4 animate-spin" /> : <RefreshCw className="size-4" />}
+                        {isSyncing ? 'Syncing...' : 'Sync Violation Logs'}
+                    </Button>
+                </div>
                 <section className='mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 max-lg:mb-5'>
                     <StatsCard 
                         title="Total Violations"
@@ -74,6 +82,13 @@ export const ViolationOverviewLayout = () => {
 
     return (
         <div>
+            <div className="flex flex-row items-center gap-3 justify-between">
+                    <h1>Violation Overview</h1>
+                    <Button onClick={syncViolationLogs} disabled={isSyncing} variant="outline">
+                        {isSyncing ? <Loader2 className="size-4 animate-spin" /> : <RefreshCw className="size-4" />}
+                        {isSyncing ? 'Syncing...' : 'Sync Violation Logs'}
+                    </Button>
+                </div>
             <section className='mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 max-lg:mb-5'>
                 <StatsCard 
                     title="Total Violations"
