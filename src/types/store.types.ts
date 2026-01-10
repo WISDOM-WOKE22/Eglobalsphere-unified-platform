@@ -1,6 +1,7 @@
 import { IUser } from "./user.types";
 import { CompanyType, } from "./company.types";
 import { Vehicle } from "./lpr.types";
+import { SpherexEmployee } from "./spherex.types";
 
 export interface useStoreTypes {
     isAuthenticated: boolean;
@@ -24,4 +25,6 @@ export interface useStoreTypes {
     setIsLoading: (loading: boolean) => void;
     selectedVehicle: Vehicle | null;
     setSelectedVehicle: (vehicle: Vehicle) => void;
+    spherexEmployee: SpherexEmployee | null;
+    setSpherexEmployee: (employee: SpherexEmployee) => void;
 }

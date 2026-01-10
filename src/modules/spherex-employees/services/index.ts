@@ -1,9 +1,39 @@
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
-import { SpherexEmployeesResponse } from "@/types";
+import { SpherexEmployee, SpherexEmployeesResponse } from "@/types";
+import api from "@/core/services/api";
+import { toast } from "sonner";
+import { useState } from "react";
+import { useStore } from "@/lib/zustand/store";
 
-export const useSpherexDashboardService = () => {
+export const useSpherexEmployeeService = () => {
+  const [loading, setLoading] = useState(false);
+  const [ employee, setEmployee ] = useState<SpherexEmployee | null>(null);
+  const setSpherexEmployee = useStore((state) => state.setSpherexEmployee);
+
   const { data, error, isLoading } = useSWR<SpherexEmployeesResponse>('/spherex/employees', fetcher);
 
-  return { data, error, isLoading };
+ const getAnEmployee = async (employeeId: string) => {
+  try{
+    setLoading(true);
+    const res = await api.get(`/spherex/employees/${employeeId}`);
+    setEmployee(res.data);
+    setSpherexEmployee(res.data);
+    setLoading(false);
+  } catch (error: any) {
+    const errorMessage = error.response?.data?.message || error.message || 'Error getting employee';
+    toast.error(errorMessage);
+    setLoading(false);
+    return null;
+  }
+};
+
+  return { 
+    data, 
+    error,
+    isLoading,
+    getAnEmployee,
+    loading,
+    employee
+  };
 };

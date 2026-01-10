@@ -1,4 +1,4 @@
-import { CompanyType, useStoreTypes, IUser, Vehicle } from "@/types";
+import { CompanyType, useStoreTypes, IUser, Vehicle, SpherexEmployee } from "@/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -37,6 +37,8 @@ export const useStore = create<useStoreTypes>()(
             setIsLoading: (loading: boolean) => set({ isLoading: loading }),
             selectedVehicle: null,
             setSelectedVehicle: (vehicle: Vehicle) => set({ selectedVehicle: vehicle }),
+            spherexEmployee: null,
+            setSpherexEmployee: (employee: SpherexEmployee) => set({ spherexEmployee: employee }),
         }),
         {
             name: "store"

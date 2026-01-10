@@ -38,13 +38,29 @@ export interface SpherexDashboardResponse {
 export interface SpherexEmployee {
   employee_id: string;
   fullname: string;
-  department: string | null;
-  phone: string | null;
-  zone: string | null;
-  role: string | null;
-  status: string;
+  first_name: string;
+  last_name: string;
   email: string;
-  last_access: string; // ISO timestamp
+  mobile_no: string;
+  department: string | null;
+  profile_picture: string | null;
+  pass_status: string | null;
+  valid_from: string | null; // ISO timestamp or null
+  valid_till: string | null; // ISO timestamp or null
+  enabled: boolean;
+  presence: string;
+  allow_visitor_invites: boolean;
+  zones: string | null;
+  status: string;
+  created_at_source: string | null;
+  modified_at_source: string | null;
+  synced_at: string; // ISO timestamp
+  recent_access_logs: any[]; // Better type if available
+  // legacy/extra fields
+  phone?: string | null;
+  zone?: string | null;
+  role?: string | null;
+  last_access?: string; // ISO timestamp
 }
 
 export interface SpherexEmployeesResponse {

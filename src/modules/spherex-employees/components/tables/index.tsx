@@ -13,10 +13,10 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { useRouter } from "next/navigation"
 import { ExportData } from "@/core/commons/dialogs"
-import { useSpherexDashboardService } from "../../services"
+import { useSpherexEmployeeService } from "../../services"
 
 export const EmployeeTable = () => {
-    const { data, isLoading } = useSpherexDashboardService()
+    const { data, isLoading } = useSpherexEmployeeService()
     const { push } = useRouter()
     return (
         <Card>
@@ -87,7 +87,7 @@ export const EmployeeTable = () => {
                                 <TableCell>{employee.email}</TableCell>
                                 <TableCell>
                                     <Button variant="outline"
-                                        onClick={() => push(`/spherex-employees/${index + 1}`)}
+                                        onClick={() => push(`/spherex-employees/${employee.employee_id}`)}
                                     >View</Button>
                                 </TableCell>
                             </TableRow>))}
