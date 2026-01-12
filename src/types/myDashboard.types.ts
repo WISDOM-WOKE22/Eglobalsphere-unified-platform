@@ -1,3 +1,6 @@
+import { LPRStatsEntry} from "./lpr.types";
+import { FarouqStatsEntry } from "./farouq.types";
+
 export interface MyDashboardStatsType {
   totalQuestions: number;
   totalPassedQuestions: number;
@@ -17,20 +20,6 @@ export interface MyDashboardDataType {
 
 // Weekly stats interfaces
 export interface SphereXStatsEntry {
-  day: string;
-  checkins: number;
-  checkouts: number;
-  total: number;
-}
-
-export interface LPRStatsEntry {
-  day: string;
-  authorized: number;
-  unauthorized: number;
-  total: number;
-}
-
-export interface FarouqStatsEntry {
   day: string;
   checkins: number;
   checkouts: number;
