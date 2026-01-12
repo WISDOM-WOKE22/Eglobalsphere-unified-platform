@@ -13,7 +13,7 @@ export const useLPRDashboardService = () => {
   const syncLprLogs = async () => {
     try{
       setIsSyncing(true);
-      const res = await api.post('/logs/sync/lpr');
+      const res = await api.get('/sync/connections/lpr');
       toast.success('LPR data synced successfully');
       setIsSyncing(false);
       return res.data;

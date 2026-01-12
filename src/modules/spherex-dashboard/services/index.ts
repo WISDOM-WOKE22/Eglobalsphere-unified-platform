@@ -13,7 +13,7 @@ export const useSpherexDashboardService = () => {
   const syncSpherexLogs = async () => {
     try{
       setIsSyncing(true);
-      const res = await api.post('/logs/sync/spherex');
+      const res = await api.get('/sync/connections/spherex');
       toast.success('Spherex data synced successfully');
       setIsSyncing(false);
       return res.data;

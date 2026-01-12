@@ -12,7 +12,7 @@ export const useViolationOverviewService = () => {
   const syncViolationLogs = async () => {
     try{
       setIsSyncing(true);
-      const res = await api.post('/logs/sync/violation');
+      const res = await api.get('/sync/connections/violations');
       toast.success('LPR data synced successfully');
       setIsSyncing(false);
       return res.data;
