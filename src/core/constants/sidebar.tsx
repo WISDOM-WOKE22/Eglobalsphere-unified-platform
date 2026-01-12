@@ -186,27 +186,27 @@ export const MENU_ITEMS: MenuItem[] = [
     group: 'Farouq factory',
   },
   // Communication Group
-  {
-    href: '/notifications',
-    label: 'Notifications',
-    icon: BellDotIcon,
-    permission: 'notifications',
-    group: 'communication',
-  },
-  {
-    href: '/reports',
-    label: 'Reports',
-    icon: ClipboardPlus,
-    permission: 'notifications',
-    group: 'communication',
-  },
-  {
-    href: '/support',
-    label: 'Support',
-    icon: Mail,
-    permission: 'support',
-    group: 'communication',
-  },
+  // {
+  //   href: '/notifications',
+  //   label: 'Notifications',
+  //   icon: BellDotIcon,
+  //   permission: 'notifications',
+  //   group: 'communication',
+  // },
+  // {
+  //   href: '/reports',
+  //   label: 'Reports',
+  //   icon: ClipboardPlus,
+  //   permission: 'notifications',
+  //   group: 'communication',
+  // },
+  // {
+  //   href: '/support',
+  //   label: 'Support',
+  //   icon: Mail,
+  //   permission: 'support',
+  //   group: 'communication',
+  // },
   {
     href: '/customizations',
     label: 'Customization',
