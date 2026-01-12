@@ -12,10 +12,19 @@ import {
 import { spherexLogs } from "@/constants/spherex"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { ExportData } from "@/core/commons/dialogs"
+import { exportSpherexLogs } from "../export"
 // import { useSpherexLogsService } from "../../services"
 
 export const SpherexLogTable = () => {
     // const { data, isLoading } = useSpherexLogsService()
+
+    // Handle export functionality
+    const handleExport = (format: 'csv' | 'pdf' | 'excel') => {
+        if (spherexLogs && spherexLogs.length > 0) {
+            exportSpherexLogs(format, spherexLogs);
+        }
+    };
+
     return (
         <Card>
             <CardHeader className="flex flex-rows justify-between items-center">
@@ -26,6 +35,8 @@ export const SpherexLogTable = () => {
                 <ExportData
                     title="Export data"
                     buttonTitle="Export data"
+                    onExport={handleExport}
+                    disabled={!spherexLogs}
                 />
             </CardHeader>
             <CardContent>

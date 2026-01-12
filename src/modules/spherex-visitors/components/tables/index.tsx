@@ -14,10 +14,19 @@ import { useRouter } from "next/navigation";
 import { ExportData } from "@/core/commons/dialogs"
 import { useSpherexVisitorsService } from "../../services"
 import { Skeleton } from "@/components/ui/skeleton"
+import { exportSpherexVisitors } from "../export"
 
 export const VisitorsTable = () => {
     const { data, isLoading } = useSpherexVisitorsService()
     const { push } = useRouter()
+
+    // Handle export functionality
+    const handleExport = (format: 'csv' | 'pdf' | 'excel') => {
+        if (data?.visitors && data.visitors.length > 0) {
+            exportSpherexVisitors(format, data.visitors);
+        }
+    };
+
     return (
         <Card>
             <CardHeader className="flex flex-rows justify-between items-center">
@@ -28,6 +37,8 @@ export const VisitorsTable = () => {
                 <ExportData
                     title="Export data"
                     buttonTitle="Export data"
+                    onExport={handleExport}
+                    disabled={isLoading || !data?.visitors || data.visitors.length === 0}
                 />
             </CardHeader>
             <CardContent>

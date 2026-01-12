@@ -14,10 +14,19 @@ import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { useRouter } from "next/navigation"
 import { ExportData } from "@/core/commons/dialogs"
 import { useSpherexEmployeeService } from "../../services"
+import { exportSpherexEmployees } from "../export"
 
 export const EmployeeTable = () => {
     const { data, isLoading } = useSpherexEmployeeService()
     const { push } = useRouter()
+
+    // Handle export functionality
+    const handleExport = (format: 'csv' | 'pdf' | 'excel') => {
+        if (data?.employees && data.employees.length > 0) {
+            exportSpherexEmployees(format, data.employees);
+        }
+    };
+
     return (
         <Card>
             <CardHeader className="flex flex-rows justify-between items-center">
@@ -28,6 +37,8 @@ export const EmployeeTable = () => {
                 <ExportData
                     title="Export data"
                     buttonTitle="Export data"
+                    onExport={handleExport}
+                    disabled={isLoading || !data?.employees || data.employees.length === 0}
                 />
             </CardHeader>
             <CardContent>
