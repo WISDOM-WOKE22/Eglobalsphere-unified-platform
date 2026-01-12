@@ -22,6 +22,7 @@ import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { renderLicensePlate } from "@/core/commons/utils"
 import { ExportData } from "@/core/commons/dialogs"
 import { useViolationLogsService } from "../../services"
+import { exportViolationLogs } from "../export"
 import { ViolationLog } from "@/types"
 
 const ITEMS_PER_PAGE = 20
@@ -61,6 +62,14 @@ export const ViolationLogsTable = () => {
         setCurrentPage(1) // Reset to first page on new search
     }
 
+    // Handle export functionality - exports filtered results if search is active
+    const handleExport = (format: 'csv' | 'pdf' | 'excel') => {
+        const violationsToExport = searchTerm ? filteredViolations : (data?.data || [])
+        if (violationsToExport.length > 0) {
+            exportViolationLogs(format, violationsToExport);
+        }
+    };
+
     return (
         <Card>
             <CardHeader className="flex flex-row justify-between items-center">
@@ -73,6 +82,8 @@ export const ViolationLogsTable = () => {
                 <ExportData
                     title="Export data"
                     buttonTitle="Export data"
+                    onExport={handleExport}
+                    disabled={isLoading || !data?.data || data.data.length === 0}
                 />
             </CardHeader>
             <CardContent>

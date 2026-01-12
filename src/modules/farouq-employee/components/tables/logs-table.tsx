@@ -22,6 +22,7 @@ import {
 import moment from "moment"
 import { ExportData } from "@/core/commons/dialogs"
 import { useFarouqLogsService } from "../../services/logs"
+import { exportFarouqLogs } from "../export"
 import { FarouqLog } from "@/types"
 
 const ITEMS_PER_PAGE = 10
@@ -97,6 +98,14 @@ export const FarouqLogsTable = () => {
         setCurrentPage(1) // Reset to first page on new search
     }
 
+    // Handle export functionality - exports filtered results if search is active
+    const handleExport = (format: 'csv' | 'pdf' | 'excel') => {
+        const logsToExport = searchTerm ? filteredLogs : (data?.doc?.logs || [])
+        if (logsToExport.length > 0) {
+            exportFarouqLogs(format, logsToExport);
+        }
+    };
+
     return (
         <Card>
             <CardHeader className="flex flex-row justify-between items-center">
@@ -109,6 +118,8 @@ export const FarouqLogsTable = () => {
                 <ExportData
                     title="Export data"
                     buttonTitle="Export data"
+                    onExport={handleExport}
+                    disabled={isLoading || !data?.doc?.logs || data.doc.logs.length === 0}
                 />
             </CardHeader>
             <CardContent>

@@ -22,6 +22,7 @@ import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { renderLicensePlate } from "@/core/commons/utils"
 import { ExportData } from "@/core/commons/dialogs"
 import { useLPRLogsService } from "../../services"
+import { exportLPRLogs } from "../export"
 import { LPRLog } from "@/types"
 
 const ITEMS_PER_PAGE = 20
@@ -45,6 +46,14 @@ export const LPRGateAccessTable = () => {
                 log.authorization_status.toLowerCase().includes(term)
         )
     }, [searchTerm, data?.logs])
+
+    // Handle export functionality - exports filtered results if search is active
+    const handleExport = (format: 'csv' | 'pdf' | 'excel') => {
+        const logsToExport = searchTerm ? filteredLogs : (data?.logs || [])
+        if (logsToExport.length > 0) {
+            exportLPRLogs(format, logsToExport);
+        }
+    }
 
     // Calculate pagination
     const totalPages = Math.ceil(filteredLogs.length / ITEMS_PER_PAGE)
@@ -74,6 +83,8 @@ export const LPRGateAccessTable = () => {
                 <ExportData
                     title="Export data"
                     buttonTitle="Export data"
+                    onExport={handleExport}
+                    disabled={isLoading || !data?.logs || data.logs.length === 0}
                 />
             </CardHeader>
             <CardContent>
