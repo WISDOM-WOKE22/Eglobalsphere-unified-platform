@@ -4,45 +4,41 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import Papa from 'papaparse';
 import * as XLSX from "xlsx";
+import moment from 'moment';
+import { SpherexLog } from '@/types';
 
-interface SpherexLogData {
-  ID: string;
-  fullname: string;
-  department: string;
-  zone: string;
-  note: string;
-  timestamp: string;
-  type: string;
-  activity: string;
+interface SpherexLogExportData {
+  id: string;
+  log_type: string;
+  license_plate: string;
+  authorized: boolean;
+  status: string;
+  time: string;
 }
 
-export const exportSpherexLogs = (format: 'csv' | 'pdf' | 'excel', currentData: ReadonlyArray<SpherexLogData>) => {
+export const exportSpherexLogs = (format: 'csv' | 'pdf' | 'excel', currentData: SpherexLog[]) => {
   try {
     const logs = currentData;
     const fileName = 'spherex_logs';
 
     if (format === 'excel') {
-      const columnMappings: Record<keyof SpherexLogData, string> = {
-        ID: "Employee ID",
-        fullname: "Full Name",
-        department: "Department",
-        zone: "Zone",
-        type: "Type",
-        note: "Note",
-        activity: "Activity",
-        timestamp: "Timestamp",
+      const columnMappings: Record<keyof SpherexLogExportData, string> = {
+        id: "Log ID",
+        log_type: "Log Type",
+        license_plate: "License Plate",
+        authorized: "Authorized",
+        status: "Status",
+        time: "Time",
       };
 
       // Convert data to match custom headers
-      const formattedData = logs.map((item: SpherexLogData) => ({
-        "Employee ID": item.ID,
-        "Full Name": item.fullname,
-        "Department": item.department,
-        "Zone": item.zone,
-        "Type": item.type,
-        "Note": item.note,
-        "Activity": item.activity,
-        "Timestamp": item.timestamp,
+      const formattedData = logs.map((item: SpherexLog) => ({
+        "Log ID": item.id,
+        "Log Type": item.log_type,
+        "License Plate": item.license_plate,
+        "Authorized": item.authorized ? "Yes" : "No",
+        "Status": item.status,
+        "Time": moment(item.time).format("DD MMM YYYY HH:mm:ss"),
       }));
 
       // Create a worksheet
@@ -52,14 +48,12 @@ export const exportSpherexLogs = (format: 'csv' | 'pdf' | 'excel', currentData: 
 
       // Set column widths
       const columnWidths = [
-        { wch: 15 }, // Employee ID
-        { wch: 25 }, // Full Name
-        { wch: 20 }, // Department
-        { wch: 20 }, // Zone
-        { wch: 15 }, // Type
-        { wch: 40 }, // Note
-        { wch: 15 }, // Activity
-        { wch: 20 }, // Timestamp
+        { wch: 30 }, // Log ID
+        { wch: 15 }, // Log Type
+        { wch: 20 }, // License Plate
+        { wch: 12 }, // Authorized
+        { wch: 15 }, // Status
+        { wch: 20 }, // Time
       ];
       ws["!cols"] = columnWidths;
 
@@ -74,15 +68,13 @@ export const exportSpherexLogs = (format: 'csv' | 'pdf' | 'excel', currentData: 
 
     } else if (format === 'csv') {
       // Format data for CSV
-      const csvData = logs.map((item: SpherexLogData) => ({
-        "Employee ID": item.ID,
-        "Full Name": item.fullname,
-        "Department": item.department,
-        "Zone": item.zone,
-        "Type": item.type,
-        "Note": item.note,
-        "Activity": item.activity,
-        "Timestamp": item.timestamp,
+      const csvData = logs.map((item: SpherexLog) => ({
+        "Log ID": item.id,
+        "Log Type": item.log_type,
+        "License Plate": item.license_plate,
+        "Authorized": item.authorized ? "Yes" : "No",
+        "Status": item.status,
+        "Time": moment(item.time).format("DD MMM YYYY HH:mm:ss"),
       }));
 
       const csv = Papa.unparse(csvData);
@@ -105,47 +97,57 @@ export const exportSpherexLogs = (format: 'csv' | 'pdf' | 'excel', currentData: 
       // doc.addImage(logoUrl, 'PNG', 10, 10, logoWidth, logoHeight);
 
       const columnMappings: Record<string, string> = {
-        ID: 'Employee ID',
-        fullname: 'Full Name',
-        department: 'Department',
-        zone: 'Zone',
-        type: 'Type',
-        note: 'Note',
-        timestamp: 'Timestamp',
+        id: 'Log ID',
+        log_type: 'Log Type',
+        license_plate: 'License Plate',
+        authorized: 'Authorized',
+        status: 'Status',
+        time: 'Time',
       };
 
       const importantColumns = Object.keys(columnMappings);
       const tableColumn = importantColumns.map((key) => columnMappings[key]);
       const tableRows = logs.map((log) =>
         importantColumns.map((col) => {
-          return log[col as keyof SpherexLogData] || '';
+          if (col === 'authorized') {
+            return log.authorized ? 'Yes' : 'No';
+          }
+          if (col === 'time') {
+            return moment(log.time).format("DD MMM YYYY HH:mm");
+          }
+          return log[col as keyof SpherexLog] || '';
         })
       );
 
-      doc.text('SphereX Access Logs', 14, 40);
+      doc.text('SphereX Access Logs', 14, 30);
+      
+      // Add summary info
+      doc.setFontSize(10);
+      doc.text(`Total Logs: ${logs.length}`, 14, 40);
+      doc.text(`Generated: ${new Date().toLocaleString()}`, 14, 46);
+
       autoTable(doc, {
         head: [tableColumn],
         body: tableRows,
-        startY: 50,
+        startY: 55,
         styles: { fontSize: 8, cellPadding: 2, minCellHeight: 10 },
         headStyles: { fillColor: '#03AF69' },
         columnStyles: {
-          0: { cellWidth: 20 }, // Employee ID
-          1: { cellWidth: 35 }, // Full Name
-          2: { cellWidth: 30 }, // Department
-          3: { cellWidth: 25 }, // Zone
-          4: { cellWidth: 20 }, // Type
-          5: { cellWidth: 60 }, // Note
-          6: { cellWidth: 30 }, // Timestamp
+          0: { cellWidth: 40 }, // Log ID
+          1: { cellWidth: 30 }, // Log Type
+          2: { cellWidth: 35 }, // License Plate
+          3: { cellWidth: 25 }, // Authorized
+          4: { cellWidth: 30 }, // Status
+          5: { cellWidth: 35 }, // Time
         },
       });
       doc.save(`${fileName}.pdf`);
     }
 
-    toast.success(`Logs exported successfully as ${format.toUpperCase()}`);
+    toast.success(`SphereX logs exported successfully as ${format.toUpperCase()}`);
   } catch (error) {
     toast.error(
-      error instanceof Error ? error.message : 'Error exporting logs'
+      error instanceof Error ? error.message : 'Error exporting SphereX logs'
     );
   }
 };
