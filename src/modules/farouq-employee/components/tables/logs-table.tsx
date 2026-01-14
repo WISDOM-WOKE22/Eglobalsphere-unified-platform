@@ -127,11 +127,8 @@ export const FarouqLogsTable = () => {
                     <TableHeader className="bg-muted">
                         <TableRow>
                             <TableHead>User Name</TableHead>
-                            <TableHead>Log Type</TableHead>
                             <TableHead>Method</TableHead>
                             <TableHead>Status</TableHead>
-                            <TableHead>Zone</TableHead>
-                            <TableHead>Confidence</TableHead>
                             <TableHead>Notes</TableHead>
                             <TableHead className="text-center">Timestamp</TableHead>
                         </TableRow>
@@ -153,25 +150,21 @@ export const FarouqLogsTable = () => {
                             ))
                         ) : paginatedLogs.length > 0 ? (
                             paginatedLogs.map((log: FarouqLog) => (
-                                <TableRow key={log.id} className="hover:bg-muted/50 transition-colors">
-                                    <TableCell className="font-medium">{log.user_name}</TableCell>
-                                    <TableCell>{getLogTypeBadge(log.log_type)}</TableCell>
-                                    <TableCell>{getMethodBadge(log.method)}</TableCell>
-                                    <TableCell>{getStatusBadge(log.status)}</TableCell>
-                                    <TableCell>
-                                        {log.zone !== "N/A" ? log.zone : <span className="text-muted-foreground text-sm">N/A</span>}
-                                    </TableCell>
-                                    <TableCell>
+                                <TableRow key={log.id} className="hover:bg-muted/50 transition-colors h-10">
+                                    <TableCell className="font-medium h-6">{log.user_name}</TableCell>
+                                    <TableCell className="h-6">{getMethodBadge(log.method)}</TableCell>
+                                    <TableCell className="h-6">{getStatusBadge(log.status)}</TableCell>
+                                    {/* <TableCell>
                                         {log.confidence !== "N/A" ? (
                                             <span className="text-sm font-medium">{log.confidence}</span>
                                         ) : (
                                             <span className="text-muted-foreground text-sm">N/A</span>
                                         )}
-                                    </TableCell>
-                                    <TableCell className="max-w-[200px] truncate" title={log.notes}>
+                                    </TableCell> */}
+                                    <TableCell className="max-w-[200px] truncate h-6" title={log.notes}>
                                         {log.notes}
                                     </TableCell>
-                                    <TableCell className="text-center">
+                                    <TableCell className="text-center h-6">
                                         {moment(log.timestamp).format("D MMM YYYY HH:mm")}
                                     </TableCell>
                                 </TableRow>

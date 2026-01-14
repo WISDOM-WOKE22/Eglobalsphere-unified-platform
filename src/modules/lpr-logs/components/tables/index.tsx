@@ -1,7 +1,14 @@
 import { useState, useMemo } from "react"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
 import { Skeleton } from "@/components/ui/skeleton"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
 import {
     Table,
     TableBody,
@@ -18,6 +25,9 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
+import { CalendarIcon, X } from "lucide-react"
+import { format } from "date-fns"
+import { cn } from "@/lib/utils"
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { renderLicensePlate } from "@/core/commons/utils"
 import { ExportData } from "@/core/commons/dialogs"
@@ -25,40 +35,28 @@ import { useLPRLogsService } from "../../services"
 import { exportLPRLogs } from "../export"
 import { LPRLog } from "@/types"
 
-const ITEMS_PER_PAGE = 20
-
 export const LPRGateAccessTable = () => {
-    const { data, isLoading } = useLPRLogsService()
+    // Filter and pagination state
     const [currentPage, setCurrentPage] = useState(1)
     const [searchTerm, setSearchTerm] = useState("")
+    const [dateFrom, setDateFrom] = useState<Date | undefined>(undefined)
+    const [dateTo, setDateTo] = useState<Date | undefined>(undefined)
+    const pageSize = 20
 
-    // Filter logs based on search term
-    const filteredLogs = useMemo(() => {
-        if (!data?.logs) return []
-        if (!searchTerm) return data.logs
-        const term = searchTerm.toLowerCase()
-        return data.logs.filter(
-            (log: LPRLog) =>
-                log.license_plate.toLowerCase().includes(term) ||
-                log.vehicle_owner.toLowerCase().includes(term) ||
-                log.gate.toLowerCase().includes(term) ||
-                log.gate_access_type.toLowerCase().includes(term) ||
-                log.authorization_status.toLowerCase().includes(term)
-        )
-    }, [searchTerm, data?.logs])
+    // Build query parameters for server-side filtering
+    const queryParams = useMemo(() => ({
+        page: currentPage,
+        page_size: pageSize,
+        ...(searchTerm && { search: searchTerm }),
+        ...(dateFrom && { date_from: format(dateFrom, "yyyy-MM-dd") }),
+        ...(dateTo && { date_to: format(dateTo, "yyyy-MM-dd") }),
+    }), [currentPage, searchTerm, dateFrom, dateTo])
 
-    // Handle export functionality - exports filtered results if search is active
-    const handleExport = (format: 'csv' | 'pdf' | 'excel') => {
-        const logsToExport = searchTerm ? filteredLogs : (data?.logs || [])
-        if (logsToExport.length > 0) {
-            exportLPRLogs(format, logsToExport);
-        }
-    }
+    const { data, isLoading } = useLPRLogsService(queryParams)
 
-    // Calculate pagination
-    const totalPages = Math.ceil(filteredLogs.length / ITEMS_PER_PAGE)
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
-    const paginatedLogs = filteredLogs.slice(startIndex, startIndex + ITEMS_PER_PAGE)
+    // Calculate pagination from server data
+    const totalPages = data ? Math.ceil(data.total / pageSize) : 0
+    const startIndex = (currentPage - 1) * pageSize
 
     // Handle page change
     const handlePageChange = (page: number) => {
@@ -66,26 +64,133 @@ export const LPRGateAccessTable = () => {
     }
 
     // Handle search input change
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(e.target.value)
+    const handleSearch = (value: string) => {
+        setSearchTerm(value)
         setCurrentPage(1) // Reset to first page on new search
+    }
+
+    // Handle date filters
+    const handleDateFromChange = (date: Date | undefined) => {
+        setDateFrom(date)
+        setCurrentPage(1)
+    }
+
+    const handleDateToChange = (date: Date | undefined) => {
+        setDateTo(date)
+        setCurrentPage(1)
+    }
+
+    // Clear all filters
+    const handleClearFilters = () => {
+        setSearchTerm("")
+        setDateFrom(undefined)
+        setDateTo(undefined)
+        setCurrentPage(1)
+    }
+
+    // Check if any filters are active
+    const hasActiveFilters = searchTerm || dateFrom || dateTo
+
+    // Handle export functionality
+    const handleExport = (format: 'csv' | 'pdf' | 'excel') => {
+        if (data?.logs && data.logs.length > 0) {
+            exportLPRLogs(format, data.logs);
+        }
     }
 
     return (
         <Card>
-            <CardHeader className="flex flex-row justify-between items-center">
-                <Input
-                    className="w-full max-w-[300px]"
-                    placeholder="Search by license plate, house no, Owner"
-                    value={searchTerm}
-                    onChange={handleSearch}
-                />
-                <ExportData
-                    title="Export data"
-                    buttonTitle="Export data"
-                    onExport={handleExport}
-                    disabled={isLoading || !data?.logs || data.logs.length === 0}
-                />
+            <CardHeader className="space-y-4">
+                <div className="flex flex-col gap-4">
+                    {/* Top row: Search and Export */}
+                    <div className="flex flex-row justify-between items-center gap-4">
+                        <Input
+                            className="w-full max-w-[400px]"
+                            placeholder="Search by license plate or vehicle owner..."
+                            value={searchTerm}
+                            onChange={(e) => handleSearch(e.target.value)}
+                        />
+                        <ExportData
+                            title="Export data"
+                            buttonTitle="Export data"
+                            onExport={handleExport}
+                            disabled={isLoading || !data?.logs || data.logs.length === 0}
+                        />
+                    </div>
+
+                    {/* Bottom row: Date filters and Clear button */}
+                    <div className="flex flex-row items-center gap-3">
+                        {/* Date From Picker */}
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    className={cn(
+                                        "w-[240px] justify-start text-left font-normal",
+                                        !dateFrom && "text-muted-foreground"
+                                    )}
+                                >
+                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                    {dateFrom ? format(dateFrom, "PPP") : "Date From"}
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0" align="start">
+                                <Calendar
+                                    mode="single"
+                                    selected={dateFrom}
+                                    onSelect={handleDateFromChange}
+                                    initialFocus
+                                />
+                            </PopoverContent>
+                        </Popover>
+
+                        {/* Date To Picker */}
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    className={cn(
+                                        "w-[240px] justify-start text-left font-normal",
+                                        !dateTo && "text-muted-foreground"
+                                    )}
+                                >
+                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                    {dateTo ? format(dateTo, "PPP") : "Date To"}
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0" align="start">
+                                <Calendar
+                                    mode="single"
+                                    selected={dateTo}
+                                    onSelect={handleDateToChange}
+                                    initialFocus
+                                    disabled={(date) =>
+                                        dateFrom ? date < dateFrom : false
+                                    }
+                                />
+                            </PopoverContent>
+                        </Popover>
+
+                        {/* Clear Filters Button */}
+                        {hasActiveFilters && (
+                            <Button
+                                variant="ghost"
+                                onClick={handleClearFilters}
+                                className="flex items-center gap-2"
+                            >
+                                <X className="h-4 w-4" />
+                                Clear Filters
+                            </Button>
+                        )}
+
+                        {/* Active Filters Indicator */}
+                        {hasActiveFilters && (
+                            <div className="text-sm text-muted-foreground ml-auto">
+                                {data && `Filtered: ${data.total} result${data.total !== 1 ? 's' : ''}`}
+                            </div>
+                        )}
+                    </div>
+                </div>
             </CardHeader>
             <CardContent>
                 <Table>
@@ -114,8 +219,8 @@ export const LPRGateAccessTable = () => {
                                     <TableCell><Skeleton className="h-6 w-24 mx-auto" /></TableCell>
                                 </TableRow>
                             ))
-                        ) : paginatedLogs.length > 0 ? (
-                            paginatedLogs.map((log: LPRLog) => (
+                        ) : data?.logs && data.logs.length > 0 ? (
+                            data.logs.map((log: LPRLog) => (
                                 <TableRow 
                                     key={log.id}
                                     className="hover:bg-muted/50 transition-colors"
@@ -136,32 +241,23 @@ export const LPRGateAccessTable = () => {
                         ) : (
                             <TableRow>
                                 <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
-                                    {searchTerm ? `No logs found matching "${searchTerm}"` : "No access logs found"}
+                                    {hasActiveFilters 
+                                        ? "No logs found matching your filter criteria" 
+                                        : "No access logs found"}
                                 </TableCell>
                             </TableRow>
                         )}
                     </TableBody>
                 </Table>
             </CardContent>
-            {!isLoading && filteredLogs.length > 0 && (
+            {!isLoading && data && data.logs.length > 0 && (
                 <CardFooter className="flex justify-between items-center">
                     <div className="text-sm text-muted-foreground">
-                        {totalPages > 1 ? (
-                            <>
-                                Showing <span className="font-medium">{startIndex + 1}</span> to{' '}
-                                <span className="font-medium">
-                                    {Math.min(startIndex + ITEMS_PER_PAGE, filteredLogs.length)}
-                                </span>{' '}
-                                of <span className="font-medium">{filteredLogs.length}</span> results
-                                {searchTerm && data && ` (filtered from ${data.total} total)`}
-                            </>
-                        ) : (
-                            <>
-                                Showing <span className="font-medium">{filteredLogs.length}</span> result
-                                {filteredLogs.length !== 1 ? 's' : ''}
-                                {searchTerm && data && ` (filtered from ${data.total} total)`}
-                            </>
-                        )}
+                        Showing <span className="font-medium">{startIndex + 1}</span> to{' '}
+                        <span className="font-medium">
+                            {Math.min(startIndex + pageSize, data.total)}
+                        </span>{' '}
+                        of <span className="font-medium">{data.total}</span> log{data.total !== 1 ? 's' : ''}
                     </div>
                     {totalPages > 1 && (
                     <Pagination>
