@@ -27,32 +27,26 @@ import { ExportData } from "@/core/commons/dialogs"
 import { useLPRLicensePlatesService } from "../../services"
 import { Vehicle } from "@/types"
 
-const ITEMS_PER_PAGE = 15
+const ITEMS_PER_PAGE = 20
 
 export const LicensePlateTable = () => {
-    const { data, isLoading } = useLPRLicensePlatesService()
     const [currentPage, setCurrentPage] = useState(1)
     const [searchTerm, setSearchTerm] = useState("")
     const { setIsLicensePlatesOpen, setSelectedVehicle } = useStore()
 
-    // Filter license plates based on search term
-    const filteredPlates = useMemo(() => {
-        if (!data?.vehicles) return []
-        if (!searchTerm) return data.vehicles
-        const term = searchTerm.toLowerCase()
-        return data.vehicles.filter(
-            (plate: Vehicle) =>
-                plate.license_plate.toLowerCase().includes(term) ||
-                plate.vehicle_owner.toLowerCase().includes(term) ||
-                plate.house_no.toLowerCase().includes(term) ||
-                plate.vehicle_model.toLowerCase().includes(term)
-        )
-    }, [searchTerm, data?.vehicles])
+    // Build query parameters for server-side filtering and pagination
+    const queryParams = useMemo(() => ({
+        page: currentPage,
+        limit: ITEMS_PER_PAGE,
+        ...(searchTerm && { search: searchTerm }),
+    }), [currentPage, searchTerm])
 
-    // Calculate pagination
-    const totalPages = Math.ceil(filteredPlates.length / ITEMS_PER_PAGE)
+    const { data, isLoading } = useLPRLicensePlatesService(queryParams)
+
+    // Calculate pagination from server data
+    // If API returns skip/limit, calculate total_pages from total and limit
+    const totalPages = data ? Math.ceil(data.total / ITEMS_PER_PAGE) : 0
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
-    const paginatedPlates = filteredPlates.slice(startIndex, startIndex + ITEMS_PER_PAGE)
 
     // Handle page change
     const handlePageChange = (page: number) => {
@@ -77,6 +71,7 @@ export const LicensePlateTable = () => {
                 <ExportData
                     title="Export data"
                     buttonTitle="Export data"
+                    disabled={isLoading || !data?.vehicles || data.vehicles.length === 0}
                 />
             </CardHeader>
             <CardContent>
@@ -94,7 +89,7 @@ export const LicensePlateTable = () => {
                     <TableBody>
                         {isLoading ? (
                             // Loading skeleton
-                            Array.from({ length: 5 }).map((_, index) => (
+                            Array.from({ length: ITEMS_PER_PAGE }).map((_, index) => (
                                 <TableRow key={index}>
                                     <TableCell><Skeleton className="h-4 w-32" /></TableCell>
                                     <TableCell><Skeleton className="h-4 w-24" /></TableCell>
@@ -104,8 +99,8 @@ export const LicensePlateTable = () => {
                                     <TableCell><Skeleton className="h-4 w-32 mx-auto" /></TableCell>
                                 </TableRow>
                             ))
-                        ) : paginatedPlates.length > 0 ? (
-                            paginatedPlates.map((licensePlate: Vehicle) => (
+                        ) : data?.vehicles && data.vehicles.length > 0 ? (
+                            data.vehicles.map((licensePlate: Vehicle) => (
                                 <TableRow 
                                     key={licensePlate.id}
                                     onClick={() => {
@@ -136,25 +131,14 @@ export const LicensePlateTable = () => {
                     </TableBody>
                 </Table>
             </CardContent>
-            {!isLoading && filteredPlates.length > 0 && (
+            {!isLoading && data && data.vehicles && data.vehicles.length > 0 && (
                 <CardFooter className="flex justify-between items-center">
                     <div className="text-sm text-muted-foreground">
-                        {totalPages > 1 ? (
-                            <>
-                                Showing <span className="font-medium">{startIndex + 1}</span> to{' '}
-                                <span className="font-medium">
-                                    {Math.min(startIndex + ITEMS_PER_PAGE, filteredPlates.length)}
-                                </span>{' '}
-                                of <span className="font-medium">{filteredPlates.length}</span> results
-                                {searchTerm && data && ` (filtered from ${data.total} total)`}
-                            </>
-                        ) : (
-                            <>
-                                Showing <span className="font-medium">{filteredPlates.length}</span> result
-                                {filteredPlates.length !== 1 ? 's' : ''}
-                                {searchTerm && data && ` (filtered from ${data.total} total)`}
-                            </>
-                        )}
+                        Showing <span className="font-medium">{startIndex + 1}</span> to{' '}
+                        <span className="font-medium">
+                            {Math.min(startIndex + ITEMS_PER_PAGE, data.total)}
+                        </span>{' '}
+                        of <span className="font-medium">{data.total}</span> result{data.total !== 1 ? 's' : ''}
                     </div>
                     {totalPages > 1 && (
                     <Pagination>
@@ -171,18 +155,20 @@ export const LicensePlateTable = () => {
                             </PaginationItem>
 
                             {/* First page */}
-                            <PaginationItem>
-                                <PaginationLink
-                                    href="#"
-                                    onClick={(e) => {
-                                        e.preventDefault()
-                                        handlePageChange(1)
-                                    }}
-                                    isActive={currentPage === 1}
-                                >
-                                    1
-                                </PaginationLink>
-                            </PaginationItem>
+                            {totalPages > 0 && (
+                                <PaginationItem>
+                                    <PaginationLink
+                                        href="#"
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            handlePageChange(1)
+                                        }}
+                                        isActive={currentPage === 1}
+                                    >
+                                        1
+                                    </PaginationLink>
+                                </PaginationItem>
+                            )}
 
                             {/* First ellipsis */}
                             {currentPage > 3 && totalPages > 5 && (

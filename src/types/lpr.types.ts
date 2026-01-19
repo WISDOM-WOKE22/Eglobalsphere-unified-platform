@@ -36,8 +36,9 @@ export interface Gate {
 
 export interface LPRGatesResponse {
   total: number;
-  skip: number;
-  limit: number;
+  page: number;
+  page_size: number;
+  total_pages: number;
   gates: Gate[];
 }
 

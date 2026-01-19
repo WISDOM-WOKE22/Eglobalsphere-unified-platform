@@ -100,7 +100,8 @@ export interface SpherexLog {
 
 export interface SpherexLogsResponse {
   total: number;
-  skip: number;
-  limit: number;
+  page: number;
+  total_pages: number;
+  page_size: number;
   logs: SpherexLog[];
 }

@@ -161,7 +161,7 @@ export const VisitorsTable = () => {
                                 <TableCell>{employee.email}</TableCell>
                                 <TableCell>
                                     <Button
-                                        onClick={() => push(`/spherex-visitors/${index + 1}`)}
+                                        onClick={() => push(`/spherex-visitors/${employee.visitor_id}?type=visitor`)}
                                         variant="outline">View</Button>
                                 </TableCell>
                             </TableRow>))}

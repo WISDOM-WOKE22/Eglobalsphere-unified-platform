@@ -58,8 +58,7 @@ const ProfileSkeleton = () => (
 
 export const EmployeeLayout = () => {
     const { id } = useParams<{ id: string }>()
-    const { getAnEmployee, loading, employee } = useSpherexEmployeeService()
-
+    const { getAnEmployee, loading } = useSpherexEmployeeService()
     useEffect(() => {
         getAnEmployee(id)
     }, [id])
@@ -82,7 +81,7 @@ export const EmployeeLayout = () => {
                     {loading ? (
                         <ProfileSkeleton />
                     ) : (
-                        employee && <UserProfile user={employee} />
+                        <UserProfile />
                     )}
                 </TabsContent>
                 <TabsContent value="activities">
