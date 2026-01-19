@@ -101,15 +101,15 @@ const LoginPage = () => {
               </Button>
             </div>
 
-            <div className='mt-8 flex items-center gap-5 justify-center'>
+            {/* <div className='mt-8 flex items-center gap-5 justify-center'>
               <Separator className='w-full max-w-30' />
               <p>OR</p>
               <Separator className='w-full max-w-30' />
-            </div>
+            </div> */}
 
-            <div className='flex justify-center mt-6'>
+            {/* <div className='flex justify-center mt-6'>
               <Button className='cursor-pointer'>Sign in with Google</Button>
-            </div>
+            </div> */}
 
             <div className='flex flex-row justify-center items-center mt-4 gap-4 relative left-4'>
               <Link href='/forget-password' className='hover:underline mt-4'>

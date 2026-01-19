@@ -1,9 +1,9 @@
 'use client';
 
-import { TrendingUp, TrendingDown } from 'lucide-react';
+import { TrendingUp, TrendingDown, BarChart3 } from 'lucide-react';
 import {
-  Bar,
-  BarChart,
+  Area,
+  AreaChart,
   CartesianGrid,
   ResponsiveContainer,
   XAxis,
@@ -49,8 +49,14 @@ export function SpherexChart({
           <CardTitle>SphereX Weekly Activity</CardTitle>
         </CardHeader>
         <CardContent className='h-[400px] p-6'>
-          <div className='flex items-center justify-center h-full text-muted-foreground'>
-            No data available
+          <div className='flex flex-col items-center justify-center h-full text-center'>
+            <BarChart3 className='h-16 w-16 text-muted-foreground/50 mb-4' />
+            <h3 className='text-lg font-semibold text-foreground mb-2'>
+              No Data Available
+            </h3>
+            <p className='text-sm text-muted-foreground max-w-sm'>
+              There is no activity data to display at this time. Please check back later.
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -76,8 +82,18 @@ export function SpherexChart({
       <CardContent className='h-[400px] p-6'>
         <ChartContainer config={chartConfig} className='h-full w-full'>
           <ResponsiveContainer width='100%' height='100%'>
-            <BarChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} />
+            <AreaChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+              <defs>
+                <linearGradient id='gradientCheckins' x1='0' y1='0' x2='0' y2='1'>
+                  <stop offset='5%' stopColor={chartConfig.checkins.color} stopOpacity={0.8} />
+                  <stop offset='95%' stopColor={chartConfig.checkins.color} stopOpacity={0.1} />
+                </linearGradient>
+                <linearGradient id='gradientCheckouts' x1='0' y1='0' x2='0' y2='1'>
+                  <stop offset='5%' stopColor={chartConfig.checkouts.color} stopOpacity={0.8} />
+                  <stop offset='95%' stopColor={chartConfig.checkouts.color} stopOpacity={0.1} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke='hsl(var(--muted))' />
               <XAxis
                 dataKey='day'
                 tickLine={false}
@@ -88,10 +104,11 @@ export function SpherexChart({
               <YAxis
                 tickLine={false}
                 axisLine={false}
+                tickMargin={10}
                 tickFormatter={(value) => `${value}`}
               />
               <Tooltip
-                cursor={{ fill: 'rgba(0, 0, 0, 0.05)' }}
+                cursor={{ stroke: 'hsl(var(--muted-foreground))', strokeWidth: 1 }}
                 content={({ active, payload }) => {
                   if (active && payload && payload.length) {
                     return (
@@ -128,9 +145,23 @@ export function SpherexChart({
                 wrapperStyle={{ paddingTop: '20px' }}
                 iconType="circle"
               />
-              <Bar dataKey='checkins' fill={chartConfig.checkins.color} radius={[4, 4, 0, 0]} />
-              <Bar dataKey='checkouts' fill={chartConfig.checkouts.color} radius={[4, 4, 0, 0]} />
-            </BarChart>
+              <Area 
+                type='monotone'
+                dataKey='checkins' 
+                stroke={chartConfig.checkins.color}
+                strokeWidth={2}
+                fill='url(#gradientCheckins)'
+                name='Check-ins'
+              />
+              <Area 
+                type='monotone'
+                dataKey='checkouts' 
+                stroke={chartConfig.checkouts.color}
+                strokeWidth={2}
+                fill='url(#gradientCheckouts)'
+                name='Check-outs'
+              />
+            </AreaChart>
           </ResponsiveContainer>
         </ChartContainer>
       </CardContent>
