@@ -25,18 +25,7 @@ import { useFarouqLogsService } from "../../services/logs"
 import { exportFarouqLogs } from "../export"
 import { FarouqLog } from "@/types"
 
-const ITEMS_PER_PAGE = 10
-
-// Helper function to get badge variant for log type
-const getLogTypeBadge = (logType: string) => {
-    const variants: Record<string, { className: string }> = {
-        "Check In/Out": { className: "bg-blue-100 text-blue-800 hover:bg-blue-200" },
-        "Attendance": { className: "bg-green-100 text-green-800 hover:bg-green-200" },
-        "Audit": { className: "bg-purple-100 text-purple-800 hover:bg-purple-200" },
-    }
-    const config = variants[logType] || { className: "bg-gray-100 text-gray-800 hover:bg-gray-200" }
-    return <Badge className={config.className}>{logType}</Badge>
-}
+const ITEMS_PER_PAGE = 20
 
 // Helper function to get badge variant for status
 const getStatusBadge = (status: string) => {
@@ -65,27 +54,24 @@ const getMethodBadge = (method: string | null) => {
 export const FarouqLogsTable = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [searchTerm, setSearchTerm] = useState("")
-    const { data, isLoading } = useFarouqLogsService()
-    // Filter logs based on search term
-    const filteredLogs = useMemo(() => {
-        if (!data?.doc?.logs) return []
-        if (!searchTerm) return data.doc.logs
-        const term = searchTerm.toLowerCase()
-        return data.doc.logs.filter(
-            (log: FarouqLog) =>
-                log.user_name.toLowerCase().includes(term) ||
-                log.log_type.toLowerCase().includes(term) ||
-                log.status.toLowerCase().includes(term) ||
-                log.method?.toLowerCase().includes(term) ||
-                log.notes.toLowerCase().includes(term) ||
-                log.zone.toLowerCase().includes(term)
-        )
-    }, [searchTerm, data?.doc?.logs])
+    
+    // Build query parameters for server-side filtering and pagination
+    const queryParams = useMemo(() => ({
+        page: currentPage,
+        page_size: ITEMS_PER_PAGE,
+        ...(searchTerm && { search: searchTerm }),
+    }), [currentPage, searchTerm])
 
-    // Calculate pagination
-    const totalPages = Math.ceil(filteredLogs.length / ITEMS_PER_PAGE)
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
-    const paginatedLogs = filteredLogs.slice(startIndex, startIndex + ITEMS_PER_PAGE)
+    const { data, isLoading } = useFarouqLogsService(queryParams)
+    
+    // Calculate pagination from server data
+    const pagination = data?.doc?.pagination
+    const totalPages = pagination?.total_pages ?? 0
+    const actualPage = pagination?.page ?? currentPage
+    const pageSize = pagination?.page_size ?? ITEMS_PER_PAGE
+    const startIndex = (actualPage - 1) * pageSize
+    const currentPageItemCount = data?.doc?.logs?.length ?? 0
+    const endIndex = startIndex + currentPageItemCount
 
     // Handle page change
     const handlePageChange = (page: number) => {
@@ -98,11 +84,10 @@ export const FarouqLogsTable = () => {
         setCurrentPage(1) // Reset to first page on new search
     }
 
-    // Handle export functionality - exports filtered results if search is active
+    // Handle export functionality
     const handleExport = (format: 'csv' | 'pdf' | 'excel') => {
-        const logsToExport = searchTerm ? filteredLogs : (data?.doc?.logs || [])
-        if (logsToExport.length > 0) {
-            exportFarouqLogs(format, logsToExport);
+        if (data?.doc?.logs && data.doc.logs.length > 0) {
+            exportFarouqLogs(format, data.doc.logs);
         }
     };
 
@@ -136,21 +121,18 @@ export const FarouqLogsTable = () => {
                     <TableBody>
                         {isLoading ? (
                             // Loading skeleton
-                            Array.from({ length: 5 }).map((_, index) => (
+                            Array.from({ length: ITEMS_PER_PAGE }).map((_, index) => (
                                 <TableRow key={index}>
                                     <TableCell><Skeleton className="h-4 w-40" /></TableCell>
                                     <TableCell><Skeleton className="h-6 w-28" /></TableCell>
                                     <TableCell><Skeleton className="h-6 w-32" /></TableCell>
-                                    <TableCell><Skeleton className="h-6 w-20" /></TableCell>
-                                    <TableCell><Skeleton className="h-4 w-16" /></TableCell>
-                                    <TableCell><Skeleton className="h-4 w-16" /></TableCell>
                                     <TableCell><Skeleton className="h-4 w-48" /></TableCell>
                                     <TableCell><Skeleton className="h-4 w-28 mx-auto" /></TableCell>
                                 </TableRow>
                             ))
-                        ) : paginatedLogs.length > 0 ? (
-                            paginatedLogs.map((log: FarouqLog) => (
-                                <TableRow key={log.id} className="hover:bg-muted/50 transition-colors h-10">
+                        ) : data?.doc?.logs && data.doc.logs.length > 0 ? (
+                            data.doc.logs.map((log: FarouqLog) => (
+                                <TableRow key={log.id} className="hover:bg-muted/50 transition-colors h-12">
                                     <TableCell className="font-medium h-6">{log.user_name}</TableCell>
                                     <TableCell className="h-6">{getMethodBadge(log.method)}</TableCell>
                                     <TableCell className="h-6">{getStatusBadge(log.status)}</TableCell>
@@ -171,7 +153,7 @@ export const FarouqLogsTable = () => {
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
+                                <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
                                     {searchTerm ? `No logs found matching "${searchTerm}"` : "No logs found"}
                                 </TableCell>
                             </TableRow>
@@ -179,25 +161,13 @@ export const FarouqLogsTable = () => {
                     </TableBody>
                 </Table>
             </CardContent>
-            {!isLoading && filteredLogs.length > 0 && (
+            {!isLoading && data && data.doc?.logs && data.doc.logs.length > 0 && pagination && (
                 <CardFooter className="flex justify-between items-center">
                     <div className="text-sm text-muted-foreground">
-                        {totalPages > 1 ? (
-                            <>
-                                Showing <span className="font-medium">{startIndex + 1}</span> to{' '}
-                                <span className="font-medium">
-                                    {Math.min(startIndex + ITEMS_PER_PAGE, filteredLogs.length)}
-                                </span>{' '}
-                                of <span className="font-medium">{filteredLogs.length}</span> results
-                                {searchTerm && data?.doc?.pagination && ` (filtered from ${data.doc.pagination.total} total)`}
-                            </>
-                        ) : (
-                            <>
-                                Showing <span className="font-medium">{filteredLogs.length}</span> result
-                                {filteredLogs.length !== 1 ? 's' : ''}
-                                {searchTerm && data?.doc?.pagination && ` (filtered from ${data.doc.pagination.total} total)`}
-                            </>
-                        )}
+                        Showing <span className="font-medium">{startIndex + 1}</span> to{' '}
+                        <span className="font-medium">{endIndex}</span>{' '}
+                        of <span className="font-medium">{pagination.total}</span> result{pagination.total !== 1 ? 's' : ''}
+                        {pagination.total_pages > 1 && ` (Page ${pagination.page} of ${pagination.total_pages})`}
                     </div>
                     {totalPages > 1 && (
                     <Pagination>
