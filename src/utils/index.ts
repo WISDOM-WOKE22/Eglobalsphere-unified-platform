@@ -12,3 +12,7 @@ export function toQueryString(params: Record<string, any>): string {
         )
         .join('&');
 }
+
+export const renderPlate = (plate: string) => {
+    return plate.split('').map((char: string) => (char === 'H' ? 'هـ' : char)).join('').replace("-","").replace(" ","").replace("_","").replace(/\s/g,"");
+}

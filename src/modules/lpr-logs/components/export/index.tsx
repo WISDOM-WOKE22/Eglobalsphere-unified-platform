@@ -6,6 +6,7 @@ import Papa from 'papaparse';
 import * as XLSX from "xlsx";
 import { LPRLog } from '@/types';
 import './amiriFont.js'
+import { renderPlate } from '@/utils';
 
 const UTF8_BOM = '\uFEFF';
 
@@ -40,8 +41,8 @@ export const exportLPRLogs = (format: 'csv' | 'pdf' | 'excel', currentData: LPRL
       // Convert data to match custom headers
       const formattedData = logs.map((item: LPRLog) => ({
         "Log ID": String(item.id ?? ''),
-        "License Plate": String(item.license_plate.replace(/_/g,"").replace("-","").replace(" ","") ?? ''),
-        "Vehicle Owner": String(item.vehicle_owner.replace(/_/g,"").replace("-","").replace(" ","") ?? ''),
+        "License Plate": String(renderPlate(item.license_plate) ?? ''),
+        "Vehicle Owner": String(renderPlate(item.vehicle_owner) ?? ''),
         "Gate": String(item.gate ?? ''),
         "Date": String(item.date ?? ''),
         "Time": String(item.time ?? ''),
@@ -80,8 +81,8 @@ export const exportLPRLogs = (format: 'csv' | 'pdf' | 'excel', currentData: LPRL
       // Format data for CSV
       const csvData = logs.map((item: LPRLog) => ({
         "Log ID": String(item.id ?? ''),
-        "License Plate": String(item.license_plate.replace(/_/g,"").replace("-","").replace("_","") ?? ''),
-        "Vehicle Owner": String(item.vehicle_owner ?? ''),
+        "License Plate": String(renderPlate(item.license_plate) ?? ''),
+        "Vehicle Owner": String(renderPlate(item.vehicle_owner) ?? ''),
         "Gate": String(item.gate ?? ''),
         "Date": String(item.date ?? ''),
         "Time": String(item.time ?? ''),
@@ -123,10 +124,10 @@ export const exportLPRLogs = (format: 'csv' | 'pdf' | 'excel', currentData: LPRL
       const tableRows = logs.map((log) =>
         importantColumns.map((col) => {
           if (col === 'license_plate') {
-            return log.license_plate.replace(/_/g,"").replace("-","").replace(" ","") || '';
+            return renderPlate(log.license_plate) || '';
           }
           if (col === 'vehicle_owner') {
-            return log.vehicle_owner.replace(/_/g,"").replace("-","").replace(" ","") || '';
+            return renderPlate(log.vehicle_owner) || '';
           }
           return log[col as keyof LPRLog] || '';
         })

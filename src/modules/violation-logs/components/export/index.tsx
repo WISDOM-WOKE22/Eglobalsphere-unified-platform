@@ -5,6 +5,10 @@ import autoTable from 'jspdf-autotable';
 import Papa from 'papaparse';
 import * as XLSX from "xlsx";
 import { ViolationLog } from '@/types';
+import './amiriFont.js'
+import { renderPlate } from '@/utils';
+
+const UTF8_BOM = '\uFEFF';
 
 interface ViolationLogExportData {
   id: string;
@@ -36,13 +40,13 @@ export const exportViolationLogs = (format: 'csv' | 'pdf' | 'excel', currentData
 
       // Convert data to match custom headers
       const formattedData = violations.map((item: ViolationLog) => ({
-        "Violation ID": item.id,
-        "License Plate": item.license_plate,
-        "Vehicle Owner": item.vehicle_owner,
-        "Gate": item.gate,
-        "Date": item.violation_date,
-        "Time": item.violation_time,
-        "Violation Type": item.violation_type,
+        "Violation ID": String(item.id ?? ''),
+        "License Plate": String(renderPlate(item.license_plate) ?? ''),
+        "Vehicle Owner": String(renderPlate(item.vehicle_owner) ?? ''),
+        "Gate": String(item.gate ?? ''),
+        "Date": String(item.violation_date ?? ''),
+        "Time": String(item.violation_time ?? ''),
+        "Violation Type": String(item.violation_type ?? ''),
         "Registered": item.is_registered ? "Yes" : "No",
       }));
 
@@ -76,18 +80,18 @@ export const exportViolationLogs = (format: 'csv' | 'pdf' | 'excel', currentData
     } else if (format === 'csv') {
       // Format data for CSV
       const csvData = violations.map((item: ViolationLog) => ({
-        "Violation ID": item.id,
-        "License Plate": item.license_plate,
-        "Vehicle Owner": item.vehicle_owner,
-        "Gate": item.gate,
-        "Date": item.violation_date,
-        "Time": item.violation_time,
-        "Violation Type": item.violation_type,
+        "Violation ID": String(item.id ?? ''),
+        "License Plate": String(renderPlate(item.license_plate) ?? ''),
+        "Vehicle Owner": String(renderPlate(item.vehicle_owner) ?? ''),
+        "Gate": String(item.gate ?? ''),
+        "Date": String(item.violation_date ?? ''),
+        "Time": String(item.violation_time ?? ''),
+        "Violation Type": String(item.violation_type ?? ''),
         "Registered": item.is_registered ? "Yes" : "No",
       }));
 
       const csv = Papa.unparse(csvData);
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const blob = new Blob([UTF8_BOM + csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.setAttribute('href', url);
@@ -97,7 +101,7 @@ export const exportViolationLogs = (format: 'csv' | 'pdf' | 'excel', currentData
 
     } else if (format === 'pdf') {
       const doc = new jsPDF('landscape');
-      doc.setFont('helvetica');
+      doc.setFont('Amiri-Regular', 'normal');
 
       // Add a logo image
       // const logoUrl = '/assets/logos/darkLogo.png';
@@ -122,6 +126,12 @@ export const exportViolationLogs = (format: 'csv' | 'pdf' | 'excel', currentData
           if (col === 'is_registered') {
             return violation.is_registered ? 'Yes' : 'No';
           }
+          if (col === 'license_plate') {
+            return renderPlate(violation.license_plate) || '';
+          }
+          if (col === 'vehicle_owner') {
+            return renderPlate(violation.vehicle_owner) || '';
+          }
           return violation[col as keyof ViolationLog] || '';
         })
       );
@@ -137,8 +147,8 @@ export const exportViolationLogs = (format: 'csv' | 'pdf' | 'excel', currentData
         head: [tableColumn],
         body: tableRows,
         startY: 55,
-        styles: { fontSize: 8, cellPadding: 2, minCellHeight: 10 },
-        headStyles: { fillColor: '#EF4444' }, // Red color for violations
+        styles: { fontSize: 8, cellPadding: 2, minCellHeight: 10, font: 'Amiri-Regular' },
+        headStyles: { fillColor: '#EF4444', font: 'Amiri-Regular' }, // Red color for violations
         columnStyles: {
           0: { cellWidth: 35 }, // License Plate
           1: { cellWidth: 40 }, // Vehicle Owner
