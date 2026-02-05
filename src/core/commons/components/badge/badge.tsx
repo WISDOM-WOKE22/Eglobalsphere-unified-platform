@@ -180,6 +180,12 @@ export const getStatusBadge = (status: badgeStatus) => {
           Offline
         </Badge>
       );
+    case 'both':
+      return (
+        <Badge className={`${baseClass} bg-purple-200 text-purple-800`}>
+          Both
+        </Badge>
+      );
     case 'blocked':
       return (
         <Badge className={`${baseClass} bg-red-200 text-red-800`}>Blocked</Badge>
@@ -194,6 +200,12 @@ export const getStatusBadge = (status: badgeStatus) => {
       return (
         <Badge className={`${baseClass} bg-red-200 text-red-800`}>
           Suspended
+        </Badge>
+      );
+    case 'not started':
+      return (
+        <Badge className={`${baseClass} bg-red-200 text-red-800`}>
+          Not Started
         </Badge>
       );
     case 'not started':

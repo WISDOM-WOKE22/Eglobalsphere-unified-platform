@@ -25,6 +25,7 @@ import moment from "moment"
 import { ExportData } from "@/core/commons/dialogs"
 import { useLPRGatesService } from "../../services"
 import { Gate } from "@/types"
+import { getStatusBadge } from "@/core/commons/components/badge/badge"
 
 const ITEMS_PER_PAGE = 20
 
@@ -137,13 +138,13 @@ export const LPRGatesTable = () => {
                         ) : data?.gates && data.gates.length > 0 ? (
                             // Display actual data
                             data.gates.map((gate: Gate) => (
-                                <TableRow key={gate.id}>
+                                <TableRow key={gate.id} className="h-14">
                                     <TableCell className="font-medium">{gate.gate_name}</TableCell>
                                     <TableCell>{gate.project_name}</TableCell>
                                     <TableCell>
                                         {moment(gate.date_added).format("DD-MM-YYYY")}
                                     </TableCell>
-                                    <TableCell>{gate.access_type}</TableCell>
+                                    <TableCell>{getStatusBadge(gate.access_type)}</TableCell>
                                     <TableCell className="max-w-[200px] truncate" title={gate.added_by}>
                                         {gate.added_by}
                                     </TableCell>
