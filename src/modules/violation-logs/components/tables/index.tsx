@@ -157,18 +157,6 @@ export const ViolationLogsTable = () => {
                             </SelectContent>
                         </Select>
 
-                        {/* Registration Status Filter */}
-                        <Select value={isRegistered || "all"} onValueChange={handleIsRegisteredChange}>
-                            <SelectTrigger className="w-[200px]">
-                                <SelectValue placeholder="All Vehicles" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="all">All Vehicles</SelectItem>
-                                <SelectItem value="true">Registered Only</SelectItem>
-                                <SelectItem value="false">Unregistered Only</SelectItem>
-                            </SelectContent>
-                        </Select>
-
                         {/* Date From Picker */}
                         <Popover>
                             <PopoverTrigger asChild>

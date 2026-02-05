@@ -166,24 +166,24 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     href: '/farouq-overview',
-    label: 'Farouq Overview',
+    label: 'Sphereops Overview',
     icon: LayoutGrid,
     permission: 'users',
-    group: 'Farouq factory',
+    group: 'Sphereops',
   },
   {
     href: '/farouq-employees',
     label: 'Employees',
     icon: Users,
     permission: 'users',
-    group: 'Farouq factory',
+    group: 'Sphereops',
   },
   {
     href: '/farouq-logs',
-    label: 'Farouq Logs',
+    label: 'Sphereops Logs',
     icon: TableOfContents,
     permission: 'users',
-    group: 'Farouq factory',
+    group: 'Sphereops',
   },
   // Communication Group
   // {
