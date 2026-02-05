@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react"
+import { useState, useMemo, useCallback } from "react"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -21,9 +21,11 @@ import {
 import { getStatusBadge } from "@/core/commons/components/badge/badge"
 import { renderLicensePlate } from "@/core/commons/utils"
 import moment from "moment"
+import { toast } from "sonner"
 import { useStore } from "@/lib/zustand/store"
 import { ViewLicensePlatesModal } from '../modals/viewLicensePlates'
 import { ExportData } from "@/core/commons/dialogs"
+import { exportLPRLicensePlates as exportLicensePlatesToFile } from "../export"
 import { useLPRLicensePlatesService } from "../../services"
 import { Vehicle } from "@/types"
 
@@ -41,7 +43,8 @@ export const LicensePlateTable = () => {
         ...(searchTerm && { search: searchTerm }),
     }), [currentPage, searchTerm])
 
-    const { data, isLoading } = useLPRLicensePlatesService(queryParams)
+    const { data, isLoading, exportLPRLicensePlates: fetchVehiclesForExport } = useLPRLicensePlatesService(queryParams)
+    const [isExporting, setIsExporting] = useState(false)
 
     // Calculate pagination from server data
     // If API returns skip/limit, calculate total_pages from total and limit
@@ -59,6 +62,24 @@ export const LicensePlateTable = () => {
         setCurrentPage(1) // Reset to first page on new search
     }
 
+    const handleExport = useCallback(async (format: 'csv' | 'pdf' | 'excel') => {
+        if (!fetchVehiclesForExport) return
+        setIsExporting(true)
+        try {
+            const query = { ...(searchTerm && { search: searchTerm }) }
+            const vehicles = await fetchVehiclesForExport(query) as Vehicle[]
+            if (vehicles?.length) {
+                exportLicensePlatesToFile(format, vehicles)
+            } else {
+                toast.info('No data to export for the current filters.')
+            }
+        } catch {
+            toast.error('Failed to export data')
+        } finally {
+            setIsExporting(false)
+        }
+    }, [searchTerm, fetchVehiclesForExport])
+
     return (
         <Card>
             <CardHeader className="flex flex-row justify-between items-center">
@@ -71,7 +92,8 @@ export const LicensePlateTable = () => {
                 <ExportData
                     title="Export data"
                     buttonTitle="Export data"
-                    disabled={isLoading || !data?.vehicles || data.vehicles.length === 0}
+                    disabled={isLoading || isExporting || !data?.vehicles || data.vehicles.length === 0}
+                    onExport={handleExport}
                 />
             </CardHeader>
             <CardContent>

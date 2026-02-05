@@ -17,6 +17,9 @@ export const useLPRGatesService = (queryParams: Record<string, any> = {}) => {
   if (queryParams.project_name) {
     params.project_name = queryParams.project_name;
   }
+  if (queryParams.gate_name) {
+    params.gate_name = queryParams.gate_name;
+  }
   if (queryParams.type) {
     params.type = queryParams.type;
   }

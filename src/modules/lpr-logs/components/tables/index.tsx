@@ -34,6 +34,7 @@ import { ExportData } from "@/core/commons/dialogs"
 import { useLPRLogsService } from "../../services"
 import { exportLPRLogs } from "../export"
 import { LPRLog } from "@/types"
+import './amiriFont.js'
 
 export const LPRGateAccessTable = () => {
     // Filter and pagination state

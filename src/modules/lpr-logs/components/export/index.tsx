@@ -5,6 +5,9 @@ import autoTable from 'jspdf-autotable';
 import Papa from 'papaparse';
 import * as XLSX from "xlsx";
 import { LPRLog } from '@/types';
+import './amiriFont.js'
+
+const UTF8_BOM = '\uFEFF';
 
 interface LPRLogExportData {
   id: string;
@@ -36,14 +39,14 @@ export const exportLPRLogs = (format: 'csv' | 'pdf' | 'excel', currentData: LPRL
 
       // Convert data to match custom headers
       const formattedData = logs.map((item: LPRLog) => ({
-        "Log ID": item.id,
-        "License Plate": item.license_plate,
-        "Vehicle Owner": item.vehicle_owner,
-        "Gate": item.gate,
-        "Date": item.date,
-        "Time": item.time,
-        "Access Type": item.gate_access_type,
-        "Authorization": item.authorization_status,
+        "Log ID": String(item.id ?? ''),
+        "License Plate": String(item.license_plate.replace(/_/g,"").replace("-","").replace(" ","") ?? ''),
+        "Vehicle Owner": String(item.vehicle_owner.replace(/_/g,"").replace("-","").replace(" ","") ?? ''),
+        "Gate": String(item.gate ?? ''),
+        "Date": String(item.date ?? ''),
+        "Time": String(item.time ?? ''),
+        "Access Type": String(item.gate_access_type ?? ''),
+        "Authorization": String(item.authorization_status ?? ''),
       }));
 
       // Create a worksheet
@@ -76,18 +79,18 @@ export const exportLPRLogs = (format: 'csv' | 'pdf' | 'excel', currentData: LPRL
     } else if (format === 'csv') {
       // Format data for CSV
       const csvData = logs.map((item: LPRLog) => ({
-        "Log ID": item.id,
-        "License Plate": item.license_plate,
-        "Vehicle Owner": item.vehicle_owner,
-        "Gate": item.gate,
-        "Date": item.date,
-        "Time": item.time,
-        "Access Type": item.gate_access_type,
-        "Authorization": item.authorization_status,
+        "Log ID": String(item.id ?? ''),
+        "License Plate": String(item.license_plate.replace(/_/g,"").replace("-","").replace("_","") ?? ''),
+        "Vehicle Owner": String(item.vehicle_owner ?? ''),
+        "Gate": String(item.gate ?? ''),
+        "Date": String(item.date ?? ''),
+        "Time": String(item.time ?? ''),
+        "Access Type": String(item.gate_access_type ?? ''),
+        "Authorization": String(item.authorization_status ?? ''),
       }));
 
       const csv = Papa.unparse(csvData);
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const blob = new Blob([UTF8_BOM + csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.setAttribute('href', url);
@@ -97,7 +100,7 @@ export const exportLPRLogs = (format: 'csv' | 'pdf' | 'excel', currentData: LPRL
 
     } else if (format === 'pdf') {
       const doc = new jsPDF('landscape');
-      doc.setFont('helvetica');
+      doc.setFont('Amiri-Regular', 'normal');
 
       // Add a logo image
       // const logoUrl = '/assets/logos/darkLogo.png';
@@ -119,6 +122,12 @@ export const exportLPRLogs = (format: 'csv' | 'pdf' | 'excel', currentData: LPRL
       const tableColumn = importantColumns.map((key) => columnMappings[key]);
       const tableRows = logs.map((log) =>
         importantColumns.map((col) => {
+          if (col === 'license_plate') {
+            return log.license_plate.replace(/_/g,"").replace("-","").replace(" ","") || '';
+          }
+          if (col === 'vehicle_owner') {
+            return log.vehicle_owner.replace(/_/g,"").replace("-","").replace(" ","") || '';
+          }
           return log[col as keyof LPRLog] || '';
         })
       );
@@ -134,12 +143,12 @@ export const exportLPRLogs = (format: 'csv' | 'pdf' | 'excel', currentData: LPRL
         head: [tableColumn],
         body: tableRows,
         startY: 55,
-        styles: { fontSize: 8, cellPadding: 2, minCellHeight: 10 },
-        headStyles: { fillColor: '#03AF69' },
+        styles: { fontSize: 8, cellPadding: 2, minCellHeight: 10, font: 'Amiri-Regular' },
+        headStyles: { fillColor: '#03AF69', font: 'Amiri-Regular' },
         columnStyles: {
           0: { cellWidth: 35 }, // License Plate
           1: { cellWidth: 40 }, // Vehicle Owner
-          2: { cellWidth: 30 }, // Gate
+          2: { cellWidth: 45 }, // Gate
           3: { cellWidth: 30 }, // Date
           4: { cellWidth: 25 }, // Time
           5: { cellWidth: 35 }, // Access Type
