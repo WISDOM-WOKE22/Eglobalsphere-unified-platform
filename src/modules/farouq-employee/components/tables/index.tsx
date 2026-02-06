@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react"
+import { useState, useMemo, useCallback } from "react"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -32,6 +32,8 @@ import moment from "moment"
 import { useRouter } from "next/navigation"
 import { ExportData } from "@/core/commons/dialogs"
 import { useFarouqEmployeeService } from "../../services"
+import { exportFarouqEmployees } from "../export/employee"
+import { toast } from "sonner"
 import { FarouqEmployee } from "@/types"
 
 export const FarouqEmployeeTable = () => {
@@ -57,7 +59,8 @@ export const FarouqEmployeeTable = () => {
         sort_order: sortOrder,
     }), [currentPage, searchTerm, department, status, sortBy, sortOrder])
 
-    const { data, isLoading } = useFarouqEmployeeService(queryParams)
+    const { data, isLoading, exportFarouqEmployeesData } = useFarouqEmployeeService(queryParams)
+    const [isExporting, setIsExporting] = useState(false)
 
     // Calculate pagination from server data
     const totalPages = data?.doc?.pagination ? Math.ceil(data.doc.pagination.total / pageSize) : 0
@@ -110,6 +113,30 @@ export const FarouqEmployeeTable = () => {
     // Check if any filters are active
     const hasActiveFilters = searchTerm || department || status || sortBy !== "employee_name" || sortOrder !== "asc"
 
+    const handleExport = useCallback(async (format: 'csv' | 'pdf' | 'excel') => {
+        if (!exportFarouqEmployeesData) return
+        setIsExporting(true)
+        try {
+            const exportQuery = {
+                ...(searchTerm && { search: searchTerm }),
+                ...(department && { department }),
+                ...(status && { status }),
+                sort_by: sortBy,
+                sort_order: sortOrder,
+            }
+            const employees = await exportFarouqEmployeesData(exportQuery) as FarouqEmployee[]
+            if (employees?.length) {
+                exportFarouqEmployees(format, employees)
+            } else {
+                toast.info("No employees to export for the current filters.")
+            }
+        } catch {
+            toast.error("Failed to export employees.")
+        } finally {
+            setIsExporting(false)
+        }
+    }, [searchTerm, department, status, sortBy, sortOrder, exportFarouqEmployeesData])
+
     return (
         <Card>
             <CardHeader className="space-y-4">
@@ -125,8 +152,10 @@ export const FarouqEmployeeTable = () => {
                 <ExportData
                     title="Export data"
                     buttonTitle="Export data"
-                            disabled={isLoading || !data?.doc?.employees || data.doc.employees.length === 0}
-                        />
+                    onExport={handleExport}
+                    disabled={isLoading || !data?.doc?.employees || data.doc.employees.length === 0}
+                    loading={isExporting}
+                />
                     </div>
 
                     {/* Second row: Filters and Sorting */}
@@ -213,8 +242,7 @@ export const FarouqEmployeeTable = () => {
                             <TableHead className="font-semibold">Employee ID</TableHead>
                             <TableHead className="font-semibold">Full Name</TableHead>
                             <TableHead className="font-semibold">Contact</TableHead>
-                            <TableHead className="font-semibold">Department</TableHead>
-                            <TableHead className="font-semibold">Position</TableHead>
+                            <TableHead className="font-semibold">Zone</TableHead>
                             <TableHead className="font-semibold">Role</TableHead>
                             <TableHead className="font-semibold">Status</TableHead>
                             <TableHead className="font-semibold text-center">Registered</TableHead>
@@ -228,7 +256,6 @@ export const FarouqEmployeeTable = () => {
                                     <TableCell><Skeleton className="h-4 w-24" /></TableCell>
                                     <TableCell><Skeleton className="h-4 w-40" /></TableCell>
                                     <TableCell><Skeleton className="h-4 w-48" /></TableCell>
-                                    <TableCell><Skeleton className="h-4 w-28" /></TableCell>
                                     <TableCell><Skeleton className="h-4 w-32" /></TableCell>
                                     <TableCell><Skeleton className="h-4 w-20" /></TableCell>
                                     <TableCell><Skeleton className="h-6 w-20" /></TableCell>
@@ -261,9 +288,6 @@ export const FarouqEmployeeTable = () => {
                                             <Briefcase className="h-3.5 w-3.5 text-muted-foreground" />
                                             <span className="capitalize">{employee.department}</span>
                                         </div>
-                                    </TableCell>
-                                    <TableCell className="capitalize text-sm">
-                                        {employee.position}
                                     </TableCell>
                                     <TableCell>
                                         <div className="flex items-center gap-1.5">

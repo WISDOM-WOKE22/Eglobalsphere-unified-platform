@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react"
+import { useState, useMemo, useCallback } from "react"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -20,6 +20,7 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination"
 import moment from "moment"
+import { toast } from "sonner"
 import { ExportData } from "@/core/commons/dialogs"
 import { useFarouqLogsService } from "../../services/logs"
 import { exportFarouqLogs } from "../export"
@@ -62,7 +63,8 @@ export const FarouqLogsTable = () => {
         ...(searchTerm && { search: searchTerm }),
     }), [currentPage, searchTerm])
 
-    const { data, isLoading } = useFarouqLogsService(queryParams)
+    const { data, isLoading, exportFarouqLogsData } = useFarouqLogsService(queryParams)
+    const [isExporting, setIsExporting] = useState(false)
     
     // Calculate pagination from server data
     const pagination = data?.doc?.pagination
@@ -84,12 +86,24 @@ export const FarouqLogsTable = () => {
         setCurrentPage(1) // Reset to first page on new search
     }
 
-    // Handle export functionality
-    const handleExport = (format: 'csv' | 'pdf' | 'excel') => {
-        if (data?.doc?.logs && data.doc.logs.length > 0) {
-            exportFarouqLogs(format, data.doc.logs);
+    // Handle export: fetch all data matching current filters, then export
+    const handleExport = useCallback(async (format: 'csv' | 'pdf' | 'excel') => {
+        if (!exportFarouqLogsData) return
+        setIsExporting(true)
+        try {
+            const query = { ...(searchTerm && { search: searchTerm }) }
+            const logs = await exportFarouqLogsData(query) as FarouqLog[]
+            if (logs?.length) {
+                exportFarouqLogs(format, logs)
+            } else {
+                toast.info("No logs to export for the current filters.")
+            }
+        } catch {
+            toast.error("Failed to export logs.")
+        } finally {
+            setIsExporting(false)
         }
-    };
+    }, [searchTerm, exportFarouqLogsData])
 
     return (
         <Card>
@@ -105,6 +119,7 @@ export const FarouqLogsTable = () => {
                     buttonTitle="Export data"
                     onExport={handleExport}
                     disabled={isLoading || !data?.doc?.logs || data.doc.logs.length === 0}
+                    loading={isExporting}
                 />
             </CardHeader>
             <CardContent>

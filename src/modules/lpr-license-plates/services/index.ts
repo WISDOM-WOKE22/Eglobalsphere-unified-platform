@@ -28,7 +28,7 @@ export const useLPRLicensePlatesService = (queryParams: Record<string, any> = {}
   const fetchVehiclesForExport = async (queryParams: Record<string, any> = {}) => {
     const params: Record<string, any> = {
       page: 1,
-      limit: 100000,
+      limit: 100,
     };
     if (queryParams.search) {
       params.search = queryParams.search;
