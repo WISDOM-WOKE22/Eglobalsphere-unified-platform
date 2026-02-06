@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 import {
   PERMISSIONS,
   MENU_ITEMS,
@@ -85,9 +86,9 @@ export default function AppSidebar({ userRole, className }: AppSidebarProps) {
         onClick={() => router.push('/dashboard')}
       >
         <div className='flex items-center gap-2 mt-2 flex-row'>
-        {/* {company?.companyLogo ? <Image src={`https://sphereone-backend.eglobalsphere.com/${company.companyLogo}`} alt='Company Logo' width={32} height={32} /> : <LogoIcon />} */}
+        {/* {company?.company_logo_url ? <Image src={`https://sphereone-backend.eglobalsphere.com/${company.company_logo_url}`} alt='Company Logo' width={32} height={32} /> : <LogoIcon />} */}
           <LogoIcon />
-          <h1 className='text-xl mb-2'>{company?.companyName ?? 'EglobalSphere'}</h1>
+          <h1 className='text-xl mb-2'>{company?.company_name ?? 'EglobalSphere'}</h1>
         </div>
       </SidebarHeader>
       <SidebarContent>

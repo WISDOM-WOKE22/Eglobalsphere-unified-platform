@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { PreferenceTab } from "../components/tabs/preference";
-import { CustomizationTab } from "../components/tabs/customization";
+// import { CustomizationTab } from "../components/tabs/customization";
 
 export const CustomizationLayout = () => {
     return (
@@ -9,14 +9,14 @@ export const CustomizationLayout = () => {
             <Tabs defaultValue="preference">
                 <TabsList>
                     <TabsTrigger value="preference">Preference</TabsTrigger>
-                    <TabsTrigger value="customization">Customization</TabsTrigger>
+                    {/* <TabsTrigger value="customization">Customization</TabsTrigger> */}
                 </TabsList>
                 <TabsContent value="preference">
                     <PreferenceTab />
                 </TabsContent>
-                <TabsContent value="customization">
+                {/* <TabsContent value="customization">
                     <CustomizationTab />
-                </TabsContent>
+                </TabsContent> */}
             </Tabs>
         </Card>
     )
